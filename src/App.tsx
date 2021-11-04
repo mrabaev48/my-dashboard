@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Drawer from '@material-ui/core/Drawer'
 import Container from '@material-ui/core/Container'
-import Typography from '@material-ui/core/Typography'
 
 import AppMenu from './components/menu/AppMenu';
 import { Dashboard } from './pages/Dashboard'
@@ -14,7 +13,7 @@ import {Customers} from "./pages/Customers";
 import {Reports} from "./pages/Reports";
 
 const App: React.FC = () => {
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <BrowserRouter>
@@ -45,7 +44,7 @@ const App: React.FC = () => {
     )
 }
 
-const drawerWidth = 240
+const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
     root: {
