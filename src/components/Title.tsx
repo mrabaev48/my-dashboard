@@ -5,10 +5,7 @@ export interface ITitleProps {
     text: string
 }
 
-export const Title: React.FC<ITitleProps> = ({ text }) => {
-    return(
-        <Typography variant={'h3'}>
-            {text}
-        </Typography>
-    )
-}
+export const Title: React.FC<ITitleProps> = ({ text }) =>
+    <Typography variant={'h3'}>
+        {text}
+    </Typography>

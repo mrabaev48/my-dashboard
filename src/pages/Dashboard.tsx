@@ -7,6 +7,6 @@ export const Dashboard: React.FC = () => {
     const TitleWithSecurity = withSecurity<ITitleProps>(Title)
     return (
         // <Typography variant="h3" component="h1">Dashboard Page</Typography>
-        <TitleWithSecurity text={'KEK Page'}/>
+        <TitleWithSecurity text={'Dashboard Page'}/>
     );
 };

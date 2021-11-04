@@ -6,14 +6,64 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Drawer from '@material-ui/core/Drawer'
 import Container from '@material-ui/core/Container'
 
-import AppMenu from './components/menu/AppMenu';
+import AppMenu, {IAppMenuProps} from './components/shared/menu/AppMenu';
 import { Dashboard } from './pages/Dashboard'
 import {Orders} from "./pages/Orders";
 import {Customers} from "./pages/Customers";
 import {Reports} from "./pages/Reports";
+import IconDashboard from "@material-ui/icons/Dashboard";
+import IconShoppingCart from "@material-ui/icons/ShoppingCart";
+import IconPeople from "@material-ui/icons/People";
+import IconBarChart from "@material-ui/icons/BarChart";
+import IconLibraryBooks from "@material-ui/icons/LibraryBooks";
+import {AppMenuItemProps} from "./components/shared/menu/AppMenuItem";
+
+const appMenuItems: AppMenuItemProps[] = [
+    {
+        name: 'Dashboard',
+        link: '/',
+        Icon: IconDashboard,
+    },
+    {
+        name: 'Orders',
+        link: '/orders',
+        Icon: IconShoppingCart,
+    },
+    {
+        name: 'Customers',
+        link: '/customers',
+        Icon: IconPeople,
+    },
+    {
+        name: 'Reports',
+        link: '/reports',
+        Icon: IconBarChart,
+    },
+    {
+        name: 'Nested Pages',
+        Icon: IconLibraryBooks,
+        items: [
+            {
+                name: 'Level 2',
+            },
+            {
+                name: 'Level 2',
+                items: [
+                    {
+                        name: 'Level 3',
+                    },
+                    {
+                        name: 'Level 3',
+                    },
+                ],
+            },
+        ],
+    },
+]
 
 const App: React.FC = () => {
     const classes = useStyles();
+    const emptyMenu = [];
 
     return (
         <BrowserRouter>
@@ -25,7 +75,9 @@ const App: React.FC = () => {
                         paper: classes.drawerPaper,
                     }}
                 >
-                    <AppMenu />
+                    <AppMenu
+                        items={appMenuItems}
+                    />
                 </Drawer>
                 <main className={classes.content}>
                     <Container maxWidth="lg" className={classes.container}>
