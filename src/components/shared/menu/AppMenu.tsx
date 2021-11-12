@@ -4,13 +4,14 @@ import { makeStyles, createStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 
 import AppMenuItem, {AppMenuItemProps} from './AppMenuItem'
+import {useAppContext} from "../../context/appContext/UseContext";
 
 export interface IAppMenuProps {
     items: AppMenuItemProps[];
 }
 
 const AppMenu: React.FC<IAppMenuProps> = ({ items }) => {
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <List component="nav" className={classes.appMenu} disablePadding>

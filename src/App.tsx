@@ -7,37 +7,43 @@ import Drawer from '@material-ui/core/Drawer'
 import Container from '@material-ui/core/Container'
 
 import AppMenu, {IAppMenuProps} from './components/shared/menu/AppMenu';
-import { Dashboard } from './pages/Dashboard'
-import {Orders} from "./pages/Orders";
-import {Customers} from "./pages/Customers";
-import {Reports} from "./pages/Reports";
+import { Dashboard } from './pages/dashboard/Dashboard'
+import {Orders} from "./pages/orders/Orders";
+import {Customers} from "./pages/customers/Customers";
+import {Reports} from "./pages/reposrts/Reports";
 import IconDashboard from "@material-ui/icons/Dashboard";
 import IconShoppingCart from "@material-ui/icons/ShoppingCart";
 import IconPeople from "@material-ui/icons/People";
 import IconBarChart from "@material-ui/icons/BarChart";
 import IconLibraryBooks from "@material-ui/icons/LibraryBooks";
 import {AppMenuItemProps} from "./components/shared/menu/AppMenuItem";
+import {AppContextProvider} from "./components/context/appContext/AppContextProvider";
+import { v4 } from 'uuid';
 
 const appMenuItems: AppMenuItemProps[] = [
     {
         name: 'Dashboard',
         link: '/',
         Icon: IconDashboard,
+        pageIdentifier: v4(),
     },
     {
         name: 'Orders',
         link: '/orders',
         Icon: IconShoppingCart,
+        pageIdentifier: v4(),
     },
     {
         name: 'Customers',
         link: '/customers',
         Icon: IconPeople,
+        pageIdentifier: v4(),
     },
     {
         name: 'Reports',
         link: '/reports',
         Icon: IconBarChart,
+        pageIdentifier: v4(),
     },
     {
         name: 'Nested Pages',
@@ -45,54 +51,60 @@ const appMenuItems: AppMenuItemProps[] = [
         items: [
             {
                 name: 'Level 2',
+                pageIdentifier: v4(),
             },
             {
                 name: 'Level 2',
                 items: [
                     {
                         name: 'Level 3',
+                        pageIdentifier: v4(),
                     },
                     {
                         name: 'Level 3',
+                        pageIdentifier: v4(),
                     },
                 ],
+                pageIdentifier: v4(),
             },
         ],
+        pageIdentifier: v4(),
     },
 ]
 
 const App: React.FC = () => {
     const classes = useStyles();
-    const emptyMenu = [];
 
     return (
-        <BrowserRouter>
-            <div className={clsx('App', classes.root)}>
-                <CssBaseline />
-                <Drawer
-                    variant="permanent"
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                >
-                    <AppMenu
-                        items={appMenuItems}
-                    />
-                </Drawer>
-                <main className={classes.content}>
-                    <Container maxWidth="lg" className={classes.container}>
+        <AppContextProvider>
+            <BrowserRouter>
+                <div className={clsx('App', classes.root)}>
+                    <CssBaseline />
+                    <Drawer
+                        variant="permanent"
+                        classes={{
+                            paper: classes.drawerPaper,
+                        }}
+                    >
+                        <AppMenu
+                            items={appMenuItems}
+                        />
+                    </Drawer>
+                    <main className={classes.content}>
+                        <Container maxWidth="lg" className={classes.container}>
 
-                        <Switch>
-                            <Route path="/" exact component={Dashboard} />
-                            <Route path="/orders" component={Orders} />
-                            <Route path="/customers" component={Customers} />
-                            <Route path="/reports" component={Reports} />
-                        </Switch>
+                            <Switch>
+                                <Route path="/" exact component={Dashboard} />
+                                <Route path="/orders" component={Orders} />
+                                <Route path="/customers" component={Customers} />
+                                <Route path="/reports" component={Reports} />
+                            </Switch>
 
-                    </Container>
-                </main>
-            </div>
-        </BrowserRouter>
+                        </Container>
+                    </main>
+                </div>
+            </BrowserRouter>
+        </AppContextProvider>
     )
 }
 

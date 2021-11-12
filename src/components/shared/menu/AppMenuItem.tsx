@@ -26,6 +26,7 @@ type AppMenuItemPropsWithoutItems = Omit<AppMenuItemPropTypes, 'items'>
 
 export type AppMenuItemProps = AppMenuItemPropsWithoutItems & {
     items?: AppMenuItemProps[]
+    pageIdentifier: string,
 }
 
 const AppMenuItem: React.FC<AppMenuItemProps> = props => {
