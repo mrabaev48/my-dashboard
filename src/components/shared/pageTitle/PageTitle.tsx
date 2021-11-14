@@ -8,6 +8,14 @@ export const PageTitle:FC = () => {
     const currentRoute = routes.find(x => x.to === location?.pathname);
 
     return (
-        <Typography variant="h4" component="h1">{ currentRoute?.translationKey || currentRoute?.defaultLabel}</Typography>
+        <Typography
+            variant="h4"
+            component="h1"
+            style={{
+                paddingBottom: "50px"
+            }}
+        >
+            { currentRoute?.translationKey || currentRoute?.defaultLabel}
+        </Typography>
     )
 }
