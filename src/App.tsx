@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Drawer from '@material-ui/core/Drawer'
 import Container from '@material-ui/core/Container'
-
 import AppMenu from './components/shared/menu/AppMenu';
 import { Dashboard } from './pages/dashboard/Dashboard'
 import {Orders} from "./pages/orders/Orders";
@@ -20,6 +19,7 @@ import {AppMenuItemProps} from "./components/shared/menu/AppMenuItem";
 import {AppContextProvider} from "./components/context/appContext/AppContextProvider";
 import { v4 } from 'uuid';
 import { Header } from './components/shared/header/Header'
+import {PageTitle} from "./components/shared/pageTitle/PageTitle";
 
 const appMenuItems: AppMenuItemProps[] = [
     {
@@ -78,6 +78,7 @@ const App: React.FC = () => {
 
     return (
         <AppContextProvider>
+            <Header/>
             <BrowserRouter>
                 <div className={clsx('App', classes.root)}>
                     <CssBaseline />
@@ -92,8 +93,9 @@ const App: React.FC = () => {
                         />
                     </Drawer>
                     <main className={classes.content}>
-                        <Header/>
+
                         <Container maxWidth="xl" className={classes.container}>
+                            <PageTitle/>
                             <Switch>
                                 <Route path="/" exact component={Dashboard} />
                                 <Route path="/orders" component={Orders} />
@@ -132,7 +134,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: '#eee'
     },
     container: {
-        paddingTop: theme.spacing(2),
+        paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(4),
         margin: 0,
         width: '100%'

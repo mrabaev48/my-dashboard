@@ -14,6 +14,15 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {FC} from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import {createStyles} from "@material-ui/core";
+
+const useStyles = makeStyles(theme =>
+    createStyles({
+        appBar: {
+            backgroundColor: '#4d81c2 !important'
+        }
+}));
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -79,6 +88,8 @@ export const Header:FC = () => {
     const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
+
+    const classes = useStyles();
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -156,7 +167,7 @@ export const Header:FC = () => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
                     <Search>
                         <SearchIconWrapper>
