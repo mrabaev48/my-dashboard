@@ -6,7 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Drawer from '@material-ui/core/Drawer'
 import Container from '@material-ui/core/Container'
 
-import AppMenu, {IAppMenuProps} from './components/shared/menu/AppMenu';
+import AppMenu from './components/shared/menu/AppMenu';
 import { Dashboard } from './pages/dashboard/Dashboard'
 import {Orders} from "./pages/orders/Orders";
 import {Customers} from "./pages/customers/Customers";
@@ -91,8 +91,7 @@ const App: React.FC = () => {
                         />
                     </Drawer>
                     <main className={classes.content}>
-                        <Container maxWidth="lg" className={classes.container}>
-
+                        <Container maxWidth="xl" className={classes.container}>
                             <Switch>
                                 <Route path="/" exact component={Dashboard} />
                                 <Route path="/orders" component={Orders} />
@@ -113,24 +112,28 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
+        marginLeft: 0
     },
     drawerPaper: {
         position: 'relative',
         whiteSpace: 'nowrap',
         width: drawerWidth,
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-        background: '#535454',
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(1),
+        background: '#3b3d3d',
         color: '#fff',
     },
     content: {
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
+        backgroundColor: '#eee'
     },
     container: {
-        paddingTop: theme.spacing(4),
+        paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(4),
+        margin: 0,
+        width: '100%'
     },
 }))
 

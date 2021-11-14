@@ -75,6 +75,7 @@ const useStyles = makeStyles(theme =>
     createStyles({
         menuItem: {
             '&.active': {
+                backgroundColor: '#4d81c2',
                 background: 'rgba(0, 0, 0, 0.08)',
                 '& .MuiListItemIcon-root': {
                     color: '#fff',
@@ -82,7 +83,7 @@ const useStyles = makeStyles(theme =>
             },
         },
         menuItemIcon: {
-            color: '#97c05c',
+            color: '#4d81c2',
         },
     }),
 )
