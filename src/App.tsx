@@ -19,6 +19,7 @@ import IconLibraryBooks from "@material-ui/icons/LibraryBooks";
 import {AppMenuItemProps} from "./components/shared/menu/AppMenuItem";
 import {AppContextProvider} from "./components/context/appContext/AppContextProvider";
 import { v4 } from 'uuid';
+import { Header } from './components/shared/header/Header'
 
 const appMenuItems: AppMenuItemProps[] = [
     {
@@ -91,6 +92,7 @@ const App: React.FC = () => {
                         />
                     </Drawer>
                     <main className={classes.content}>
+                        <Header/>
                         <Container maxWidth="xl" className={classes.container}>
                             <Switch>
                                 <Route path="/" exact component={Dashboard} />
