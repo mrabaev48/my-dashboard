@@ -78,7 +78,7 @@ const App: React.FC = () => {
 
     return (
         <AppContextProvider>
-            <Header/>
+
             <BrowserRouter>
                 <div className={clsx('App', classes.root)}>
                     <CssBaseline />
@@ -93,7 +93,7 @@ const App: React.FC = () => {
                         />
                     </Drawer>
                     <main className={classes.content}>
-
+                        <Header/>
                         <Container maxWidth="xl" className={classes.container}>
                             <PageTitle/>
                             <Switch>
