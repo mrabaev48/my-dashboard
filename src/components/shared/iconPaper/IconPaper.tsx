@@ -1,12 +1,12 @@
 import React, {FC} from "react";
 import {Paper} from "@mui/material";
-import {FIconSize, Icon, IconColor, IconType} from "../icon/Icon";
-import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
+import {IconColor, IconExt, IconSize} from "../icon/IconExt";
 
 export interface IIconPaperProps {
     backgroundColor?: string
-    iconColor?: "inherit" | "action" | "disabled" | "primary" | "secondary" | "error" | "info" | "success" | "warning" | undefined
-
+    iconColor?: IconColor
+    iconName?: string;
+    iconSize?: IconSize;
 }
 
 export const IconPaper: FC<IIconPaperProps> = (props) => {
@@ -14,8 +14,10 @@ export const IconPaper: FC<IIconPaperProps> = (props) => {
         <Paper
             elevation={3}
             style={{
-                minWidth: 60,
-                minHeight: 60,
+                minWidth: 80,
+                minHeight: 80,
+                width: "fit-content",
+                height: "fit-content",
                 borderRadius: 4,
                 display: 'flex',
                 float: 'left',
@@ -24,13 +26,11 @@ export const IconPaper: FC<IIconPaperProps> = (props) => {
                 backgroundColor: props.backgroundColor || 'white'
             }}
         >
-            <EuroSymbolIcon color={props.iconColor || 'action'}/>
-            {/*<Icon*/}
-            {/*    iconColor={IconColor.white}*/}
-            {/*    iconName={'apple'}*/}
-            {/*    iconType={IconType.regular}*/}
-            {/*    iconSize={FIconSize.defaultRegular}*/}
-            {/*/>*/}
+            {props.iconName &&  <IconExt
+                iconName={props.iconName}
+                iconSize={props.iconSize as IconSize}
+                iconColor={props.iconColor as IconColor}
+            />}
         </Paper>
     )
 }
