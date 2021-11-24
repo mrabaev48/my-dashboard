@@ -20,6 +20,7 @@ import {AppContextProvider} from "./components/context/appContext/AppContextProv
 import { v4 } from 'uuid';
 import { Header } from './components/shared/header/Header'
 import {PageTitle} from "./components/shared/pageTitle/PageTitle";
+import {ContentCopy} from "@mui/icons-material";
 
 const appMenuItems: AppMenuItemProps[] = [
     {
@@ -45,6 +46,12 @@ const appMenuItems: AppMenuItemProps[] = [
         link: '/reports',
         Icon: IconBarChart,
         pageIdentifier: v4(),
+    },
+    {
+        name: 'Deposits',
+        link: '/deposits',
+        Icon: ContentCopy,
+        pageIdentifier: v4()
     },
     {
         name: 'Nested Pages',

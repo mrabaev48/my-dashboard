@@ -1,8 +1,10 @@
-import {Card, CardActions, CardContent, Divider, Icon, Paper, Typography} from "@mui/material";
+import {CardContent, Divider, Typography} from "@mui/material";
 import {Grid} from "@material-ui/core";
 import React, {FC} from "react";
 import {IconPaper} from "../../../components/shared/iconPaper/IconPaper";
-import {IconColor, IconSize} from "../../../components/shared/icon/IconExt";
+import {CustomIconColor, IconSize} from "../../../components/shared/icon/IconExt";
+import {CardExt} from "../../../components/shared/card/CardExt";
+import {PaperExt} from "../../../components/shared/paper/PaperExt";
 
 export interface IInfoCardProps {
     titleText?: string;
@@ -10,7 +12,7 @@ export interface IInfoCardProps {
     useIcon?: boolean | false;
     iconName?: string;
     iconSize?: IconSize;
-    iconColor?: IconColor;
+    iconColor?: CustomIconColor;
     iconBackgroundColor?: string;
 }
 
@@ -29,19 +31,8 @@ export const InfoCard:FC<IInfoCardProps> = (props) => {
 
     return (
         <Grid item xs={12} md={4} lg={3}>
-            <Paper
-                elevation={3}
-                style={{
-                    borderRadius: '8px',
-                }}
-            >
-                <Card
-                    style={{
-                        borderRadius: '8px',
-                        overflow: 'visible',
-                        padding: '5px'
-                    }}
-                >
+            <PaperExt>
+                <CardExt>
                     <CardContent>
                         <Grid item container>
                             <Grid
@@ -52,7 +43,7 @@ export const InfoCard:FC<IInfoCardProps> = (props) => {
                                 justifyContent={"center"}
                                 style={{
                                     marginTop: '-30px',
-                                    height: 'fit-content'
+                                    height: 'fit-content',
                                 }}
                             >
                                 {icon}
@@ -74,8 +65,8 @@ export const InfoCard:FC<IInfoCardProps> = (props) => {
                     </CardContent>
                     {props.children && <Divider variant={"fullWidth"}/>}
                     {props.children}
-                </Card>
-            </Paper>
+                </CardExt>
+            </PaperExt>
         </Grid>
     )
 }

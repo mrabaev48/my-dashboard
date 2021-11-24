@@ -1,10 +1,10 @@
 import React, {FC} from "react";
 import {Paper} from "@mui/material";
-import {IconColor, IconExt, IconSize} from "../icon/IconExt";
+import {CustomIconColor, IconExt, IconSize} from "../icon/IconExt";
 
 export interface IIconPaperProps {
     backgroundColor?: string
-    iconColor?: IconColor
+    iconColor?: CustomIconColor;
     iconName?: string;
     iconSize?: IconSize;
 }
@@ -29,7 +29,7 @@ export const IconPaper: FC<IIconPaperProps> = (props) => {
             {props.iconName &&  <IconExt
                 iconName={props.iconName}
                 iconSize={props.iconSize as IconSize}
-                iconColor={props.iconColor as IconColor}
+                iconColor={props.iconColor}
             />}
         </Paper>
     )

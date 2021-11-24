@@ -18,5 +18,10 @@ export const privateRoutes = [
         to: '/reports',
         defaultLabel: 'Reports',
         translationKey: ''
+    },
+    {
+        to: '/deposits',
+        defaultLabel: 'Deposits',
+        translationKey: ''
     }
 ]
