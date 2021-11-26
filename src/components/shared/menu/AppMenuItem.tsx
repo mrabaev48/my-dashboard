@@ -1,17 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
-
 import List from '@material-ui/core/List'
-
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import Collapse from '@material-ui/core/Collapse'
-
 import IconExpandLess from '@material-ui/icons/ExpandLess'
 import IconExpandMore from '@material-ui/icons/ExpandMore'
-
 import AppMenuItemComponent from './AppMenuItemComponent'
 
 export const AppMenuItemPropTypes = {
@@ -75,15 +71,15 @@ const useStyles = makeStyles(theme =>
     createStyles({
         menuItem: {
             '&.active': {
-                backgroundColor: '#4d81c2',
-                background: 'rgba(0, 0, 0, 0.08)',
+                backgroundColor: '#1976d2',
+                background: 'rgb(250,0,0)',
                 '& .MuiListItemIcon-root': {
                     color: '#fff',
                 },
             },
         },
         menuItemIcon: {
-            color: '#4d81c2',
+            color: '#1976d2',
         },
     }),
 )

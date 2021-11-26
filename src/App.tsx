@@ -1,15 +1,6 @@
 import React from 'react'
-import clsx from 'clsx'
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Drawer from '@material-ui/core/Drawer'
-import Container from '@material-ui/core/Container'
-import AppMenu from './components/shared/menu/AppMenu';
-import { Dashboard } from './pages/dashboard/Dashboard'
-import {Orders} from "./pages/orders/Orders";
-import {Customers} from "./pages/customers/Customers";
-import {Reports} from "./pages/reposrts/Reports";
 import IconDashboard from "@material-ui/icons/Dashboard";
 import IconShoppingCart from "@material-ui/icons/ShoppingCart";
 import IconPeople from "@material-ui/icons/People";
@@ -18,9 +9,20 @@ import IconLibraryBooks from "@material-ui/icons/LibraryBooks";
 import {AppMenuItemProps} from "./components/shared/menu/AppMenuItem";
 import {AppContextProvider} from "./components/context/appContext/AppContextProvider";
 import { v4 } from 'uuid';
-import { Header } from './components/shared/header/Header'
-import {PageTitle} from "./components/shared/pageTitle/PageTitle";
 import {ContentCopy} from "@mui/icons-material";
+import {Box, Divider} from '@mui/material'
+import {Customers} from "./pages/customers/Customers";
+import DrawerExt from "./components/shared/drawer/DrawerExt";
+import {PageTitle} from "./components/shared/pageTitle/PageTitle";
+import {Dashboard} from "./pages/dashboard/Dashboard";
+import {Orders} from "./pages/orders/Orders";
+import {Reports} from "./pages/reposrts/Reports";
+import {Header} from "./components/shared/header/Header";
+import DrawerHeader from "./components/shared/drawerHeader/DrawerHeader";
+import {BoxExt} from "./components/shared/box/BoxExt";
+import AppMenu from "./components/shared/menu/AppMenu";
+
+import './styles/main-style.scss'
 
 const appMenuItems: AppMenuItemProps[] = [
     {
@@ -81,71 +83,41 @@ const appMenuItems: AppMenuItemProps[] = [
 ]
 
 const App: React.FC = () => {
-    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
 
     return (
         <AppContextProvider>
-
             <BrowserRouter>
-                <div className={clsx('App', classes.root)}>
+                <Box sx={{ display: 'flex', width: '100%', marginLeft: 0}}>
                     <CssBaseline />
-                    <Drawer
-                        variant="permanent"
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                    >
-                        <AppMenu
-                            items={appMenuItems}
-                        />
-                    </Drawer>
-                    <main className={classes.content}>
-                        <Header/>
-                        <Container maxWidth="xl" className={classes.container}>
-                            <PageTitle/>
-                            <Switch>
-                                <Route path="/" exact component={Dashboard} />
-                                <Route path="/orders" component={Orders} />
-                                <Route path="/customers" component={Customers} />
-                                <Route path="/reports" component={Reports} />
-                            </Switch>
-
-                        </Container>
-                    </main>
-                </div>
+                    <Header open={open} handleDrawerOpen={handleDrawerOpen}/>
+                    <DrawerExt open={open}>
+                        <DrawerHeader handleDrawerClose={handleDrawerClose}/>
+                        <Divider />
+                        <AppMenu items={appMenuItems}/>
+                    </DrawerExt>
+                    <BoxExt>
+                        <DrawerHeader />
+                        <PageTitle/>
+                        <Switch>
+                            <Route path="/" exact component={Dashboard} />
+                            <Route path="/orders" component={Orders} />
+                            <Route path="/customers" component={Customers} />
+                            <Route path="/reports" component={Reports} />
+                        </Switch>
+                    </BoxExt>
+                </Box>
             </BrowserRouter>
         </AppContextProvider>
     )
 }
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex',
-        marginLeft: 0
-    },
-    drawerPaper: {
-        position: 'relative',
-        whiteSpace: 'nowrap',
-        width: drawerWidth,
-        paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(1),
-        background: '#3b3d3d',
-        color: '#fff',
-    },
-    content: {
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-        backgroundColor: '#eee'
-    },
-    container: {
-        paddingTop: theme.spacing(1),
-        paddingBottom: theme.spacing(4),
-        margin: 0,
-        width: '100%'
-    },
-}))
 
 export default App

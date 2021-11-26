@@ -40,7 +40,6 @@ export const InfoCard:FC<IInfoCardProps> = (props) => {
                                 xs={12}
                                 md={12}
                                 lg={2}
-                                justifyContent={"center"}
                                 style={{
                                     marginTop: '-30px',
                                     height: 'fit-content',
@@ -49,7 +48,7 @@ export const InfoCard:FC<IInfoCardProps> = (props) => {
                                 {icon}
                             </Grid>
                             {(props.titleText || props.messageText) &&
-                            <Grid md={12} lg={10} xs={12} item justifyContent={"flex-end"}>
+                            <Grid md={12} lg={10} xs={12} item >
                                 {props.titleText &&(
                                     <Typography variant={"body2"} textAlign={"end"} style={{width: '100%'}}>
                                         {props.titleText}

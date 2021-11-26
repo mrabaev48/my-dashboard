@@ -1,8 +1,8 @@
-import React from 'react';
-import Typography from "@material-ui/core/Typography";
+import * as React from 'react';
+import {FC} from "react";
 
-export const Customers: React.FC = () => {
+export const Customers:FC = () => {
     return (
         <></>
-    );
-};
+    )
+}
