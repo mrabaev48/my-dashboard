@@ -47,7 +47,8 @@ export const Header:FC<IHeaderProps> = ({handleDrawerOpen, open}) => {
                     desktopMenuId={desktopMenuId}
                     handleMobileMenuOpen={handleMobileMenuOpen}
                     handleProfileMenuOpen={handleProfileMenuOpen}
-                    mobileMenuId={mobileMenuId}/>
+                    mobileMenuId={mobileMenuId}
+                />
             </AppBarExt>
             <MobileToolbarMenu
                 anchorEl={mobileMoreAnchorEl}

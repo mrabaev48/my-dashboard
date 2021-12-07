@@ -7,7 +7,6 @@ import IconPeople from "@material-ui/icons/People";
 import IconBarChart from "@material-ui/icons/BarChart";
 import IconLibraryBooks from "@material-ui/icons/LibraryBooks";
 import {AppMenuItemProps} from "./components/shared/menu/AppMenuItem";
-import {AppContextProvider} from "./components/context/appContext/AppContextProvider";
 import { v4 } from 'uuid';
 import {ContentCopy} from "@mui/icons-material";
 import {Box, Divider} from '@mui/material'
@@ -20,9 +19,9 @@ import {Reports} from "./pages/reposrts/Reports";
 import {Header} from "./components/shared/header/Header";
 import DrawerHeader from "./components/shared/drawerHeader/DrawerHeader";
 import {BoxExt} from "./components/shared/box/BoxExt";
-import AppMenu from "./components/shared/menu/AppMenu";
 
 import './styles/main-style.scss'
+import {AppMenu} from "./components/shared/menu/AppMenu";
 
 const appMenuItems: AppMenuItemProps[] = [
     {
@@ -94,7 +93,6 @@ const App: React.FC = () => {
     };
 
     return (
-        <AppContextProvider>
             <BrowserRouter>
                 <Box sx={{ display: 'flex', width: '100%', marginLeft: 0}}>
                     <CssBaseline />
@@ -102,6 +100,7 @@ const App: React.FC = () => {
                     <DrawerExt open={open}>
                         <DrawerHeader handleDrawerClose={handleDrawerClose}/>
                         <Divider />
+                        {/*<AppMenu items={appMenuItems}/>*/}
                         <AppMenu items={appMenuItems}/>
                     </DrawerExt>
                     <BoxExt>
@@ -116,7 +115,6 @@ const App: React.FC = () => {
                     </BoxExt>
                 </Box>
             </BrowserRouter>
-        </AppContextProvider>
     )
 }
 

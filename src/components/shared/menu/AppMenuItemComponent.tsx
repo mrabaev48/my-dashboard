@@ -14,7 +14,10 @@ const AppMenuItemComponent: React.FC<AppMenuItemComponentProps> = props => {
     if (!link || typeof link !== 'string') {
         return (
             <ListItem
-                button
+                // button
+                style={{
+                    cursor: 'pointer'
+                }}
                 className={className}
                 children={children}
                 onClick={onClick}
@@ -24,7 +27,7 @@ const AppMenuItemComponent: React.FC<AppMenuItemComponentProps> = props => {
 
     return (
         <ListItem
-            button
+            // button
             className={className}
             children={children}
             component={forwardRef((props: NavLinkProps, ref: any) => <NavLink exact {...props} innerRef={ref} />)}

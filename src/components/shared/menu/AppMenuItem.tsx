@@ -42,7 +42,7 @@ const AppMenuItem: React.FC<AppMenuItemProps> = props => {
                     <Icon />
                 </ListItemIcon>
             )}
-            <ListItemText primary={name} inset={!Icon} />
+            <ListItemText primary={name} inset={!Icon} className={'menu-item-text'}/>
             {isExpandable && !open && <IconExpandMore />}
             {isExpandable && open && <IconExpandLess />}
         </AppMenuItemComponent>
@@ -70,13 +70,17 @@ const AppMenuItem: React.FC<AppMenuItemProps> = props => {
 const useStyles = makeStyles(theme =>
     createStyles({
         menuItem: {
+            '&:hover': {
+                backgroundColor: '#ded9d9'
+            },
             '&.active': {
+                color: 'white',
                 backgroundColor: '#1976d2',
-                background: 'rgb(250,0,0)',
                 '& .MuiListItemIcon-root': {
                     color: '#fff',
                 },
             },
+            color: 'black'
         },
         menuItemIcon: {
             color: '#1976d2',

@@ -7,7 +7,7 @@ export interface IAppMenuProps {
     items: AppMenuItemProps[];
 }
 
-const AppMenu: React.FC<IAppMenuProps> = ({ items}) => {
+export const AppMenu: React.FC<IAppMenuProps> = ({ items}) => {
     const classes = useStyles();
 
     return (
@@ -37,5 +37,3 @@ const useStyles = makeStyles(theme =>
         },
     }),
 )
-
-export default AppMenu
