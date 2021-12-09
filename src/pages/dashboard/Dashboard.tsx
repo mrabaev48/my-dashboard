@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 
 export const Dashboard: React.FC = () => {
 
-    const history = useHistory()
+    const history = useHistory();
 
     return (
         <Grid container spacing={8}>

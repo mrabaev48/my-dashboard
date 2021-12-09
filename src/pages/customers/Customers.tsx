@@ -6,19 +6,19 @@ import {fetchCustomers} from "../../store/reducers/customers/ActionCreators";
 export const Customers:FC = () => {
 
     const dispatch = useAppDispatch();
-    const {customers, isLoading, error} = useAppSelector(state => state.userReducer);
+    const {customers, isLoading, error} = useAppSelector(state => state.customerReducer);
 
     useEffect(() => {
         dispatch(fetchCustomers());
-    }, [])
+    }, []);
 
     return (
         <>
             {isLoading && <h1>Loading data...</h1>}
             {error && <h4>{error}</h4>}
-            {customers.map(user =>
-                <div key={user.id}>
-                    {user.name}
+            {customers.map(customer =>
+                <div key={customer.id}>
+                    {customer.name}
                 </div>
             )}
         </>

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, forwardRef} from 'react';
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
@@ -6,6 +6,9 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Menu from '@mui/material/Menu';
+import {useKeycloak} from "@react-keycloak/web";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { NavLink, NavLinkProps } from 'react-router-dom'
 
 
 export interface IToolbarMenuProps {
@@ -23,6 +26,13 @@ export const DesktopToolbarMenu:FC<IToolbarMenuProps> =
          isMenuOpen,
          handleMenuClose
      }) => {
+
+    const {keycloak, initialized} = useKeycloak();
+
+    const doLogout = () => {
+        keycloak.logout();
+    }
+
     return (
         <Menu
             anchorEl={anchorEl}
@@ -39,8 +49,15 @@ export const DesktopToolbarMenu:FC<IToolbarMenuProps> =
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem
+                component={forwardRef((props: NavLinkProps, ref: any) => <NavLink exact {...props} innerRef={ref} />)}
+                onClick={handleMenuClose}
+                to={'/profile'}
+            >
+                Profile
+            </MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={doLogout}>Logout</MenuItem>
         </Menu>
     )
 }
@@ -53,6 +70,13 @@ export const MobileToolbarMenu: FC<IToolbarMenuProps> =
          handleProfileMenuOpen,
          handleMenuClose
      }) => {
+
+        const {keycloak, initialized} = useKeycloak();
+
+        const doLogout = () => {
+            keycloak.logout();
+        }
+
         return (
             <Menu
                 anchorEl={anchorEl}
@@ -89,7 +113,11 @@ export const MobileToolbarMenu: FC<IToolbarMenuProps> =
                     </IconButton>
                     <p>Notifications</p>
                 </MenuItem>
-                <MenuItem onClick={handleProfileMenuOpen}>
+                <MenuItem
+                    onClick={handleMenuClose}
+                    component={forwardRef((props: NavLinkProps, ref: any) => <NavLink exact {...props} innerRef={ref} />)}
+                    to={'/profile'}
+                >
                     <IconButton
                         size="large"
                         aria-label="account of current user"
@@ -100,6 +128,18 @@ export const MobileToolbarMenu: FC<IToolbarMenuProps> =
                         <AccountCircle/>
                     </IconButton>
                     <p>Profile</p>
+                </MenuItem>
+                <MenuItem onClick={doLogout}>
+                    <IconButton
+                        size="large"
+                        aria-label="logout"
+                        aria-controls="primary-search-account-menu"
+                        aria-haspopup="true"
+                        color="inherit"
+                    >
+                        <LogoutIcon/>
+                    </IconButton>
+                    <p>Logout</p>
                 </MenuItem>
             </Menu>
         )
