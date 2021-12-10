@@ -7,42 +7,42 @@ import {Profile} from "../../pages/profile/Profile";
 
 export const privateRoutes = [
     {
-        to: '/',
+        path: '/',
         defaultLabel: 'Dashboard',
         translationKey: '',
         exact: true,
         component: Dashboard,
     },
     {
-        to: '/orders',
+        path: '/orders',
         defaultLabel: 'Orders',
         translationKey: '',
         exact: false,
         component: Orders,
     },
     {
-        to: '/customers',
+        path: '/customers',
         defaultLabel: 'Customers',
         translationKey: '',
         exact: false,
         component: Customers,
     },
     {
-        to: '/reports',
+        path: '/reports',
         defaultLabel: 'Reports',
         translationKey: '',
         exact: false,
         component: Reports,
     },
     {
-        to: '/deposits',
+        path: '/deposits',
         defaultLabel: 'Deposits',
         translationKey: '',
         exact: false,
         component: Deposits,
     },
     {
-        to: '/profile',
+        path: '/profile',
         defaultLabel: 'Profile',
         translationKey: '',
         exact: false,

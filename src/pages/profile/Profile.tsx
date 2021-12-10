@@ -1,7 +1,11 @@
 import {FC} from "react";
 
-export const Profile:FC = () => {
+export interface IProfileProps {
+}
+
+export const Profile:FC<IProfileProps> = () => {
     return(
-        <></>
+        <>
+        </>
     )
 }

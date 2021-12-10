@@ -124,7 +124,7 @@ export const MainLayout:FC = (props) => {
                     <Switch>
                         {routes.map((route, index) => {
                             return (
-                                <Route path={route.to} exact={route.exact} component={route.component} key={index}/>
+                                <Route {...route} key={index}/>
                             )
                         })}
                     </Switch>

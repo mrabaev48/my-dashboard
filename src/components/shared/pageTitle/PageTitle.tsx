@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 export const PageTitle:FC = () => {
     const location = useLocation();
 
-    const currentRoute = routes.find(x => x.to === location?.pathname);
+    const currentRoute = routes.find(x => x.path === location?.pathname);
 
     return (
         <Typography
