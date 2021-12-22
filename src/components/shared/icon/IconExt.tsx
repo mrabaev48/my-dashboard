@@ -1,4 +1,4 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import {Icon} from "@mui/material";
 
 export type CustomIconColor = IconColor | string | undefined
@@ -7,6 +7,8 @@ export interface IIconExtProps {
     iconName: string;
     iconSize: IconSize;
     iconColor: CustomIconColor;
+    onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+    className?: string;
 }
 
 export enum IconSize {
@@ -28,7 +30,7 @@ export enum IconColor {
     warning =  'warning',
 }
 
-export const IconExt:FC<IIconExtProps> = ({iconColor, iconName, iconSize}) => {
+export const IconExt:FC<IIconExtProps> = ({iconColor, iconName, iconSize, className}) => {
     let propses: any = {
         fontSize: iconSize
     }
@@ -44,6 +46,7 @@ export const IconExt:FC<IIconExtProps> = ({iconColor, iconName, iconSize}) => {
     return (
         <Icon
             {...propses}
+            className
         >
             {iconName}
         </Icon>
