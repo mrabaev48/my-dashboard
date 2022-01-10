@@ -17,7 +17,7 @@ export const DataTablesDecimalCell:FC<IDataTablesDecimalCellProps> = ({
 
     return (
         <div
-            className={`${className} dt-column-body-cell`}
+            className={`${className} dt-column-body-cell dt-column-decimal-body-cell`}
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
             // onClick={this.onClick}
         >

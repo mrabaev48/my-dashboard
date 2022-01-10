@@ -1,4 +1,11 @@
-html {
-  max-width: 1600px;
+html, body, .root {
+  //max-width: 1928px;
   width: 100%;
+}
+
+
+
+.MuiOutlinedInput-root {
+  height: 40px;
+  min-width: 100px;
 }

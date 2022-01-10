@@ -1,29 +1,28 @@
 import {ChangeEvent, FC, useEffect, useState} from "react";
-import {IDataTablesFilterProps} from "./models";
 import {Box, TableCell, TextField} from "@mui/material";
+import {IDataTablesFilterProps} from "./models";
 import {useFilter} from "../../config/hooks/useFilter";
 import {DtUtils} from "../../utils/DtUtils";
-import {IDataTablesIntColumn} from "../../models/IDataTablesColumn";
+import {IDataTablesCurrencyColumn} from "../../models/IDataTablesColumn";
 
-export const DataTableIntFilter:FC<IDataTablesFilterProps> = ({
-    column
-                                                              }) => {
-    const intColumn = column as IDataTablesIntColumn;
+export const DataTableCurrencyFilter: FC<IDataTablesFilterProps> = ({
+                                                                        column
+                                                                    }) => {
+    const currencyColumn = column as IDataTablesCurrencyColumn;
 
-    const [setFilter] = useFilter(0, column);
-    const [fromValue, setFromValue] = useState('');
-    const [toValue, setToValue] = useState('');
+    const [setFilter, filter] = useFilter('', column);
+    const [fromValue, setFromValue] = useState(filter.filterValue);
+    const [toValue, setToValue] = useState(filter.filterValue);
 
     useEffect(() => {
         setFilter({
             fromValue: Number(fromValue),
             toValue: Number(toValue)
         });
-
-    }, [fromValue, toValue])
+    },[fromValue, toValue])
 
     const onFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
-        if (DtUtils.isInteger(event.target.value) || event.target.value === '') {
+        if (DtUtils.isDecimal(event.target.value) || event.target.value === '') {
             switch (event.target.name) {
                 case 'fromValue':
                     setFromValue(event.target.value);
@@ -37,23 +36,21 @@ export const DataTableIntFilter:FC<IDataTablesFilterProps> = ({
 
     return (
         <TableCell
+            className={`dt-currency-filter dt-filter`}
             data-cy={column.dataSource + '-filter'}
-            className={`dt-int-filter dt-filter`}
         >
             <TextField
                 onChange={onFilterChange}
                 value={fromValue}
+                placeholder={currencyColumn.filterPlaceholder?.fromPlaceholder ?? 'From'}
                 name={'fromValue'}
-                placeholder={intColumn.filterPlaceholder?.fromPlaceholder ?? 'From'}
-                color="primary"
             />
             <Box sx={{ mx: 1 }}>  </Box>
             <TextField
                 onChange={onFilterChange}
                 value={toValue}
+                placeholder={currencyColumn.filterPlaceholder?.toPlaceholder ?? 'To'}
                 name={'toValue'}
-                placeholder={intColumn.filterPlaceholder?.toPlaceholder ?? 'To'}
-                color="primary"
             />
         </TableCell>
     )

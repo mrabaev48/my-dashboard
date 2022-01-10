@@ -1,7 +1,10 @@
 import {FC} from "react";
-import {IDataTablesCellPropsBase} from "./models/IDataTablesCellProps";
+import {IDataTablesDateCellProps} from "./models/IDataTablesCellProps";
+import {useDataTablesContext} from "../../config/hooks/useDataTablesContext";
+import moment from "moment";
+import {DtUtils} from "../../utils/DtUtils";
 
-export const DataTablesDateCell:FC<IDataTablesCellPropsBase> = (
+export const DataTablesDateCell: FC<IDataTablesDateCellProps> = (
     {
         rowCells,
         column,
@@ -12,11 +15,15 @@ export const DataTablesDateCell:FC<IDataTablesCellPropsBase> = (
         children
     }
 ) => {
+
+    const context = useDataTablesContext();
+    const formattedDate = DtUtils.getFormattedDate(cellValue, column, context);
+
     return (
         <div
-            className={`${className} dt-column-body-cell`}
+            className={`${className} dt-column-body-cell dt-column-select-body-cell`}
         >
-            {cellValue}
+            {formattedDate}
         </div>
     )
 }

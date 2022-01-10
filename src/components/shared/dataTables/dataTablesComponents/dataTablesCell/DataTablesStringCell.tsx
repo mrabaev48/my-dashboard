@@ -17,7 +17,7 @@ export const DataTablesStringCell: FC<IDataTablesStringCellProps> = ({
     const {options} = useDataTablesContext();
     return (
         <div
-            className={`${className} dt-column-body-cell`}
+            className={`${className} dt-column-body-cell dt-column-string-body-cell`}
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
             // data-is-detail={this.props.isDetail === true}
         >

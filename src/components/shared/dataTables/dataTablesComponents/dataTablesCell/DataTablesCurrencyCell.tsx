@@ -19,7 +19,7 @@ export const DataTablesCurrencyCell:FC<IDataTablesCurrencyCellProps> =
 
     return (
         <div
-            className={`${className} dt-column-body-cell`}
+            className={`${className} dt-column-body-cell dt-column-currency-body-cell`}
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
             // onClick={this.onClick}
         >

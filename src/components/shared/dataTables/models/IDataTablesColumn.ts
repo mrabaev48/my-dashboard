@@ -1,5 +1,10 @@
 import {DataTablesColumnType} from "./DataTablesColumnType";
 
+export interface FromToFilterPlaceholder {
+    fromPlaceholder: string;
+    toPlaceholder: string;
+}
+
 export interface IDataTablesColumn {
     label: string;
     dataSource: string;
@@ -8,7 +13,30 @@ export interface IDataTablesColumn {
 }
 
 export interface IDataTablesSelectColumn extends IDataTablesColumn {
-    loadSelectDataSource: () => any[] | Promise<any[]>
+    loadSelectDataSource: () => any[] | Promise<any[]>;
 }
 
-export type DataTablesColumn = IDataTablesColumn | IDataTablesSelectColumn
+export interface IDataTablesDateColumn extends IDataTablesColumn {
+    useTime?: boolean;
+    filterPlaceholder?: FromToFilterPlaceholder;
+}
+
+export interface IDataTablesIntColumn extends IDataTablesColumn {
+    filterPlaceholder?: FromToFilterPlaceholder;
+}
+
+export interface IDataTablesCurrencyColumn extends IDataTablesColumn {
+    filterPlaceholder?: FromToFilterPlaceholder;
+}
+
+export interface IDataTablesStringColumn extends IDataTablesColumn {
+    filterPlaceholder?: string;
+}
+
+export type DataTablesColumn =
+    IDataTablesColumn |
+    IDataTablesSelectColumn |
+    IDataTablesDateColumn |
+    IDataTablesIntColumn |
+    IDataTablesCurrencyColumn |
+    IDataTablesStringColumn

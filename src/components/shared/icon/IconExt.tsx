@@ -46,7 +46,7 @@ export const IconExt:FC<IIconExtProps> = ({iconColor, iconName, iconSize, classN
     return (
         <Icon
             {...propses}
-            className
+            className={className}
         >
             {iconName}
         </Icon>

@@ -119,7 +119,6 @@ export const MainLayout:FC = (props) => {
                     <AppMenu items={appMenuItems}/>
                 </DrawerExt>
                 <BoxExt>
-                    <DrawerHeader />
                     <PageTitle/>
                     <Switch>
                         {routes.map((route, index) => {

@@ -1,27 +1,32 @@
 import {TableCell, TextField} from "@mui/material";
-import {ChangeEvent, FC} from "react";
+import {ChangeEvent, FC, useState} from "react";
 import {IDataTablesFilterProps} from "./models";
-import {useDataTablesContext} from "../../config/hooks/useDataTablesContext";
+import {useFilter} from "../../config/hooks/useFilter";
+import {IDataTablesStringColumn} from "../../models/IDataTablesColumn";
 
 export const DataTableStringFilter:FC<IDataTablesFilterProps> = ({
     column
                                          }) => {
-    const onFilterChange = (event: ChangeEvent) => {
-        console.log('event: ', event)
-    }
 
-    const { actions } = useDataTablesContext();
+    const stringColumn = column as IDataTablesStringColumn;
+
+    const [setFilter, filter] = useFilter('', stringColumn);
+    const [value, setValue] = useState(filter.filterValue);
+
+    const onFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value);
+        setFilter(event.target.value);
+    }
 
     return (
         <TableCell
             data-cy={column.dataSource + '-filter'}
-            className={`dt-string-filter`}
+            className={`dt-string-filter dt-filter`}
         >
             <TextField
                 onChange={onFilterChange}
-                value={actions.getFilterValue('', column)}
-                // placeholder={this.props.t('dataTables.tableHead.filterTextPlaceholder')}
-                color="primary"
+                value={value}
+                placeholder={stringColumn.filterPlaceholder ?? 'Search'}
             />
         </TableCell>
     )

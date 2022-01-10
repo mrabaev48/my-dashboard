@@ -1,5 +1,5 @@
 import {
-    DataTablesColumn
+    DataTablesColumn, IDataTablesDateColumn, IDataTablesSelectColumn
 } from "../../../models/IDataTablesColumn";
 
 export interface IDataTablesCellPropsBase {
@@ -28,9 +28,15 @@ export interface IDataTablesCurrencyCellProps extends  IDataTablesCellPropsBase 
 }
 
 export interface IDataTablesSelectCellProps extends  IDataTablesCellPropsBase {
+    column: IDataTablesSelectColumn;
     cellValue: string;
 }
 
 export interface IDataTablesDecimalCellProps extends  IDataTablesCellPropsBase {
     cellValue: number;
+}
+
+export interface IDataTablesDateCellProps extends  IDataTablesCellPropsBase {
+    column: IDataTablesDateColumn;
+    cellValue: Date | string;
 }

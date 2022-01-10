@@ -1,13 +1,18 @@
 import { DataTablesColumn } from "./IDataTablesColumn";
+import {List} from "linqscript";
 
 export interface IDataTablesOptions {
     columns: DataTablesColumn [];
-    loadData: () => any[] | Promise<any[]>;
+    loadData: () => List<any> | Promise<List<any>>;
     uniqueKey: string;
-    useFilters?: boolean | false;
     dtTableClassName?: string;
     dtHeaderClassName?: string;
     dtBodyClassName?: string;
     dtFooterClassName?: string;
     dateFormat?: string;
+    timezone?: string;
+    useEdit?: boolean;
+    useDelete?: boolean;
+    useSorting?: boolean;
+    useFilters?: boolean;
 }

@@ -1,0 +1,47 @@
+.dt-table {
+  width: 100% !important;
+
+  thead.dt-head {
+    th, td {
+      padding: 10px;
+    }
+
+    .dt-head-cell {
+      text-align: center;
+    }
+
+    .dt-filter {
+      input::placeholder {
+        text-align: center;
+      }
+    }
+    .dt-currency-filter,
+    .dt-int-filter {
+      display: flex;
+    }
+
+    .dt-range-filter-container {
+      display: flex;
+      input {
+        min-width: 141px;
+      }
+    }
+  }
+
+  tbody {
+    .dt-column-date-body-cell,
+    .dt-column-select-body-cell,
+    .dt-column-string-body-cell,
+    .dt-column-bool-body-cell {
+      display: flex;
+      justify-content: center;
+    }
+
+    .dt-column-int-body-cell,
+    .dt-column-decimal-body-cell,
+    .dt-column-currency-body-cell {
+      display: flex;
+      justify-content: end;
+    }
+  }
+}

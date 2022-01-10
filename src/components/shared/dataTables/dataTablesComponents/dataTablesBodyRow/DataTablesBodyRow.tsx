@@ -44,8 +44,8 @@ export const DataTablesBodyRow:FC<IDataTablesBodyRowProps> = ({rowCells, classNa
                 <ColumnComponent
                     useAutofocus={index === 0}
                     cellValue={_.get(rowCells, column.dataSource)}
-                    column
-                    rowCells
+                    column={column}
+                    rowCells={rowCells}
                 />
             </TableCell>
         )

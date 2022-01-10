@@ -15,7 +15,7 @@ export const DataTablesIntCell:FC<IDataTablesIntCellProps> = ({
 
     return (
         <div
-            className={`${className} dt-column-body-cell`}
+            className={`${className} dt-column-body-cell dt-column-int-body-cell`}
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
             // style={props.displayStyle ? props.displayStyle: defaultDisplayStyle}
             // onClick={this.onClick}

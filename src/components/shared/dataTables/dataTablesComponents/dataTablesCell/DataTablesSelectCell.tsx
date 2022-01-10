@@ -1,8 +1,8 @@
 import {FC, useEffect, useState} from "react";
 import {useDataTablesContext} from "../../config/hooks/useDataTablesContext";
 import {IDataTablesSelectCellProps} from "./models/IDataTablesCellProps";
-import {IDataTablesSelectColumn} from "../../models/IDataTablesColumn";
-import {KeyValuePair} from "../../../../../utils/dtHelper";
+import {List} from "linqscript";
+import {KeyValuePair} from "../../utils/DtUtils";
 
 
 export const DataTablesSelectCell: FC<IDataTablesSelectCellProps> = ({
@@ -14,23 +14,34 @@ export const DataTablesSelectCell: FC<IDataTablesSelectCellProps> = ({
                                                                          className,
                                                                          children,
                                                                      }) => {
-    const {options} = useDataTablesContext();
+    const {options, actions} = useDataTablesContext();
     const [selectData, setSelectData] = useState<KeyValuePair<string, string>[]>([]);
 
     useEffect(() => {
         const loadSelectData = async () => {
-            const data = await (column as IDataTablesSelectColumn).loadSelectDataSource();
+            let data = undefined;
+
+            if (!actions.isSelectDataExist(column.dataSource)) {
+                data = await column.loadSelectDataSource() as List<KeyValuePair<string, string>>;
+                actions.setSelectColumnData({
+                    key: column.dataSource,
+                    value: data
+                });
+            } else {
+                data = actions.getSelectColumnData(column.dataSource);
+            }
+
             setSelectData(data);
         }
 
         loadSelectData();
-    }, [selectData])
+    }, [])
 
     const displayValue = selectData.find(search => search.key === cellValue)?.value || '';
 
     return (
         <div
-            className={`${className} dt-column-body-cell`}
+            className={`${className} dt-column-body-cell dt-column-select-body-cell`}
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
             // onClick={this.onClick}
         >

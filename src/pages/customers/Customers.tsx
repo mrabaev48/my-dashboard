@@ -1,16 +1,14 @@
 import * as React from 'react';
-import {FC, useEffect} from "react";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {fetchCustomers} from "../../store/reducers/customers/ActionCreators";
+import {FC} from "react";
 import {DataTables} from "../../components/shared/dataTables/DataTables";
 import {
     DataTablesColumnType
 } from "../../components/shared/dataTables/models/DataTablesColumnType";
-import {KeyValuePair} from "../../utils/dtHelper";
 import * as faker from "faker";
 import axios from "axios";
+import {KeyValuePair} from "../../components/shared/dataTables/utils/DtUtils";
 
-export const Customers:FC = () => {
+export const Customers: FC = () => {
 
     /*const dispatch = useAppDispatch();
     const {customers, isLoading, error} = useAppSelector(state => state.customerReducer);
@@ -34,11 +32,11 @@ export const Customers:FC = () => {
     const getNouns = (): KeyValuePair<string, string>[] => {
         const nouns: any[] = [];
 
-        for(let i = 0; i <= 10; i++) {
+        for (let i = 0; i <= 10; i++) {
             const noun = faker.hacker.noun();
             nouns.push({
                 key: noun.toLowerCase(),
-                value: noun
+                value: noun.toUpperCase()
             })
         }
 
@@ -67,30 +65,43 @@ export const Customers:FC = () => {
                         dataSource: 'username',
                         label: 'Username',
                         type: DataTablesColumnType.STRING,
+                        useFilter: true
                     },
                     {
                         dataSource: 'email',
                         label: 'Email',
                         type: DataTablesColumnType.STRING,
+                        useFilter: true
                     },
                     {
                         dataSource: 'isActive',
                         label: 'Is Active',
                         type: DataTablesColumnType.BOOLEAN,
+                        useFilter: true
                     },
                     {
                         dataSource: 'salary',
                         label: 'Salary',
                         type: DataTablesColumnType.CURRENCY,
+                        useFilter: true,
                     },
-                    /*{
+                    {
+                        dataSource: 'birthday',
+                        label: 'Birthday',
+                        type: DataTablesColumnType.DATE,
+                        useFilter: true,
+                        useTime: true,
+                        // useTime: false,
+                    },
+                    {
                         dataSource: 'type',
                         label: 'Type',
                         type: DataTablesColumnType.SELECT,
                         loadSelectDataSource: async () => {
                             return nouns;
-                        }
-                    }*/
+                        },
+                        useFilter: true
+                    }
                 ],
                 loadData: async () => {
                     let data = (await axios.get('https://jsonplaceholder.typicode.com/users')).data;
@@ -98,14 +109,16 @@ export const Customers:FC = () => {
                     data = data.map((obj: any, index: number) => {
                         obj['isActive'] = Math.random() < 0.5;
                         obj['salary'] = faker.commerce.price();
-                        obj['type'] = nouns[Math.floor(Math.random() * nouns.length)].key;
+                        obj['type'] = nouns[Math.floor(Math.random() * (nouns.length - 1))].key;
+                        obj['birthday'] = faker.date.past();
                         return obj;
                     })
 
                     return data;
                 },
                 uniqueKey: 'id',
-                useFilters: true
+                useFilters: true,
+                dateFormat: 'dd.MM.yyyy',
             }}
         />
     )
