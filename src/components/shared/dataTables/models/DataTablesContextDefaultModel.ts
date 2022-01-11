@@ -19,6 +19,9 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         },
         isSelectDataExist(columnDataSource: string): boolean {
             throw new Error('isSelectDataExist not implemented! Provide this function to options object');
+        },
+        clearFilters(): void {
+            throw new Error('clearFilters not implemented! Provide this function to options object');
         }
     },
     options: {

@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {MenuItem, Select, SelectChangeEvent, TableCell} from "@mui/material";
 import {IDataTablesFilterProps} from "./models";
 import {useFilter} from "../../config/hooks/useFilter";
@@ -8,6 +8,10 @@ export const DataTableBooleanFilter: FC<IDataTablesFilterProps> = ({
                                                                    }) => {
     const selectValues = [
         {
+            label: '-',
+            value: 'null'
+        },
+        {
             label: 'Yes',
             value: 'true'
         },
@@ -15,13 +19,15 @@ export const DataTableBooleanFilter: FC<IDataTablesFilterProps> = ({
             label: 'No',
             value: 'false'
         },
-        {
-            label: '-',
-            value: 'null'
-        }
     ]
     const [setFilter, filter] = useFilter('null', column);
     const [value, setValue] = useState(filter.filterValue);
+
+    useEffect(() => {
+        if (filter.filterValue === 'null') {
+            setValue(filter.filterValue);
+        }
+    }, [filter])
 
     const onFilterChange = (event: SelectChangeEvent) => {
         if (event.target.value === 'null') {
@@ -49,6 +55,7 @@ export const DataTableBooleanFilter: FC<IDataTablesFilterProps> = ({
             className={`dt-boolean-filter dt-filter`}
         >
             <Select
+                defaultValue={selectValues[0].value}
                 value={value}
                 onChange={onFilterChange}
             >

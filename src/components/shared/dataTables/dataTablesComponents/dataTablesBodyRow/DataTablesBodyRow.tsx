@@ -29,9 +29,9 @@ export interface IDataTablesBodyRowProps {
 }
 
 export const DataTablesBodyRow:FC<IDataTablesBodyRowProps> = ({rowCells, className}) => {
-    const { options } = useDataTablesContext();
+    const context = useDataTablesContext();
 
-    const cells = options.columns.map((column, index) => {
+    const cells = context.options.columns.map((column, index) => {
         const ColumnComponent = TABLE_COLUMNS[column.type];
         const errorMessage = false;
 
@@ -49,14 +49,14 @@ export const DataTablesBodyRow:FC<IDataTablesBodyRowProps> = ({rowCells, classNa
                 />
             </TableCell>
         )
-    })
+    });
 
     return (
         <TableRow
             className={`${className} dt-body-row`}
             // onDoubleClick={this.rowDoubleClick}
-            data-cy={rowCells[options.uniqueKey]}
-            entity-data-id={rowCells[options.uniqueKey]}
+            data-cy={rowCells[context.options.uniqueKey]}
+            entity-data-id={rowCells[context.options.uniqueKey]}
         >
             {cells}
         </TableRow>

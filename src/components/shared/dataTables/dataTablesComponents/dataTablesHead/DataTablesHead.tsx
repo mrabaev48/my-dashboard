@@ -2,6 +2,7 @@ import {FC} from "react";
 import {useDataTablesContext} from "../../config/hooks/useDataTablesContext";
 import {TableCell, TableHead, TableRow} from "@mui/material";
 import {DataTablesFiltersRow} from "../dataTableFiltersRow/DataTablesFiltersRow";
+import {DataTablesColumnType} from "../../models/DataTablesColumnType";
 
 export interface IDataTablesHeadProps {
 
@@ -18,10 +19,10 @@ export const DataTablesHead:FC<IDataTablesHeadProps> = (props) => {
                 key={index}
                 className={'dt-head-cell'}
             >
-                {column.label}
+                {column.type !== DataTablesColumnType.ACTION ? column.label : 'Actions'}
             </TableCell>
-        )
-    })
+        );
+    });
 
     return (
         <TableHead role={'heading'} className={`${options.dtHeaderClassName} dt-head`}>

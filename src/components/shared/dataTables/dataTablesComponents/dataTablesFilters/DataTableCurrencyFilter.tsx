@@ -10,16 +10,30 @@ export const DataTableCurrencyFilter: FC<IDataTablesFilterProps> = ({
                                                                     }) => {
     const currencyColumn = column as IDataTablesCurrencyColumn;
 
-    const [setFilter, filter] = useFilter('', column);
-    const [fromValue, setFromValue] = useState(filter.filterValue);
-    const [toValue, setToValue] = useState(filter.filterValue);
+    const [setFilter, filter] = useFilter(null, column);
+    const [fromValue, setFromValue] = useState(filter.filterValue?.fromValue || '');
+    const [toValue, setToValue] = useState(filter.filterValue?.toValue || '');
+
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (!filter.filterValue) {
+            setFromValue('');
+            setToValue('');
+        }
+    }, [filter])
 
     useEffect(() => {
         setFilter({
             fromValue: Number(fromValue),
             toValue: Number(toValue)
         });
-    },[fromValue, toValue])
+    },[fromValue, toValue]);
+
 
     const onFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (DtUtils.isDecimal(event.target.value) || event.target.value === '') {

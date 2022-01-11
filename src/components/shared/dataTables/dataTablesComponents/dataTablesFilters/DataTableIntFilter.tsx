@@ -10,9 +10,16 @@ export const DataTableIntFilter:FC<IDataTablesFilterProps> = ({
                                                               }) => {
     const intColumn = column as IDataTablesIntColumn;
 
-    const [setFilter] = useFilter(0, column);
+    const [setFilter, filter] = useFilter(0, column);
     const [fromValue, setFromValue] = useState('');
     const [toValue, setToValue] = useState('');
+
+    useEffect(() => {
+        if (!filter.filterValue) {
+            setFromValue('');
+            setToValue('');
+        }
+    }, [filter])
 
     useEffect(() => {
         setFilter({
@@ -20,7 +27,7 @@ export const DataTableIntFilter:FC<IDataTablesFilterProps> = ({
             toValue: Number(toValue)
         });
 
-    }, [fromValue, toValue])
+    }, [fromValue, toValue]);
 
     const onFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (DtUtils.isInteger(event.target.value) || event.target.value === '') {

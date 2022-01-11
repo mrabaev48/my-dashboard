@@ -55,12 +55,13 @@ export const Customers: FC = () => {
                         type: DataTablesColumnType.INT,
                         useFilter: true
                     },
+                    /*
                     {
                         dataSource: 'name',
                         label: 'Name',
                         type: DataTablesColumnType.STRING,
                         useFilter: true
-                    },
+                    },*/
                     {
                         dataSource: 'username',
                         label: 'Username',

@@ -9,6 +9,7 @@ import {DataTableBooleanFilter} from "../dataTablesFilters/DataTableBooleanFilte
 import {DataTableCurrencyFilter} from "../dataTablesFilters/DataTableCurrencyFilter";
 import {DataTablesSelectFilter} from "../dataTablesFilters/DataTablesSelectFilter";
 import {DataTablesDateFilter} from "../dataTablesFilters/DataTablesDateFilter";
+import {DataTablesActionFilterCell} from "../dataTablesFilters/DataTablesActionFilterCell";
 
 export interface IDataTablesFiltersRowProps {
 
@@ -23,16 +24,17 @@ const FILTERS: any = {
     CURRENCY: DataTableCurrencyFilter,
     SELECT: DataTablesSelectFilter,
     EMPTY: DataTableEmptyTableFilter,
+    ACTION: DataTablesActionFilterCell,
 }
 
 export const DataTablesFiltersRow:FC<IDataTablesFiltersRowProps> = ({
     children
                                         }) => {
-    const { options } = useDataTablesContext();
+    const context = useDataTablesContext();
 
-    const filterCells = options.columns.map((column, index) => {
+    const filterCells = context.options.columns.map((column, index) => {
         const Filter = FILTERS[column.useFilter ? column.type : FilterTypes.EMPTY];
-        return <Filter key={index} column={column} />
+        return <Filter key={index} column={column} />;
     });
 
     return (

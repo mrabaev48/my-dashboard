@@ -40,3 +40,8 @@ export interface IDataTablesDateCellProps extends  IDataTablesCellPropsBase {
     column: IDataTablesDateColumn;
     cellValue: Date | string;
 }
+
+export interface IDataTablesActionCellProps {
+    rowCells: any;
+    className?: string;
+}

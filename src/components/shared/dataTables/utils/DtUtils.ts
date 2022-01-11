@@ -1,8 +1,10 @@
 import {FilterModel, FilterRangeModel} from "../dataTablesComponents/dataTablesFilters/models";
 import {List} from "linqscript";
-import {IDataTablesDateColumn} from "../models/IDataTablesColumn";
+import {IDataTablesActionColumn, IDataTablesDateColumn} from "../models/IDataTablesColumn";
 import {format, utcToZonedTime} from "date-fns-tz";
 import {IDataTablesContextModel} from "../models/IDataTablesContextModel";
+import {IDataTablesOptions} from "../models/IDataTablesOptions";
+import {DataTablesColumnType} from "../models/DataTablesColumnType";
 
 export class DtUtils {
 
@@ -34,6 +36,11 @@ export class DtUtils {
             return true;
         }
 
+        return this.isFilterWithEmptyValues(filterModel);
+    }
+
+    static isFilterWithEmptyValues(filterModel: FilterModel | FilterRangeModel): boolean {
+
         if (filterModel.filterValue === 0 || filterModel.filterValue === '' || filterModel.filterValue === null || filterModel.filterValue === undefined) {
             return true;
         }
@@ -42,6 +49,7 @@ export class DtUtils {
             if (
                 (!filterModel.filterValue.fromValue && !filterModel.filterValue.toValue) ||
                 (filterModel.filterValue.fromValue === 0 && filterModel.filterValue.toValue === 0) ||
+                (filterModel.filterValue.fromValue === null && filterModel.filterValue.toValue === null) ||
                 (filterModel.filterValue.fromValue === '' && filterModel.filterValue.toValue === '')
             )
                 return true;
@@ -73,6 +81,19 @@ export class DtUtils {
         stringVal = stringVal.trim()
         const regex = /^\d+$/
         return regex.test(stringVal)
+    }
+
+    static isActionCellNeeded(options: IDataTablesOptions): boolean {
+        return Boolean(options.useFilters || options.useDelete || options.useEdit);
+    }
+
+    static getActionColumnObject(): IDataTablesActionColumn {
+        return  {
+            label: 'null',
+            dataSource: 'null',
+            type: DataTablesColumnType.ACTION,
+            useFilter: true,
+        }
     }
 }
 

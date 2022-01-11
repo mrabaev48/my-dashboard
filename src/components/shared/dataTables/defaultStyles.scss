@@ -14,7 +14,11 @@
       input::placeholder {
         text-align: center;
       }
+      .dt-action-btns-filter-container {
+        min-height: 40.5px;
+      }
     }
+    .dt-action-btns-filter-container,
     .dt-currency-filter,
     .dt-int-filter {
       display: flex;
@@ -29,6 +33,7 @@
   }
 
   tbody {
+    .dt-column-body-action-cell,
     .dt-column-date-body-cell,
     .dt-column-select-body-cell,
     .dt-column-string-body-cell,

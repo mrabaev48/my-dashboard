@@ -9,4 +9,5 @@ export interface IDataTablesActions {
     setSelectColumnData: (data: KeyValuePair<string, List<any>>) => void;
     getSelectColumnData: (columnDataSource: string) => List<any>;
     isSelectDataExist: (columnDataSource: string) => boolean;
+    clearFilters: () => void;
 }

@@ -1,5 +1,5 @@
 import {TableCell, TextField} from "@mui/material";
-import {ChangeEvent, FC, useState} from "react";
+import {ChangeEvent, FC, useEffect, useState} from "react";
 import {IDataTablesFilterProps} from "./models";
 import {useFilter} from "../../config/hooks/useFilter";
 import {IDataTablesStringColumn} from "../../models/IDataTablesColumn";
@@ -12,6 +12,10 @@ export const DataTableStringFilter:FC<IDataTablesFilterProps> = ({
 
     const [setFilter, filter] = useFilter('', stringColumn);
     const [value, setValue] = useState(filter.filterValue);
+
+    useEffect(() => {
+        setValue(filter.filterValue);
+    }, [filter]);
 
     const onFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);

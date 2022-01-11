@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {Box, TableCell, TextField} from "@mui/material";
 import {FilterRangeModel, IDataTablesFilterProps} from "./models";
 import {
@@ -19,19 +19,25 @@ export const DataTablesDateFilter: FC<IDataTablesFilterProps> = ({
     const castedColumn = column as IDataTablesDateColumn;
     const context = useDataTablesContext();
 
-    const [fromValue, setFromValue] = useState(filter.filterValue);
-    const [toValue, setToValue] = useState(filter.filterValue);
+    const [fromValue, setFromValue] = useState(filter.filterValue?.fromValue || null);
+    const [toValue, setToValue] = useState(filter.filterValue?.toValue || null);
 
-    const handleFilterChange = (fieldName: string, value: Date | null) => {
-        const filterData = {
+    useEffect(() => {
+        setFilter({
             fromValue,
             toValue
-        } as any;
+        });
+    }, [fromValue, toValue]);
 
-        filterData[fieldName] = value;
-        setFilter(filterData);
+    useEffect(() => {
+        if (!filter.filterValue) {
+            setFromValue(null);
+            setToValue(null);
+        }
+    }, [filter])
 
-        switch (fieldName) {
+    const handleFilterChange = (fieldName: string, value: Date | null) => {
+         switch (fieldName) {
             case 'fromValue':
                 setFromValue(value);
                 break;

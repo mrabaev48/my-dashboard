@@ -1,5 +1,4 @@
 import React from 'react';
-import {Datepicker} from "../../components/shared/datepicker/Datepicker";
 
 export const Orders: React.FC = () => {
     const onChange = (event: any) => {
@@ -7,7 +6,6 @@ export const Orders: React.FC = () => {
     }
     return (
         <>
-            <Datepicker onChange={onChange}/>
         </>
     );
 };

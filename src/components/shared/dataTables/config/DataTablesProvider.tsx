@@ -3,13 +3,12 @@ import {DataTablesContext} from "./DataTablesContext";
 import {DataTablesContextDefaultModel} from "../models/DataTablesContextDefaultModel";
 import {IDataTablesOptions} from "../models/IDataTablesOptions";
 import {List} from "linqscript";
-import {
-    FilterModel, FilterRangeModel,
-} from "../dataTablesComponents/dataTablesFilters/models";
-import {DataTablesColumn} from "../models/IDataTablesColumn";
+import {FilterModel, FilterRangeModel,} from "../dataTablesComponents/dataTablesFilters/models";
+import {DataTablesColumn, IDataTablesActionColumn} from "../models/IDataTablesColumn";
 
 import _ from 'lodash';
 import {DtUtils, KeyValuePair} from "../utils/DtUtils";
+import {DataTablesColumnType} from "../models/DataTablesColumnType";
 
 export interface IDataTablesProviderProps {
     options: IDataTablesOptions;
@@ -25,18 +24,24 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
     const [filtersData, setFiltersData] = useState<List<FilterModel | FilterRangeModel>>(new List<FilterModel | FilterRangeModel>());
     const [selectColumnsData, setSelectColumnsData] = useState<List<KeyValuePair<string, List<any>>>>(new List<KeyValuePair<string, List<any>>>());
 
-    useEffect(() => {
-        const loadTableData = async () => {
-            setData(await options.loadData());
-        }
-        loadTableData();
-    }, [])
-
-    const opt = {
+    const mergedOptions = {
         ...DataTablesContextDefaultModel.options,
         ...options
-    }
-    console.log('OPTIONS & STATE DATA: ', {options: opt, filtersData, data, selectColumnsData})
+    };
+
+    useEffect(() => {
+        const loadTableData = async () => {
+            setData(await mergedOptions.loadData());
+        }
+
+        if (DtUtils.isActionCellNeeded(mergedOptions)) {
+            mergedOptions.columns.push(DtUtils.getActionColumnObject());
+        }
+
+        loadTableData();
+    }, []);
+
+    console.log('OPTIONS & STATE DATA: ', {options: mergedOptions, filtersData, data, selectColumnsData})
 
     return (
         <DataTablesContext.Provider
@@ -49,7 +54,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                 actions: {
                     ...DataTablesContextDefaultModel.actions,
                     getFilterValue(defaultValue: any, column: DataTablesColumn): FilterModel | FilterRangeModel {
-                        const filterModel = filtersData.find(f => f.filterDataSource === column.type);
+                        const filterModel = filtersData.find(f => f.filterDataSource === column.dataSource);
 
                         if (filterModel) {
                             return _.cloneDeep(filterModel);
@@ -67,7 +72,6 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                             filters.Add(filterModel)
                         }
                         setFiltersData(filters);
-                        // console.log('filters: ', filtersData)
                     },
                     setSelectColumnData(data: KeyValuePair<string, List<any>>) {
                         const isExist = selectColumnsData.Any(x => x.key === data.key);
@@ -97,12 +101,12 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     },
                     isSelectDataExist(columnDataSource: string): boolean {
                         return selectColumnsData.Any(x => x.key === columnDataSource);
+                    },
+                    clearFilters(): void {
+                        setFiltersData(new List<FilterModel | FilterRangeModel>());
                     }
                 },
-                options: {
-                    ...DataTablesContextDefaultModel.options,
-                    ...options
-                }
+                options: mergedOptions
             }}
         >
             {children}
