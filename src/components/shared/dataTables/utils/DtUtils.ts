@@ -5,6 +5,7 @@ import {format, utcToZonedTime} from "date-fns-tz";
 import {IDataTablesContextModel} from "../models/IDataTablesContextModel";
 import {IDataTablesOptions} from "../models/IDataTablesOptions";
 import {DataTablesColumnType} from "../models/DataTablesColumnType";
+import {SortDirection} from "@mui/material/TableCell/TableCell";
 
 export class DtUtils {
 
@@ -89,10 +90,11 @@ export class DtUtils {
 
     static getActionColumnObject(): IDataTablesActionColumn {
         return  {
-            label: 'null',
+            label: 'Actions',
             dataSource: 'null',
             type: DataTablesColumnType.ACTION,
             useFilter: true,
+            useSorting: false
         }
     }
 }
@@ -102,4 +104,15 @@ export const UTC_MIN_DATE = '0001-01-01T00:00:00'
 export interface KeyValuePair<K, V> {
     key: K;
     value: V;
+}
+
+export enum SortDirections {
+    ASC = 'asc',
+    DESC = 'desc',
+    FALSE = 'false'
+}
+
+export interface SortingModel {
+    columnDataSource: string;
+    direction: SortDirection;
 }

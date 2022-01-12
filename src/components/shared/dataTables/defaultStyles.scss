@@ -10,6 +10,13 @@
       text-align: center;
     }
 
+    .dt-sortable-head-cell {
+      cursor: pointer;
+      .dt-sortable-head-cell-icon {
+
+      }
+    }
+
     .dt-filter {
       input::placeholder {
         text-align: center;

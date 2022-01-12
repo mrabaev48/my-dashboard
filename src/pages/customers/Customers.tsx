@@ -6,7 +6,7 @@ import {
 } from "../../components/shared/dataTables/models/DataTablesColumnType";
 import * as faker from "faker";
 import axios from "axios";
-import {KeyValuePair} from "../../components/shared/dataTables/utils/DtUtils";
+import {KeyValuePair, SortDirections} from "../../components/shared/dataTables/utils/DtUtils";
 
 export const Customers: FC = () => {
 
@@ -53,26 +53,15 @@ export const Customers: FC = () => {
                         dataSource: 'id',
                         label: 'ID',
                         type: DataTablesColumnType.INT,
-                        useFilter: true
-                    },
-                    /*
-                    {
-                        dataSource: 'name',
-                        label: 'Name',
-                        type: DataTablesColumnType.STRING,
-                        useFilter: true
-                    },*/
-                    {
-                        dataSource: 'username',
-                        label: 'Username',
-                        type: DataTablesColumnType.STRING,
-                        useFilter: true
+                        useFilter: true,
+                        useSorting: false
                     },
                     {
                         dataSource: 'email',
                         label: 'Email',
                         type: DataTablesColumnType.STRING,
-                        useFilter: true
+                        useFilter: true,
+                        sortDirection: "asc",
                     },
                     {
                         dataSource: 'isActive',
@@ -120,6 +109,7 @@ export const Customers: FC = () => {
                 uniqueKey: 'id',
                 useFilters: true,
                 dateFormat: 'dd.MM.yyyy',
+                useSorting: true
             }}
         />
     )

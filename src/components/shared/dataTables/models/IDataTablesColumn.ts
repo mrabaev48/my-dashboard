@@ -1,4 +1,5 @@
 import {DataTablesColumnType} from "./DataTablesColumnType";
+import {SortDirection} from "@mui/material/TableCell/TableCell";
 
 export interface FromToFilterPlaceholder {
     fromPlaceholder: string;
@@ -9,7 +10,9 @@ export interface IDataTablesColumn {
     label: string;
     dataSource: string;
     type: DataTablesColumnType;
-    useFilter?: boolean | false;
+    useFilter?: boolean;
+    useSorting?: boolean;
+    sortDirection?: SortDirection;
 }
 
 export interface IDataTablesSelectColumn extends IDataTablesColumn {

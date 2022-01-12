@@ -1,7 +1,7 @@
 import {IDataTablesContextModel} from "./IDataTablesContextModel";
 import {List} from "linqscript";
 import {FilterModel, FilterRangeModel} from "../dataTablesComponents/dataTablesFilters/models";
-import {KeyValuePair} from "../utils/DtUtils";
+import {KeyValuePair, SortingModel} from "../utils/DtUtils";
 
 export const DataTablesContextDefaultModel: IDataTablesContextModel = {
     actions: {
@@ -22,6 +22,9 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         },
         clearFilters(): void {
             throw new Error('clearFilters not implemented! Provide this function to options object');
+        },
+        addOrUpdateSorting(columnDatasource: string): void {
+            throw new Error('addOrUpdateSorting not implemented! Provide this function to options object');
         }
     },
     options: {
@@ -40,6 +43,10 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
     state: {
         data: new List<any>(),
         filtersData: new List<FilterModel | FilterRangeModel>(),
-        selectColumnsData: new List<KeyValuePair<string, List<any>>>()
+        selectColumnsData: new List<KeyValuePair<string, List<any>>>(),
+        sorting: {
+            direction: false,
+            columnDataSource: 'undefined'
+        }
     }
 }

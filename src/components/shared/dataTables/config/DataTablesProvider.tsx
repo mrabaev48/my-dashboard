@@ -7,27 +7,29 @@ import {FilterModel, FilterRangeModel,} from "../dataTablesComponents/dataTables
 import {DataTablesColumn, IDataTablesActionColumn} from "../models/IDataTablesColumn";
 
 import _ from 'lodash';
-import {DtUtils, KeyValuePair} from "../utils/DtUtils";
-import {DataTablesColumnType} from "../models/DataTablesColumnType";
+import {DtUtils, KeyValuePair, SortDirections, SortingModel} from "../utils/DtUtils";
+
 
 export interface IDataTablesProviderProps {
     options: IDataTablesOptions;
 }
 
-// let filtersData = new List<FilterModel>();
-
 export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                                                                      options,
                                                                      children
                                                                  }) => {
-    const [data, setData] = useState<List<any>>(new List<any>());
-    const [filtersData, setFiltersData] = useState<List<FilterModel | FilterRangeModel>>(new List<FilterModel | FilterRangeModel>());
-    const [selectColumnsData, setSelectColumnsData] = useState<List<KeyValuePair<string, List<any>>>>(new List<KeyValuePair<string, List<any>>>());
-
     const mergedOptions = {
         ...DataTablesContextDefaultModel.options,
         ...options
     };
+
+    const [data, setData] = useState<List<any>>(new List<any>());
+    const [filtersData, setFiltersData] = useState<List<FilterModel | FilterRangeModel>>(new List<FilterModel | FilterRangeModel>());
+    const [selectColumnsData, setSelectColumnsData] = useState<List<KeyValuePair<string, List<any>>>>(new List<KeyValuePair<string, List<any>>>());
+    // const [sorting, setSorting] = useState<List<SortingModel>>(new List<SortingModel>());
+    const [sorting, setSorting] = useState<SortingModel>(DataTablesContextDefaultModel.state.sorting);
+
+
 
     useEffect(() => {
         const loadTableData = async () => {
@@ -38,10 +40,18 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
             mergedOptions.columns.push(DtUtils.getActionColumnObject());
         }
 
+        const sortColumn = mergedOptions.columns.find(x => x.sortDirection !== undefined && x.sortDirection !== false);
+        if (sortColumn) {
+            const sortModel = {...sorting};
+            sortModel.columnDataSource = sortColumn.dataSource;
+            sortModel.direction = sortColumn.sortDirection!;
+            setSorting(sortModel);
+        }
+
         loadTableData();
     }, []);
 
-    console.log('OPTIONS & STATE DATA: ', {options: mergedOptions, filtersData, data, selectColumnsData})
+    console.log('OPTIONS & STATE DATA: ', {options: mergedOptions, filtersData, sorting, data, selectColumnsData})
 
     return (
         <DataTablesContext.Provider
@@ -49,7 +59,8 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                 state: {
                     data,
                     filtersData,
-                    selectColumnsData
+                    selectColumnsData,
+                    sorting
                 },
                 actions: {
                     ...DataTablesContextDefaultModel.actions,
@@ -104,7 +115,19 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     },
                     clearFilters(): void {
                         setFiltersData(new List<FilterModel | FilterRangeModel>());
-                    }
+                    },
+                    addOrUpdateSorting(columnDataSource: string): void {
+                        const current = {...sorting};
+                        console.log('im working')
+                        if (current.columnDataSource === columnDataSource) {
+                            current.direction = current!.direction === SortDirections.ASC ? SortDirections.DESC : SortDirections.ASC;
+                        } else {
+                            current.columnDataSource = columnDataSource;
+                            current.direction = SortDirections.ASC;
+                        }
+
+                        setSorting(current);
+                    },
                 },
                 options: mergedOptions
             }}
