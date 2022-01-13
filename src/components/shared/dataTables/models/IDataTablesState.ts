@@ -7,4 +7,5 @@ export interface IDataTablesState {
     filtersData: List<FilterModel | FilterRangeModel>;
     selectColumnsData: List<KeyValuePair<string, List<any>>>;
     sorting: SortingModel;
+    editRecord: any | null;
 }

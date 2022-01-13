@@ -15,4 +15,5 @@ export interface IDataTablesOptions {
     useDelete?: boolean;
     useSorting?: boolean;
     useFilters?: boolean;
+    deleteRecord?: (row: any) => void | Promise<void>;
 }

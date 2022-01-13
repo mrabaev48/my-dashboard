@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Button, DialogActions, DialogContent, DialogContentText} from "@material-ui/core";
 import {IDialogDescription, IDialogError, IConfirmDialogProps} from "../models";
-import {ThreeStripesDialog} from "../Dialog";
+import {Dialog} from "../Dialog";
 
 
 
@@ -29,7 +29,7 @@ export const ConfirmDialog:FC<IConfirmDialogProps> = ({ open, options, onCancel,
     }
 
     return (
-        <ThreeStripesDialog
+        <Dialog
             fullWidth
             {...dialogProps}
             open={open}
@@ -54,6 +54,6 @@ export const ConfirmDialog:FC<IConfirmDialogProps> = ({ open, options, onCancel,
                     {confirmationText}
                 </Button>
             </DialogActions>
-        </ThreeStripesDialog>
+        </Dialog>
     );
 }

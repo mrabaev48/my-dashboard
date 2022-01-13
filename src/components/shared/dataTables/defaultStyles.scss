@@ -55,5 +55,11 @@
       display: flex;
       justify-content: end;
     }
+
+    .dt-column-body-action-cell {
+      .dt-action-btn {
+        cursor: pointer;
+      }
+    }
   }
 }

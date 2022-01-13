@@ -3,12 +3,13 @@ import ReactDialog from '@material-ui/core/Dialog';
 import {DialogHeader} from "./components/DialogHeader";
 import {IDialogProps} from "./models";
 
-export const ThreeStripesDialog:FC<IDialogProps> = (props) => {
-    const {closeButtonCallback, title, children, headerClassName, ...other} = props;
+export const Dialog:FC<IDialogProps> = (props) => {
+    const {closeButtonCallback, title, children, headerClassName, onClose, ...other} = props;
 
     return (
         <div>
             <ReactDialog
+                onClose={onClose}
                 PaperProps={{
                     className: 'dialog',
                     style: {
@@ -22,7 +23,7 @@ export const ThreeStripesDialog:FC<IDialogProps> = (props) => {
                     closeButtonCallback={closeButtonCallback}
                     className={headerClassName}
                 />
-
+                {children}
             </ReactDialog>
         </div>
     );

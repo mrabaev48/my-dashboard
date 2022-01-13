@@ -67,6 +67,6 @@ export interface IConfirmDialogProps {
 
 export interface IDialogHeader {
     title?: string;
-    closeButtonCallback?: (event: React.MouseEvent<HTMLElement>) => void;
+    closeButtonCallback?: (event: any) => void;
     className?: string;
 }

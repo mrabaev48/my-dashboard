@@ -13,6 +13,8 @@ export interface IDataTablesColumn {
     useFilter?: boolean;
     useSorting?: boolean;
     sortDirection?: SortDirection;
+    required?: boolean;
+    editable?: boolean;
 }
 
 export interface IDataTablesSelectColumn extends IDataTablesColumn {

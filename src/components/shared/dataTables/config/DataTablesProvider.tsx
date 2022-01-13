@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {DataTablesContext} from "./DataTablesContext";
 import {DataTablesContextDefaultModel} from "../models/DataTablesContextDefaultModel";
 import {IDataTablesOptions} from "../models/IDataTablesOptions";
@@ -8,6 +8,8 @@ import {DataTablesColumn, IDataTablesActionColumn} from "../models/IDataTablesCo
 
 import _ from 'lodash';
 import {DtUtils, KeyValuePair, SortDirections, SortingModel} from "../utils/DtUtils";
+import {DraggableDialog} from "../../dialogExt/DraggableDialog";
+import {Button, DialogActions, DialogContent, DialogContentText} from "@mui/material";
 
 
 export interface IDataTablesProviderProps {
@@ -26,9 +28,9 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
     const [data, setData] = useState<List<any>>(new List<any>());
     const [filtersData, setFiltersData] = useState<List<FilterModel | FilterRangeModel>>(new List<FilterModel | FilterRangeModel>());
     const [selectColumnsData, setSelectColumnsData] = useState<List<KeyValuePair<string, List<any>>>>(new List<KeyValuePair<string, List<any>>>());
-    // const [sorting, setSorting] = useState<List<SortingModel>>(new List<SortingModel>());
     const [sorting, setSorting] = useState<SortingModel>(DataTablesContextDefaultModel.state.sorting);
-
+    const [editRecord, setEditRecord] = useState<any | null>(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
 
 
     useEffect(() => {
@@ -51,7 +53,34 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
         loadTableData();
     }, []);
 
-    console.log('OPTIONS & STATE DATA: ', {options: mergedOptions, filtersData, sorting, data, selectColumnsData})
+    useEffect(() => {
+        if (editRecord) {
+            setDialogOpen(true);
+        }
+    }, [editRecord]);
+
+    console.log('OPTIONS & STATE DATA: ', {
+        options: mergedOptions,
+        editRecord,
+        filtersData,
+        sorting,
+        data,
+        selectColumnsData
+    })
+
+    const handleCancelButton = () => {
+        alert('handleCancelButton')
+        setDialogOpen(false);
+        setEditRecord(null);
+    }
+
+    const closeButtonCallback = (event: object) => {
+        alert('onCloseCallback')
+    }
+
+    const handleApplyButton = () => {
+        alert("You are click apply!")
+    }
 
     return (
         <DataTablesContext.Provider
@@ -60,7 +89,8 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     data,
                     filtersData,
                     selectColumnsData,
-                    sorting
+                    sorting,
+                    editRecord
                 },
                 actions: {
                     ...DataTablesContextDefaultModel.actions,
@@ -71,7 +101,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                             return _.cloneDeep(filterModel);
                         }
 
-                        return { filterValue: defaultValue, filterDataSource: column.dataSource };
+                        return {filterValue: defaultValue, filterDataSource: column.dataSource};
                     },
                     collectFiltersData(filterModel) {
                         const isExists = filtersData.Any(x => x.filterDataSource === filterModel.filterDataSource);
@@ -128,11 +158,32 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
 
                         setSorting(current);
                     },
+                    editRecord(row: any): void {
+                        setEditRecord(row);
+                    }
                 },
                 options: mergedOptions
             }}
         >
             {children}
+            <DraggableDialog
+                open={dialogOpen}
+                title={'Edit dialog'}
+                closeButtonCallback={closeButtonCallback}
+            >
+                <DialogContent>
+                    {/*<DialogContentText>
+                        To subscribe to this website, please enter your email address here. We
+                        will send updates occasionally.
+                    </DialogContentText>*/}
+                </DialogContent>
+                <DialogActions>
+                    <Button variant={"outlined"} onClick={handleCancelButton}>
+                        Cancel
+                    </Button>
+                    <Button variant={"contained"} onClick={handleApplyButton}>Subscribe</Button>
+                </DialogActions>
+            </DraggableDialog>
         </DataTablesContext.Provider>
     )
 }

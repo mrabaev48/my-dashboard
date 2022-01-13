@@ -11,4 +11,5 @@ export interface IDataTablesActions {
     isSelectDataExist: (columnDataSource: string) => boolean;
     clearFilters: () => void;
     addOrUpdateSorting: (columnDataSource: string) => void;
+    editRecord: (row: any) => void
 }

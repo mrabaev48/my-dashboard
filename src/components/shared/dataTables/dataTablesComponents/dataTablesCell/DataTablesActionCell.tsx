@@ -11,7 +11,13 @@ export const DataTablesActionCell: FC<IDataTablesActionCellProps> = ({className,
 
 
     if (context.options.useEdit) {
+
+        const onEditClick = () => {
+            context.actions.editRecord(rowCells);
+        }
+
         const editIconBtn = <Edit
+            onClick={onEditClick}
             className={'dt-action-btn'}
             color={"primary"}
             key={`edit-action-btn`}
@@ -23,7 +29,15 @@ export const DataTablesActionCell: FC<IDataTablesActionCellProps> = ({className,
         if (elements.length > 0) {
             elements.push(<Box sx={{ mx: 1 }} key={'action-btns-delimiter'}/>);
         }
+
+        const onDeleteClick = async () => {
+            if (context.options.deleteRecord) {
+                await context.options.deleteRecord(rowCells);
+            }
+        }
+
         const deleteIconBtn = <Delete
+            onClick={onDeleteClick}
             className={'dt-action-btn'}
             color={"primary"}
             key={`delete-action-btn`}

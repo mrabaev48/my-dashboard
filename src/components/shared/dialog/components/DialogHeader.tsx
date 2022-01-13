@@ -4,6 +4,7 @@ import {FC} from "react";
 import {IDialogHeader} from "../models";
 import {IconColor, IconExt, IconSize} from "../../icon/IconExt";
 import './dialogHeader.scss';
+import {Close} from "@material-ui/icons";
 
 
 export const DialogHeader: FC<IDialogHeader> = (props) => {
@@ -11,36 +12,23 @@ export const DialogHeader: FC<IDialogHeader> = (props) => {
     const {title, closeButtonCallback, className, ...other} = props;
 
     return (
-        <MuiDialogTitle disableTypography className={className} {...other} >
-        <Typography variant={'h1'}>{title}</Typography>
-        {/*<ThreeStripesIcon
-            iconName={'times'}
-            iconColor={IconColor.lightGray}
-            iconSize={IconSize.defaultRegular}
-            title={'Close'}
-            data-testid={'dialog-button-cancel'}
-            className={classes.dialogCloseButton}
-            onClick={closeButtonCallback}
-        />*/}
-        <IconExt
-            iconColor={IconColor.primary}
-            iconSize={IconSize.medium}
-            iconName={'Close'}
-            onClick={closeButtonCallback}
-            className={'dialog-button-cancel'}
-        />
-    </MuiDialogTitle>
+        <MuiDialogTitle
+            disableTypography className={className}
+            {...other}
+            style={{
+                display: 'flex',
+                justifyContent: "space-between"
+            }}>
+            <Typography variant={'h5'}>{title}</Typography>
+            <Close
+                onClick={closeButtonCallback}
+                color={"primary"}
+                fontSize={"medium"}
+                style={{
+                    display: "flex",
+                    float: "right"
+                }}
+            />
+        </MuiDialogTitle>
     )
 };
-
-// export const DialogHeader = withStyles
-// ({
-//     root: {
-//         margin: 0,
-//         padding: MuiTheme.spacing(2),
-//     },
-//     dialogCloseButton: {
-//         display: 'flex',
-//         float: 'right',
-//     },
-// })(DialogHeaderBase);
