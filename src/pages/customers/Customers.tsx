@@ -55,7 +55,9 @@ export const Customers: FC = () => {
                         label: 'ID',
                         type: DataTablesColumnType.INT,
                         useFilter: true,
-                        useSorting: false
+                        useSorting: false,
+                        // editable: false,
+                        // required: true
                     },
                     {
                         dataSource: 'email',
@@ -76,6 +78,12 @@ export const Customers: FC = () => {
                         type: DataTablesColumnType.CURRENCY,
                         useFilter: true,
                     },
+                    /*{
+                        dataSource: 'salary',
+                        label: 'Salary',
+                        type: DataTablesColumnType.DECIMAL,
+                        useFilter: true,
+                    },*/
                     {
                         dataSource: 'birthday',
                         label: 'Birthday',

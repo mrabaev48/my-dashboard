@@ -10,6 +10,7 @@ import _ from 'lodash';
 import {DtUtils, KeyValuePair, SortDirections, SortingModel} from "../utils/DtUtils";
 import {DraggableDialog} from "../../dialogExt/DraggableDialog";
 import {Button, DialogActions, DialogContent, DialogContentText} from "@mui/material";
+import {DataTablesEditForm} from "../dataTablesComponents/dataTablesEditForm/DataTablesEditForm";
 
 
 export interface IDataTablesProviderProps {
@@ -176,6 +177,10 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                         To subscribe to this website, please enter your email address here. We
                         will send updates occasionally.
                     </DialogContentText>*/}
+                    <DataTablesEditForm
+                        columns={mergedOptions.columns}
+                        row={editRecord}
+                    />
                 </DialogContent>
                 <DialogActions>
                     <Button variant={"outlined"} onClick={handleCancelButton}>
