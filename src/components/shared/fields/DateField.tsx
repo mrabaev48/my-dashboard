@@ -36,6 +36,7 @@ export const DateField: FC<IDateFieldProps> = ({
                 onChange={processValue}
                 inputFormat={dateFormat}
                 disabled={disabled || false}
+                className={`field-control date-field`}
                 renderInput={(params) => <TextField {...params} />}
             />
         </LocalizationProvider>

@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from "react";
-import {MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {DEFAULT_SELECT_OPTION} from "../../../utils/DefaultValues";
 
 export interface IBooleanFieldProps {
     value: boolean | null;
@@ -19,10 +20,10 @@ export const BooleanField: FC<IBooleanFieldProps> = ({
                                                      }) => {
 
     const selectValues = [
-        {
+        /*{
             label: '-',
             value: 'null'
-        },
+        },*/
         {
             label: 'Yes',
             value: 'true'
@@ -33,18 +34,32 @@ export const BooleanField: FC<IBooleanFieldProps> = ({
         },
     ]
 
-    const [selectValue, setSelectValue] = useState(value);
+    const [selectValue, setSelectValue] = useState(DEFAULT_SELECT_OPTION.value);
+
+    useEffect(() => {
+        let val = '';
+
+        if (value === null) {
+            val = 'null'
+        } else {
+            val = value.toString();
+        }
+        setSelectValue(val);
+    }, [])
 
     const processValue = (event: SelectChangeEvent) => {
-        if (event.target.value === 'null') {
-            setSelectValue(null);
-        } else {
-            setSelectValue(Boolean(event.target.value));
-        }
+        setSelectValue(event.target.value);
     }
 
     useEffect(() => {
-        onChange(selectValue);
+        let castedValue = null;
+
+        if (selectValue) {
+            castedValue = Boolean(selectValue);
+        }
+
+        onChange(castedValue);
+
     }, [selectValue])
 
     return (
@@ -53,9 +68,12 @@ export const BooleanField: FC<IBooleanFieldProps> = ({
             onChange={processValue}
             required={required || false}
             disabled={disabled || false}
-            value={selectValue?.toString() || 'null'}
-            defaultValue={selectValues[0].value}
+            value={selectValue}
+            defaultValue={DEFAULT_SELECT_OPTION.value}
+            className={`field-control boolean-field`}
         >
+            <MenuItem disabled={required === true} defaultValue={DEFAULT_SELECT_OPTION.value}
+                      value={DEFAULT_SELECT_OPTION.value}>{DEFAULT_SELECT_OPTION.key}</MenuItem>
             {selectValues.map(e => {
                 return (
                     <MenuItem

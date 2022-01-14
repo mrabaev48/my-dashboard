@@ -1,14 +1,15 @@
 import {FC} from "react";
-import {DataTablesColumnType} from "../models/DataTablesColumnType";
+import {DataTablesColumnType} from "../../models/DataTablesColumnType";
 import {TextField} from "@mui/material";
-import {IntField} from "../../fields/IntField";
-import {DataTablesColumn, IDataTablesDateColumn} from "../models/IDataTablesColumn";
-import {DecimalField} from "../../fields/DecimalField";
-import {useDataTablesContext} from "../config/hooks/useDataTablesContext";
-import {DateField} from "../../fields/DateField";
-import {DtUtils} from "../utils/DtUtils";
-import {BooleanField} from "../../fields/BooleanField";
-import {SelectField} from "../../fields/SelectField";
+import {IntField} from "../../../fields/IntField";
+import {DataTablesColumn, IDataTablesDateColumn} from "../../models/IDataTablesColumn";
+import {DecimalField} from "../../../fields/DecimalField";
+import {useDataTablesContext} from "../../config/hooks/useDataTablesContext";
+import {DateField} from "../../../fields/DateField";
+import {DtUtils} from "../../utils/DtUtils";
+import {BooleanField} from "../../../fields/BooleanField";
+import {SelectField} from "../../../fields/SelectField";
+import {StringField} from "../../../fields/StringField";
 
 export interface IDataTablesFormControlProps {
     column: DataTablesColumn;
@@ -33,10 +34,16 @@ export const DataTablesFormControl: FC<IDataTablesFormControlProps> = ({column, 
     switch (column.type) {
         case DataTablesColumnType.STRING:
             control =
-                <TextField
+                <StringField
                     {...defaultProps}
-                    onChange={e => onChange(e.target.value, column)}
+                    className={`field-control string-field`}
+                    onChange={e => onChange(e, column)}
                 />
+                /*<TextField
+                    {...defaultProps}
+                    className={`field-control string-field`}
+                    onChange={e => onChange(e.target.value, column)}
+                />*/
 
             break;
         case DataTablesColumnType.INT:
@@ -73,7 +80,6 @@ export const DataTablesFormControl: FC<IDataTablesFormControlProps> = ({column, 
                 <SelectField
                     {...defaultProps}
                     onChange={e => onChange(e, column)}
-                    defaultValue={'null'}
                     options={context.actions.getSelectColumnData(column.dataSource)}
                 />
             break;

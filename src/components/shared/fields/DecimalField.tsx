@@ -32,6 +32,7 @@ export const DecimalField:FC<TextFieldProps & WithNumberOnChange> = (props) => {
             value={value}
             onChange={processValue}
             onBlur={onBlur}
+            className={`field-control decimal-field`}
         />
     )
 }

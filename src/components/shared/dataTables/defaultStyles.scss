@@ -64,6 +64,14 @@
   }
 }
 
-.dt-edit-form-control {
-  margin-bottom: 16px;
+.dt-edit-dialog {
+  .dt-edit-form-control:not(.dt-edit-form-control:last-of-type) {
+    margin-bottom: 16px;
+  }
+
+  .dt-edit-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 24px 16px 24px;
+  }
 }

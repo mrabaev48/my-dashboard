@@ -36,8 +36,8 @@ export const Customers: FC = () => {
         for (let i = 0; i <= 10; i++) {
             const noun = faker.hacker.noun();
             nouns.push({
-                key: noun.toLowerCase(),
-                value: noun.toUpperCase()
+                key: noun,
+                value: noun
             })
         }
 
@@ -65,6 +65,7 @@ export const Customers: FC = () => {
                         type: DataTablesColumnType.STRING,
                         useFilter: true,
                         sortDirection: "asc",
+                        required: true
                     },
                     {
                         dataSource: 'isActive',
@@ -121,7 +122,10 @@ export const Customers: FC = () => {
                 useSorting: true,
                 deleteRecord: (row: any) => {
                     console.log(`row with id = ${row.id} was deleted`);
-                }
+                },
+                updateRecord:(row: any) => {
+                    console.log(`record: ${row} was updated`);
+                },
             }}
         />
     )

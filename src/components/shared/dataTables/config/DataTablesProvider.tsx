@@ -32,6 +32,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
     const [sorting, setSorting] = useState<SortingModel>(DataTablesContextDefaultModel.state.sorting);
     const [editRecord, setEditRecord] = useState<any | null>(null);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [hasError, setHasError] = useState(false);
 
 
     useEffect(() => {
@@ -66,21 +67,28 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
         filtersData,
         sorting,
         data,
-        selectColumnsData
+        selectColumnsData,
+        hasError,
     })
 
     const handleCancelButton = () => {
-        alert('handleCancelButton')
         setDialogOpen(false);
         setEditRecord(null);
     }
 
     const closeButtonCallback = (event: object) => {
-        alert('onCloseCallback')
+        setDialogOpen(false);
+        setEditRecord(null);
     }
 
-    const handleApplyButton = () => {
-        alert("You are click apply!")
+    const handleApplyButton = async () => {
+        if (!hasError) {
+            if (mergedOptions.updateRecord) {
+                await mergedOptions.updateRecord(editRecord);
+            }
+            setDialogOpen(false);
+            setEditRecord(null);
+        }
     }
 
     return (
@@ -161,7 +169,8 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     },
                     editRecord(row: any): void {
                         setEditRecord(row);
-                    }
+                    },
+                    setHasError,
                 },
                 options: mergedOptions
             }}
@@ -170,6 +179,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
             <DraggableDialog
                 open={dialogOpen}
                 title={'Edit dialog'}
+                className={`dt-edit-dialog`}
                 closeButtonCallback={closeButtonCallback}
             >
                 <DialogContent>
@@ -182,11 +192,11 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                         row={editRecord}
                     />
                 </DialogContent>
-                <DialogActions>
+                <DialogActions className={`dt-edit-dialog-actions`}>
                     <Button variant={"outlined"} onClick={handleCancelButton}>
                         Cancel
                     </Button>
-                    <Button variant={"contained"} onClick={handleApplyButton}>Subscribe</Button>
+                    <Button variant={"contained"} disabled={hasError} onClick={handleApplyButton}>Update</Button>
                 </DialogActions>
             </DraggableDialog>
         </DataTablesContext.Provider>

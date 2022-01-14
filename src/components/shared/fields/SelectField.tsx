@@ -1,6 +1,7 @@
 import {FC, useEffect, useState} from "react";
 import {MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import {KeyValuePair} from "../dataTables/utils/DtUtils";
+import {DEFAULT_SELECT_OPTION} from "../../../utils/DefaultValues";
 
 export interface ISelectFieldProps {
     value: string;
@@ -9,7 +10,7 @@ export interface ISelectFieldProps {
     required?: boolean;
     disabled?: boolean;
     options: KeyValuePair<string, string> [];
-    defaultValue: string;
+    defaultValue?: KeyValuePair<string, string>;
 }
 
 export const SelectField: FC<ISelectFieldProps> = ({
@@ -24,6 +25,8 @@ export const SelectField: FC<ISelectFieldProps> = ({
 
     const [selectValue, setSelectValue] = useState(value);
 
+    console.log('selectValue: ', selectValue)
+
     const processValue = (event: SelectChangeEvent) => {
         setSelectValue(event.target.value);
     }
@@ -32,16 +35,23 @@ export const SelectField: FC<ISelectFieldProps> = ({
         onChange(selectValue);
     }, [selectValue]);
 
+    let defaultOption = DEFAULT_SELECT_OPTION;
+
+    if (defaultValue) {
+        defaultOption = defaultValue;
+    }
+
     return (
         <Select
-            label={label || ''}
+            label={'test'}
             onChange={processValue}
             required={required || false}
             disabled={disabled || false}
             value={selectValue}
-            defaultValue={defaultValue}
+            defaultValue={defaultOption.value}
+            className={`field-control select-field`}
         >
-            <MenuItem value={'null'}>{'-'}</MenuItem>
+            <MenuItem value={defaultOption.value}>{defaultOption.key}</MenuItem>
             {options.map((pair, index) => {
                 return (
                     <MenuItem

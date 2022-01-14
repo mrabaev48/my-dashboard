@@ -28,6 +28,8 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         },
         editRecord(row: any): void {
             throw new Error('editRecord not implemented! Provide this function to actions object');
+        },setHasError(value: boolean): void {
+            throw new Error('setHasError not implemented! Provide this function to actions object');
         }
     },
     options: {
@@ -42,9 +44,12 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         useEdit: true,
         useSorting: true,
         useDelete: true,
-        deleteRecord: (row: any) => {
+        /*deleteRecord: (row: any) => {
             throw new Error('deleteRecord not implemented! Provide this function to options object');
         },
+        updateRecord: (row: any) => {
+            throw new Error('deleteRecord not implemented! Provide this function to options object');
+        },*/
     },
     state: {
         data: new List<any>(),

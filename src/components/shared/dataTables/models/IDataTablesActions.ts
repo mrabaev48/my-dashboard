@@ -12,4 +12,5 @@ export interface IDataTablesActions {
     clearFilters: () => void;
     addOrUpdateSorting: (columnDataSource: string) => void;
     editRecord: (row: any) => void
+    setHasError: (value: boolean) => void;
 }

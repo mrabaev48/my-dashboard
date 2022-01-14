@@ -20,6 +20,7 @@ export interface IDialogProps {
     onClose?: ModalProps['onClose'];
     fullWidth?: boolean;
     headerClassName?: string;
+    className?: string;
 }
 
 function PaperComponent(props: PaperProps) {
@@ -40,7 +41,8 @@ export const DraggableDialog: FC<IDialogProps> = ({
                                                       title,
                                                       headerClassName,
                                                       fullWidth,
-                                                      children
+                                                      children,
+                                                      className
                                                   }) => {
     return (
         <Dialog
@@ -49,6 +51,7 @@ export const DraggableDialog: FC<IDialogProps> = ({
             PaperComponent={PaperComponent}
             aria-labelledby="draggable-dialog-title"
             fullWidth={fullWidth || false}
+            className={className || ''}
         >
             <div
                 id="draggable-dialog-title"

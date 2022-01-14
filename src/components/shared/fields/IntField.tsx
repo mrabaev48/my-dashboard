@@ -22,6 +22,7 @@ export const IntField:FC<TextFieldProps & WithNumberOnChange> = (props) => {
             {...props}
             value={value}
             onChange={processValue}
+            className={`field-control int-field`}
         />
     )
 }
