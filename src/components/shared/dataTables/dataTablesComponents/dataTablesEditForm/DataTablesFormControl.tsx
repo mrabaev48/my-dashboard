@@ -1,6 +1,5 @@
 import {FC} from "react";
 import {DataTablesColumnType} from "../../models/DataTablesColumnType";
-import {TextField} from "@mui/material";
 import {IntField} from "../../../fields/IntField";
 import {DataTablesColumn, IDataTablesDateColumn} from "../../models/IDataTablesColumn";
 import {DecimalField} from "../../../fields/DecimalField";
@@ -39,12 +38,6 @@ export const DataTablesFormControl: FC<IDataTablesFormControlProps> = ({column, 
                     className={`field-control string-field`}
                     onChange={e => onChange(e, column)}
                 />
-                /*<TextField
-                    {...defaultProps}
-                    className={`field-control string-field`}
-                    onChange={e => onChange(e.target.value, column)}
-                />*/
-
             break;
         case DataTablesColumnType.INT:
             control =

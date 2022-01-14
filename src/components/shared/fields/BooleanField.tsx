@@ -20,10 +20,6 @@ export const BooleanField: FC<IBooleanFieldProps> = ({
                                                      }) => {
 
     const selectValues = [
-        /*{
-            label: '-',
-            value: 'null'
-        },*/
         {
             label: 'Yes',
             value: 'true'
@@ -53,7 +49,6 @@ export const BooleanField: FC<IBooleanFieldProps> = ({
 
     useEffect(() => {
         let castedValue = null;
-
         if (selectValue) {
             castedValue = Boolean(selectValue);
         }

@@ -1,8 +1,5 @@
 import {ChangeEvent, FC, useEffect, useState} from "react";
 import {DataTablesColumn} from "../../models/IDataTablesColumn";
-import {DataTablesColumnType} from "../../models/DataTablesColumnType";
-import {TextField} from "@mui/material";
-import {IntField} from "../../../fields/IntField";
 import {DataTablesFormControl} from "./DataTablesFormControl";
 import {useDataTablesContext} from "../../config/hooks/useDataTablesContext";
 
@@ -21,14 +18,10 @@ export const DataTablesEditForm: FC<IDataTablesEditFormProps> = ({
     const {actions} = useDataTablesContext();
 
     useEffect(() => {
-    //todo validation should be here
-        console.log('formData changed')
         if (validateRow()) {
-            console.log('true')
             actions.setHasError(false);
             actions.editRecord(formData);
         } else {
-            console.log('false')
             actions.setHasError(true);
         }
     }, [formData]);
@@ -40,7 +33,6 @@ export const DataTablesEditForm: FC<IDataTablesEditFormProps> = ({
             const editedValue = (formData as any)[dataSource];
             if (required === true) {
                 if (!editedValue || editedValue === '' || editedValue === null) {
-                    console.log('here')
                     return false;
                 }
             }

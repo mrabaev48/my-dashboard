@@ -25,8 +25,6 @@ export const SelectField: FC<ISelectFieldProps> = ({
 
     const [selectValue, setSelectValue] = useState(value);
 
-    console.log('selectValue: ', selectValue)
-
     const processValue = (event: SelectChangeEvent) => {
         setSelectValue(event.target.value);
     }
