@@ -8,4 +8,5 @@ export interface IDataTablesState {
     selectColumnsData: List<KeyValuePair<string, List<any>>>;
     sorting: SortingModel;
     editRecord: any | null;
+    selectedRows: List<any>;
 }

@@ -1,7 +1,7 @@
 import {IDataTablesContextModel} from "./IDataTablesContextModel";
 import {List} from "linqscript";
 import {FilterModel, FilterRangeModel} from "../dataTablesComponents/dataTablesFilters/models";
-import {KeyValuePair, SortingModel} from "../utils/DtUtils";
+import {KeyValuePair} from "../utils/DtUtils";
 
 export const DataTablesContextDefaultModel: IDataTablesContextModel = {
     actions: {
@@ -28,8 +28,21 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         },
         editRecord(row: any): void {
             throw new Error('editRecord not implemented! Provide this function to actions object');
-        },setHasError(value: boolean): void {
+        },
+        setHasError(value: boolean): void {
             throw new Error('setHasError not implemented! Provide this function to actions object');
+        },
+        isRowSelected(row: any): boolean {
+            throw new Error('isRowSelected not implemented! Provide this function to actions object');
+        },
+        toggleRowSelection(row: any): void {
+            throw new Error('toggleRowSelection not implemented! Provide this function to actions object');
+        },
+        selectAllRows(): void {
+            throw new Error('selectAllRows not implemented! Provide this function to actions object');
+        },
+        unselectAllRows(): void {
+            throw new Error('unselectAllRows not implemented! Provide this function to actions object');
         }
     },
     options: {
@@ -44,12 +57,8 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         useEdit: true,
         useSorting: true,
         useDelete: true,
-        /*deleteRecord: (row: any) => {
-            throw new Error('deleteRecord not implemented! Provide this function to options object');
-        },
-        updateRecord: (row: any) => {
-            throw new Error('deleteRecord not implemented! Provide this function to options object');
-        },*/
+        useSelection: true,
+        useExpand: false,
     },
     state: {
         data: new List<any>(),
@@ -60,5 +69,6 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
             columnDataSource: 'undefined'
         },
         editRecord: null,
+        selectedRows: new List<any>(),
     }
 }

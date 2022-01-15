@@ -45,3 +45,8 @@ export interface IDataTablesActionCellProps {
     rowCells: any;
     className?: string;
 }
+
+export interface IDataTablesSelectionCellProps {
+    rowCells: any;
+    className?: string;
+}

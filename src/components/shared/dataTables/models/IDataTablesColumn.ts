@@ -38,9 +38,9 @@ export interface IDataTablesStringColumn extends IDataTablesColumn {
     filterPlaceholder?: string;
 }
 
-export interface IDataTablesActionColumn extends IDataTablesColumn{
+export interface IDataTablesActionColumn extends IDataTablesColumn { }
 
-}
+export interface IIDataTablesSelectColumn extends IDataTablesColumn { }
 
 export type DataTablesColumn =
     IDataTablesColumn |
@@ -49,4 +49,5 @@ export type DataTablesColumn =
     IDataTablesIntColumn |
     IDataTablesCurrencyColumn |
     IDataTablesStringColumn |
-    IDataTablesActionColumn
+    IDataTablesActionColumn |
+    IIDataTablesSelectColumn

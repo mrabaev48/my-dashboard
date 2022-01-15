@@ -11,8 +11,10 @@ import {DataTablesDateCell} from "../dataTablesCell/DataTablesDateCell";
 import {TableCell, TableRow} from "@mui/material";
 
 import _ from 'lodash';
+import {DataTablesSelectionCell} from "../dataTablesCell/DataTablesSelectionCell";
 
 const TABLE_COLUMNS: any = {
+    SELECTION: DataTablesSelectionCell,
     STRING: DataTablesStringCell,
     INT: DataTablesIntCell,
     DECIMAL: DataTablesDecimalCell,

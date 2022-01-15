@@ -3,7 +3,7 @@ import {List} from "linqscript";
 
 export interface IDataTablesOptions {
     columns: DataTablesColumn [];
-    loadData: () => List<any> | Promise<List<any>>;
+    loadData: () => any[] | Promise<any[]>;
     uniqueKey: string;
     dtTableClassName?: string;
     dtHeaderClassName?: string;
@@ -17,4 +17,6 @@ export interface IDataTablesOptions {
     useFilters?: boolean;
     deleteRecord?: (row: any) => void | Promise<void>;
     updateRecord?: (row: any) => void | Promise<void>;
+    useSelection?: boolean;
+    useExpand?: boolean;
 }

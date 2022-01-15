@@ -7,4 +7,5 @@ export enum DataTablesColumnType {
     CURRENCY = 'CURRENCY',
     ACTION = 'ACTION',
     DATE = 'DATE',
+    SELECTION = 'SELECTION'
 }

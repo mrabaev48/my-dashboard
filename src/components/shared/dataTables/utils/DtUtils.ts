@@ -97,6 +97,16 @@ export class DtUtils {
             useSorting: false
         }
     }
+
+    static getSelectionColumnObject(): IDataTablesActionColumn {
+        return  {
+            label: '',
+            dataSource: 'null',
+            type: DataTablesColumnType.SELECTION,
+            useFilter: false,
+            useSorting: false
+        }
+    }
 }
 
 export const UTC_MIN_DATE = '0001-01-01T00:00:00'

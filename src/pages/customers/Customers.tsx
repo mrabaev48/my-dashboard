@@ -7,7 +7,6 @@ import {
 import * as faker from "faker";
 import axios from "axios";
 import {KeyValuePair, SortDirections} from "../../components/shared/dataTables/utils/DtUtils";
-import {List} from "linqscript";
 
 export const Customers: FC = () => {
 
@@ -120,6 +119,8 @@ export const Customers: FC = () => {
                 useFilters: true,
                 dateFormat: 'dd.MM.yyyy',
                 useSorting: true,
+                useSelection: true,
+                useExpand: true,
                 deleteRecord: (row: any) => {
                     console.log(`row with id = ${row.id} was deleted`);
                 },

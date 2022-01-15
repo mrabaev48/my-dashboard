@@ -13,4 +13,8 @@ export interface IDataTablesActions {
     addOrUpdateSorting: (columnDataSource: string) => void;
     editRecord: (row: any) => void
     setHasError: (value: boolean) => void;
+    isRowSelected: (row: any) => boolean;
+    toggleRowSelection: (row: any) => void;
+    selectAllRows: () => void;
+    unselectAllRows: () => void;
 }

@@ -33,15 +33,20 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
     const [editRecord, setEditRecord] = useState<any | null>(null);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [hasError, setHasError] = useState(false);
-
+    const [selectedRows, setSelectedRows] = useState<List<any>>(new List<any>());
 
     useEffect(() => {
         const loadTableData = async () => {
-            setData(await mergedOptions.loadData());
+            const loadedData = await mergedOptions.loadData();
+            setData(new List<any>(loadedData));
         }
 
         if (DtUtils.isActionCellNeeded(mergedOptions)) {
             mergedOptions.columns.push(DtUtils.getActionColumnObject());
+        }
+
+        if (mergedOptions.useSelection === true) {
+            mergedOptions.columns.unshift(DtUtils.getSelectionColumnObject());
         }
 
         const sortColumn = mergedOptions.columns.find(x => x.sortDirection !== undefined && x.sortDirection !== false);
@@ -69,6 +74,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
         data,
         selectColumnsData,
         hasError,
+        selectedRows
     })
 
     const handleCancelButton = () => {
@@ -99,7 +105,8 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     filtersData,
                     selectColumnsData,
                     sorting,
-                    editRecord
+                    editRecord,
+                    selectedRows
                 },
                 actions: {
                     ...DataTablesContextDefaultModel.actions,
@@ -157,7 +164,6 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     },
                     addOrUpdateSorting(columnDataSource: string): void {
                         const current = {...sorting};
-                        console.log('im working')
                         if (current.columnDataSource === columnDataSource) {
                             current.direction = current!.direction === SortDirections.ASC ? SortDirections.DESC : SortDirections.ASC;
                         } else {
@@ -171,6 +177,34 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                         setEditRecord(row);
                     },
                     setHasError,
+                    isRowSelected(row: any): boolean {
+                        if (selectedRows.length === 0) {
+                            return false;
+                        }
+
+                        return selectedRows.Any(x => x === row[mergedOptions.uniqueKey]);
+                    },
+                    toggleRowSelection(row: any): void {
+                        let selected = new List<any>([...selectedRows]);
+                        const item = selected.find(x => x === row[mergedOptions.uniqueKey]);
+
+                        if (item) {
+                           selected = selected.Where(x => x !== item);
+                        } else {
+                            selected.Add(row[mergedOptions.uniqueKey]);
+                        }
+
+                        setSelectedRows(selected);
+                    },
+                    selectAllRows(): void {
+                        const rows = data.map(x => {
+                            return x[mergedOptions.uniqueKey];
+                        })
+                        setSelectedRows(new List<any>(rows));
+                    },
+                    unselectAllRows(): void {
+                        setSelectedRows(new List<any>());
+                    }
                 },
                 options: mergedOptions
             }}
