@@ -1,0 +1,94 @@
+@import '../colors/colors';
+@import "button-variables";
+
+.MuiButton-contained {
+  width: $button-width;
+  height: $button-height;
+  border-radius: $button-border-radius;
+  background-color: $colors-primary-main;
+  color: $colors-primary-contrastText;
+  text-align: $button-text-align;
+  box-shadow: $button-box-shadow;
+
+  &:hover {
+    background-color: $colors-primary-dark;
+    box-shadow: $button-box-shadow;
+  }
+
+  &:disabled {
+    background-color: $colors-primary-main;
+    opacity: $button-disable-opacity;
+    color: $colors-primary-contrastText;
+  }
+
+  &:focus-visible {
+    box-shadow: $button-box-shadow;
+    background-color: $colors-primary-light;
+    transition: none;
+  }
+}
+
+.MuiButton-outlined {
+  width: $button-width;
+  height: $button-height;
+  border-radius: $button-border-radius !important;
+  border-color: $colors-primary-black !important;
+  background-color: $colors-primary-contrastText !important;
+  color: $colors-primary-black !important;
+  text-align: $button-text-align !important;
+  box-shadow: $button-box-shadow !important;
+
+  &:hover {
+    box-shadow: $button-box-shadow !important;
+    border-color: $colors-primary-dark !important;
+    color: $colors-primary-dark !important;
+    background-color: $colors-primary-contrastText !important;
+  }
+  &:disabled {
+    border-color: $colors-primary-black !important;
+    opacity: $button-disable-opacity !important;
+  }
+
+  &:focus-visible {
+    box-shadow: $button-box-shadow !important;
+    border-color: $colors-primary-light !important;
+    color: $colors-primary-light !important;
+  }
+}
+
+.MuiButton-text {
+  color: $colors-primary-main !important;
+  background-color: unset !important;
+  &:hover {
+    background-color: unset !important;
+    color: $colors-primary-dark !important;
+    & svg {
+      color: $colors-primary-dark !important;
+    }
+  }
+  & svg {
+    padding: 0 !important;
+  }
+  &:focus-visible {
+    color: $colors-primary-light !important;
+    & svg {
+      color: $colors-primary-light !important;
+    }
+  }
+  &:disabled {
+    border-color: $colors-primary-black !important;
+    opacity: $button-disable-opacity !important;
+    & svg {
+      color: $colors-primary-black !important;
+      opacity: $button-disable-opacity !important;
+    }
+  }
+}
+
+.MuiButton-startIcon {
+  margin-right: 4px;
+  vertical-align: middle;
+  & svg {
+    //TODO some special styles for icons
+  }
+}

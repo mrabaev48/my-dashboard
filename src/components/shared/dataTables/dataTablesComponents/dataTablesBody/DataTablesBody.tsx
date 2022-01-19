@@ -43,17 +43,17 @@ export const DataTablesBody:FC<IDataTablesBodyProps> = (props) => {
 
                     rows = loadRows(expandData, expandLevel + 1);
                 }
-                console.log('expandLevel: ', expandLevel);
+
                 return (
                     <React.Fragment key={`${index}_${row[context.options.uniqueKey]}`}>
                         <DataTablesBodyRow
-                            className={expandLevel === 0 ? 'dataTable-tableRow' : 'dataTable-expandedSubRow'}
+                            className={expandLevel === 0 ? 'dt-table-row' : 'dt-expanded-sub-row'}
                             style={{
-                                marginLeft: (expandLevel * 10) + 'px',
+                                marginLeft: (expandLevel * 13) + 'px',
                             }}
                             key={index + '_' + row[context.options.uniqueKey]}
                             rowCells={row}
-                            data-cy={'tableRow_' + context.options.uniqueKey}
+                            data-cy={'table-row_' + context.options.uniqueKey}
                         />
                         {rows}
                     </React.Fragment>

@@ -2,7 +2,11 @@ $mainBackgroundColor: #fafafa;
 $mainGreyColor: rgb(221, 225, 235);
 .dt-table {
   width: 100% !important;
-
+  .dt-table-row {
+    td {
+      height: 40px !important;
+    }
+  }
   thead.dt-head {
     th, td {
       padding: 10px;
@@ -68,21 +72,21 @@ $mainGreyColor: rgb(221, 225, 235);
       }
     }
 
-    .dt-expand-column-cell {
+    .dt-expand-column {
+      padding: 0 !important;
+      background-color: $mainGreyColor;
+      div {
+        height: 75px !important;
+        background-color: $mainBackgroundColor;
+      }
+    }
+
+    .dt-expand-table-row-icon-container {
+      padding-top: 25px;
       cursor: pointer;
     }
   }
 }
-
-.dataTable-expandColumn {
-  padding: 0 !important;
-  background-color: $mainGreyColor;
-  div {
-    height: 75px !important;
-    background-color: $mainBackgroundColor;
-  }
-}
-
 
 
 

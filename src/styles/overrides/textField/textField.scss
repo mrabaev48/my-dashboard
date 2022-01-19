@@ -1,0 +1,58 @@
+@import "./src/styles/overrides/colors/colors";
+
+.MuiTextField-root {
+  .MuiInputLabel-outlined {
+    &.Mui-disabled {
+      opacity: 70% !important;
+      color: $colors-grey-black50 !important;
+    }
+  }
+
+  .MuiFormHelperText-contained {
+    font-size: 10px !important;
+    text-align: right !important;
+    margin-right: 0 !important;
+    color: $colors-grey-black50 !important;
+  }
+
+  .MuiOutlinedInput-root {
+    height: 34px !important;
+    margin-top: 0 !important;
+    padding-right: 0 !important;
+
+    &.MuiOutlinedInput-notchedOutline legend span {
+      width: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border-radius: 3px !important;
+    }
+
+    &:hover .MuiOutlinedInput-notchedOutline {
+      border: 1px solid $colors-grey-black50 !important;
+    }
+
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border: 1px solid $colors-grey-black50 !important;
+    }
+
+    &.Mui-disabled {
+      opacity: 70% !important;
+      color: $colors-grey-black50 !important;
+    }
+  }
+
+  .MuiOutlinedInput-input {
+    height: 24px !important;
+    font-size: 12px !important;
+    padding: 0 !important;
+    padding-left: 12px !important;
+    border-radius: 3px !important;
+    color: $colors-grey-black !important;
+
+    &:disabled {
+      opacity: 70%;
+      color: $colors-grey-darkGray !important;
+    }
+  }
+}
+

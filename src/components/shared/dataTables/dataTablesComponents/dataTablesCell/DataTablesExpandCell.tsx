@@ -30,17 +30,17 @@ export const DataTablesExpandCell: FC<IDataTablesExpandCellProps> = ({
                 key={'collapseTableRowActionKeyContainer'}
             >
                 <div
-                    className={'dataTable-collapseTableRowBtn'}
+                    className={'dt-collapse-table-row-btn'}
                     key={'expandButton'}
                     onClick={(e) => handleCollapseTableRowClick(e, rowCells[context.options.uniqueKey])}
                 >
-                    <div>
+                    <div className={'dt-expand-table-row-icon-container'}>
                         <ExpandLessIcon
                             color={"primary"}
-                            className={'dataTable-collapseTableRowIcon'}
+                            className={'dt-collapse-table-row-icon'}
                         />
+                        &nbsp;
                     </div>
-                    &nbsp;
                 </div>
             </div>
         )
@@ -53,17 +53,17 @@ export const DataTablesExpandCell: FC<IDataTablesExpandCellProps> = ({
                 key={'expandTableRowActionKeyContainer'}
             >
                 <div
-                    className={'dataTable-expandTableRowBtn'}
+                    className={'dt-expand-table-row-btn'}
                     key={'expandButton'}
                     onClick={(e) => handleExpandTableRowClick(e, rowCells[context.options.uniqueKey])}
                 >
-                    <div>
+                    <div className={'dt-expand-table-row-icon-container'}>
                         <ExpandMoreIcon
                             color={"primary"}
-                            className={'dataTable-expandTableRowIcon'}
+                            className={'dt-expand-table-row-icon'}
                         />
+                        &nbsp;
                     </div>
-                    &nbsp;
                 </div>
             </div>
         )
@@ -100,12 +100,6 @@ export const DataTablesExpandCell: FC<IDataTablesExpandCellProps> = ({
     const control = getExpandCollapseButton();
 
     return (
-       /* <div
-            className={'dt-expand-column-cell'}
-            key={'expandCollapseBtnCell_' + rowCells[context.options.uniqueKey]}
-        >
-            {control}
-        </div>*/
         <>
             {control}
         </>

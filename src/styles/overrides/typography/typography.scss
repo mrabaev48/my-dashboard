@@ -1,0 +1,36 @@
+@import "typography-variables";
+
+.MuiTypography-root {
+  font-family: $font-family;
+  font-weight: $MuiTypography-root-font-weight;
+}
+
+.MuiTypography-body1 {
+  font-size: $MuiTypography-body1-font-size;
+  line-height: $MuiTypography-body1-line-height;
+  font-weight: $MuiTypography-body1-font-weight;
+}
+
+.MuiTypography-body2 {
+  font-size: $MuiTypography-body2-font-size;
+  line-height: $MuiTypography-body2-line-height;
+  font-weight: $MuiTypography-body2-font-weight;
+}
+
+.MuiTypography-h1 {
+  font-size: $MuiTypography-h1-font-size;
+  line-height: $MuiTypography-h1-line-height;
+  font-weight: $MuiTypography-h1-font-weight;
+}
+
+.MuiTypography-h2 {
+  font-size: $MuiTypography-h2-font-size;
+  line-height: $MuiTypography-h2-line-height;
+  font-weight: $MuiTypography-h2-font-weight;
+}
+
+.MuiTypography-caption {
+  font-size: $MuiTypography-caption-font-size;
+  line-height: $MuiTypography-caption-line-height;
+  font-weight: $MuiTypography-caption-font-weight;
+}

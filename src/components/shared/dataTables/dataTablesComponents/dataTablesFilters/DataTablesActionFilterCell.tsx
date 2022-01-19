@@ -9,7 +9,7 @@ export const DataTablesActionFilterCell: FC = () => {
     return (
         <TableCell className={'dt-filter dt-action-btns-filter-cell'}>
             <div className={'dt-action-btns-filter-container'}>
-                <Button size={'small'}>
+                <Button size={'small'} variant={'text'}>
                     Filter
                 </Button>
                 <Box sx={{ mx: 1 }} />

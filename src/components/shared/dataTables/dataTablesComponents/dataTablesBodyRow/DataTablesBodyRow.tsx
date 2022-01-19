@@ -42,7 +42,7 @@ export const DataTablesBodyRow:FC<IDataTablesBodyRowProps> = ({rowCells, classNa
         switch (type) {
             case DataTablesColumnType.EXPAND:
                 return {
-                    className: 'dataTable-expandColumn',
+                    className: 'dt-expand-column',
                     style
                 };
             default:

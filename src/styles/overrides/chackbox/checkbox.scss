@@ -1,0 +1,49 @@
+@import "../colors/colors";
+@import "checkbox-variables";
+
+.MuiCheckbox-root {
+  & svg {
+    font-size: $checkbox-font-size !important;
+  }
+}
+
+.MuiCheckbox-colorPrimary {
+  color: $colors-primary-light !important;
+
+  &:hover {
+    color: $colors-primary-dark !important;
+  }
+
+  &:focus {
+    color: $colors-primary-light !important;
+  }
+
+  &.Mui-focusVisible {
+    color: $colors-primary-light !important;
+  }
+
+  &.focused {
+    color: $colors-primary-light !important;
+  }
+}
+
+.Mui-checked {
+  color: $colors-primary-main !important;
+
+  &:hover {
+    color: $colors-primary-dark !important;
+  }
+
+  &:focus {
+    color: $colors-primary-light !important;
+  }
+
+  &:focus-visible {
+    color: $colors-primary-light !important;
+  }
+}
+
+.Mui-disabled {
+  color: $colors-primary-main !important;
+  opacity: $checkbox-disabled-opacity !important;
+}
