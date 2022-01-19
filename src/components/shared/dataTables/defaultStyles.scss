@@ -70,21 +70,17 @@ $mainGreyColor: rgb(221, 225, 235);
 
     .dt-expand-column-cell {
       cursor: pointer;
-      max-height: 25px;
     }
   }
 }
 
-
-
-/*.dataTable-expandedSubRow {
-  .dataTable-expandColumn {
-    background-color: rgb(221, 225, 235);
-  }
-}*/
-
-.dataTable-expandedSubRow {
+.dataTable-expandColumn {
+  padding: 0 !important;
   background-color: $mainGreyColor;
+  div {
+    height: 75px !important;
+    background-color: $mainBackgroundColor;
+  }
 }
 
 
