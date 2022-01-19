@@ -43,7 +43,16 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         },
         unselectAllRows(): void {
             throw new Error('unselectAllRows not implemented! Provide this function to actions object');
-        }
+        },
+        isTableRowExpanded(uniqueKey: any): boolean {
+            throw new Error('isTableRowExpanded not implemented! Provide this function to actions object');
+        },
+        expandTableRow(uniqueKey: any): void {
+            throw new Error('expandTableRow not implemented! Provide this function to actions object');
+        },
+        collapseTableRow(uniqueKey: any): void {
+            throw new Error('collapseTableRow not implemented! Provide this function to actions object');
+        },
     },
     options: {
         columns: [],
@@ -59,6 +68,8 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         useDelete: true,
         useSelection: true,
         useExpand: false,
+        hasExpandDataSource: null,
+        expandLazyLoading: false,
     },
     state: {
         data: new List<any>(),
@@ -70,5 +81,6 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         },
         editRecord: null,
         selectedRows: new List<any>(),
+        expandedRowsUniqueKeys: new List<any>(),
     }
 }

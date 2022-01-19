@@ -9,4 +9,5 @@ export interface IDataTablesState {
     sorting: SortingModel;
     editRecord: any | null;
     selectedRows: List<any>;
+    expandedRowsUniqueKeys: List<any>;
 }

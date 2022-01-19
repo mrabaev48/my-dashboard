@@ -19,4 +19,7 @@ export interface IDataTablesOptions {
     updateRecord?: (row: any) => void | Promise<void>;
     useSelection?: boolean;
     useExpand?: boolean;
+    hasExpandDataSource?: string | Function | null;
+    expandDataSource?: null | string | Function;
+    expandLazyLoading?: boolean | null;
 }

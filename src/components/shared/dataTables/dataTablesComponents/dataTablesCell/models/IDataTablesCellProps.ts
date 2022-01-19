@@ -1,6 +1,7 @@
 import {
     DataTablesColumn, IDataTablesDateColumn, IDataTablesSelectColumn
 } from "../../../models/IDataTablesColumn";
+import {CSSProperties} from "react";
 
 export interface IDataTablesCellPropsBase {
     useAutofocus: boolean | false;
@@ -49,4 +50,10 @@ export interface IDataTablesActionCellProps {
 export interface IDataTablesSelectionCellProps {
     rowCells: any;
     className?: string;
+}
+
+export interface IDataTablesExpandCellProps {
+    rowCells: any;
+    className?: string;
+    style?: CSSProperties;
 }

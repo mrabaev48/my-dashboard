@@ -86,7 +86,7 @@ const appMenuItems: AppMenuItemProps[] = [
 export const MainLayout:FC = (props) => {
     const [open, setOpen] = React.useState(false);
 
-    const {keycloak, initialized} = useKeycloak();
+    // const {keycloak, initialized} = useKeycloak();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -96,7 +96,7 @@ export const MainLayout:FC = (props) => {
         setOpen(false);
     };
 
-    if (!initialized) {
+    /*if (!initialized) {
         return (
             <Typography variant={"body1"}>
                 Initializing...
@@ -106,7 +106,7 @@ export const MainLayout:FC = (props) => {
 
     if (keycloak && !keycloak.authenticated) {
         keycloak.login();
-    }
+    }*/
 
     return (
         <BrowserRouter>

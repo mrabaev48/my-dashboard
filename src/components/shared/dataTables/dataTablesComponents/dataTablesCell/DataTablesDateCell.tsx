@@ -17,7 +17,11 @@ export const DataTablesDateCell: FC<IDataTablesDateCellProps> = (
 ) => {
 
     const context = useDataTablesContext();
-    const formattedDate = DtUtils.getFormattedDate(cellValue, column, context);
+    let formattedDate = '';
+
+    if (cellValue) {
+        formattedDate = DtUtils.getFormattedDate(cellValue, column, context) || '';
+    }
 
     return (
         <div

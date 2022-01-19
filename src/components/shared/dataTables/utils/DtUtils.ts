@@ -23,7 +23,11 @@ export class DtUtils {
         if (date === null || date === new Date(UTC_MIN_DATE)) {
             return null;
         }
-
+        console.log({
+            date,
+            column,
+            context
+        })
         const zonedTime = utcToZonedTime(new Date(date), context.options.timezone!);
         return format(zonedTime, this.getDateFormat(column, context));
     }
@@ -106,6 +110,32 @@ export class DtUtils {
             useFilter: false,
             useSorting: false
         }
+    }
+
+    static getExpandColumnObject(): IDataTablesActionColumn {
+        return  {
+            label: '',
+            dataSource: 'null',
+            type: DataTablesColumnType.EXPAND,
+            useFilter: false,
+            useSorting: false
+        }
+    }
+
+    static hasTableRowExpand(options: IDataTablesOptions, row: any): boolean {
+        if (options.useExpand && options.hasExpandDataSource === null) {
+            return true;
+        }
+
+        /*console.log('QQQQQQ: ', JSON.stringify({
+            'options.useExpand === true': options.useExpand === true,
+            'options.expandLazyLoading === true': options.expandLazyLoading === true,
+            "typeof options.hasExpandDataSource === 'string'": typeof options.hasExpandDataSource === 'string',
+            "typeof options.hasExpandDataSource === 'function'": typeof options.hasExpandDataSource === 'function',
+        }))*/
+        return options.useExpand === true && options.expandLazyLoading === true &&
+            ((typeof options.hasExpandDataSource === 'string' && row[options.hasExpandDataSource]) ||
+                (typeof options.hasExpandDataSource === 'function' && options.hasExpandDataSource(row)));
     }
 }
 

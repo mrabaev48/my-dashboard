@@ -17,4 +17,7 @@ export interface IDataTablesActions {
     toggleRowSelection: (row: any) => void;
     selectAllRows: () => void;
     unselectAllRows: () => void;
+    isTableRowExpanded: (uniqueKey: any) => boolean;
+    expandTableRow: (uniqueKey: any) => void;
+    collapseTableRow: (uniqueKey: any) => void;
 }

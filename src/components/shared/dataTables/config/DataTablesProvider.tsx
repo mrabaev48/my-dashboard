@@ -34,6 +34,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
     const [dialogOpen, setDialogOpen] = useState(false);
     const [hasError, setHasError] = useState(false);
     const [selectedRows, setSelectedRows] = useState<List<any>>(new List<any>());
+    const [expandedRowsUniqueKeys, setExpandedRowsUniqueKeys] = useState<List<any>>(new List<any>());
 
     useEffect(() => {
         const loadTableData = async () => {
@@ -45,16 +46,29 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
             mergedOptions.columns.push(DtUtils.getActionColumnObject());
         }
 
-        if (mergedOptions.useSelection === true) {
+        if (mergedOptions.useSelection) {
             mergedOptions.columns.unshift(DtUtils.getSelectionColumnObject());
         }
 
+        if (mergedOptions.useExpand) {
+            mergedOptions.columns.unshift(DtUtils.getExpandColumnObject());
+        }
+
         const sortColumn = mergedOptions.columns.find(x => x.sortDirection !== undefined && x.sortDirection !== false);
+
         if (sortColumn) {
             const sortModel = {...sorting};
             sortModel.columnDataSource = sortColumn.dataSource;
             sortModel.direction = sortColumn.sortDirection!;
             setSorting(sortModel);
+        }
+
+        if (!mergedOptions.useExpand) {
+            mergedOptions.expandLazyLoading = null;
+        }
+
+        if (!mergedOptions.expandLazyLoading) {
+            mergedOptions.hasExpandDataSource = null;
         }
 
         loadTableData();
@@ -74,7 +88,8 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
         data,
         selectColumnsData,
         hasError,
-        selectedRows
+        selectedRows,
+        expandedRowsUniqueKeys
     })
 
     const handleCancelButton = () => {
@@ -106,7 +121,8 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     selectColumnsData,
                     sorting,
                     editRecord,
-                    selectedRows
+                    selectedRows,
+                    expandedRowsUniqueKeys
                 },
                 actions: {
                     ...DataTablesContextDefaultModel.actions,
@@ -204,6 +220,19 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     },
                     unselectAllRows(): void {
                         setSelectedRows(new List<any>());
+                    },
+                    isTableRowExpanded(uniqueKey: any): boolean {
+                        return expandedRowsUniqueKeys.Any(x => x === uniqueKey);
+                    },
+                    expandTableRow(uniqueKey: any): void {
+                        const expandedRows = new List<any>([...expandedRowsUniqueKeys]);
+                        expandedRows.Add(uniqueKey);
+
+                        setExpandedRowsUniqueKeys(expandedRows);
+                    },
+                    collapseTableRow(uniqueKey: any): void {
+                        const expandedRows = expandedRowsUniqueKeys.Where(x => x !== uniqueKey);
+                        setExpandedRowsUniqueKeys(expandedRows);
                     }
                 },
                 options: mergedOptions

@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {CSSProperties, FC} from "react";
 import {useDataTablesContext} from "../../config/hooks/useDataTablesContext";
 import {DataTablesStringCell} from "../dataTablesCell/DataTablesStringCell";
 import {DataTablesIntCell} from "../dataTablesCell/DataTablesIntCell";
@@ -11,7 +11,10 @@ import {DataTablesDateCell} from "../dataTablesCell/DataTablesDateCell";
 import {TableCell, TableRow} from "@mui/material";
 
 import _ from 'lodash';
+
 import {DataTablesSelectionCell} from "../dataTablesCell/DataTablesSelectionCell";
+import {DataTablesExpandCell} from "../dataTablesCell/DataTablesExpandCell";
+import {DataTablesColumnType} from "../../models/DataTablesColumnType";
 
 const TABLE_COLUMNS: any = {
     SELECTION: DataTablesSelectionCell,
@@ -23,31 +26,48 @@ const TABLE_COLUMNS: any = {
     CURRENCY: DataTablesCurrencyCell,
     ACTION: DataTablesActionCell,
     DATE: DataTablesDateCell,
+    EXPAND: DataTablesExpandCell,
 }
 
 export interface IDataTablesBodyRowProps {
     rowCells: any;
     className?: string;
+    style?: CSSProperties;
 }
 
-export const DataTablesBodyRow:FC<IDataTablesBodyRowProps> = ({rowCells, className}) => {
+export const DataTablesBodyRow:FC<IDataTablesBodyRowProps> = ({rowCells, className, style}) => {
     const context = useDataTablesContext();
+
+    const getPropertiesByColumnType = (type: DataTablesColumnType) => {
+        switch (type) {
+            case DataTablesColumnType.EXPAND:
+                return {
+                    className: 'dataTable-expandColumn',
+                    style
+                };
+            default:
+                return {
+                    className: '',
+                    style: {}
+                };
+        }
+    }
 
     const cells = context.options.columns.map((column, index) => {
         const ColumnComponent = TABLE_COLUMNS[column.type];
         const errorMessage = false;
-
+        const properties = getPropertiesByColumnType(column.type);
         return (
             <TableCell
                 key={column.dataSource + '_' + index}
-                className={'dt-body-cell'}
-                // style={{textAlign: ColumnTypeSorting[column.type]}}
+                className={properties.className}
             >
                 <ColumnComponent
                     useAutofocus={index === 0}
                     cellValue={_.get(rowCells, column.dataSource)}
                     column={column}
                     rowCells={rowCells}
+                    style={properties.style}
                 />
             </TableCell>
         )
@@ -55,8 +75,8 @@ export const DataTablesBodyRow:FC<IDataTablesBodyRowProps> = ({rowCells, classNa
 
     return (
         <TableRow
+            style={style || {}}
             className={`${className} dt-body-row`}
-            // onDoubleClick={this.rowDoubleClick}
             data-cy={rowCells[context.options.uniqueKey]}
             entity-data-id={rowCells[context.options.uniqueKey]}
         >

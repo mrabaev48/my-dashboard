@@ -1,3 +1,5 @@
+$mainBackgroundColor: #fafafa;
+$mainGreyColor: rgb(221, 225, 235);
 .dt-table {
   width: 100% !important;
 
@@ -12,6 +14,7 @@
 
     .dt-sortable-head-cell {
       cursor: pointer;
+
       .dt-sortable-head-cell-icon {
 
       }
@@ -21,10 +24,12 @@
       input::placeholder {
         text-align: center;
       }
+
       .dt-action-btns-filter-container {
         min-height: 40.5px;
       }
     }
+
     .dt-action-btns-filter-container,
     .dt-currency-filter,
     .dt-int-filter {
@@ -33,6 +38,7 @@
 
     .dt-range-filter-container {
       display: flex;
+
       input {
         min-width: 141px;
       }
@@ -61,8 +67,30 @@
         cursor: pointer;
       }
     }
+
+    .dt-expand-column-cell {
+      cursor: pointer;
+      max-height: 25px;
+    }
   }
 }
+
+
+
+/*.dataTable-expandedSubRow {
+  .dataTable-expandColumn {
+    background-color: rgb(221, 225, 235);
+  }
+}*/
+
+.dataTable-expandedSubRow {
+  background-color: $mainGreyColor;
+}
+
+
+
+
+
 
 .dt-edit-dialog {
   .dt-edit-form-control:not(.dt-edit-form-control:last-of-type) {

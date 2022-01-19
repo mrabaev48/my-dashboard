@@ -9,9 +9,9 @@ import {keycloakInstance} from "./configs/auth/keycloak";
 const App: React.FC = () => {
 
     return (
-        <ReactKeycloakProvider authClient={keycloakInstance}>
+        // <ReactKeycloakProvider authClient={keycloakInstance}>
             <MainLayout/>
-        </ReactKeycloakProvider>
+        // </ReactKeycloakProvider>
     )
 }
 

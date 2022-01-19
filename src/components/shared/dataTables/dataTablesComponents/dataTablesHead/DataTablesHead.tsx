@@ -56,7 +56,14 @@ export const DataTablesHead: FC<IDataTablesHeadProps> = (props) => {
                         />
                     </TableCell>
                 )
-            default:
+            case DataTablesColumnType.SELECT:
+            case DataTablesColumnType.CURRENCY:
+            case DataTablesColumnType.DECIMAL:
+            case DataTablesColumnType.INT:
+            case DataTablesColumnType.STRING:
+            case DataTablesColumnType.DATE:
+            case DataTablesColumnType.BOOLEAN:
+            case DataTablesColumnType.ACTION:
                 return (
                     <TableCell
                         role={'gridcell'}
@@ -78,6 +85,10 @@ export const DataTablesHead: FC<IDataTablesHeadProps> = (props) => {
                             null}
                         {column.label}
                     </TableCell>
+                )
+            default:
+                return (
+                    <TableCell key={index} role={'gridcell'}/>
                 )
         }
     });

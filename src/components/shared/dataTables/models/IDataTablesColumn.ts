@@ -15,6 +15,7 @@ export interface IDataTablesColumn {
     sortDirection?: SortDirection;
     required?: boolean;
     editable?: boolean;
+    className?: string;
 }
 
 export interface IDataTablesSelectColumn extends IDataTablesColumn {
@@ -40,7 +41,9 @@ export interface IDataTablesStringColumn extends IDataTablesColumn {
 
 export interface IDataTablesActionColumn extends IDataTablesColumn { }
 
-export interface IIDataTablesSelectColumn extends IDataTablesColumn { }
+export interface IDataTablesSelectionColumn extends IDataTablesColumn { }
+
+export interface IDataTablesExpandColumn extends IDataTablesColumn { }
 
 export type DataTablesColumn =
     IDataTablesColumn |
@@ -50,4 +53,5 @@ export type DataTablesColumn =
     IDataTablesCurrencyColumn |
     IDataTablesStringColumn |
     IDataTablesActionColumn |
-    IIDataTablesSelectColumn
+    IDataTablesSelectionColumn |
+    IDataTablesExpandColumn

@@ -27,10 +27,10 @@ export const DesktopToolbarMenu:FC<IToolbarMenuProps> =
          handleMenuClose
      }) => {
 
-    const {keycloak, initialized} = useKeycloak();
+    // const {keycloak, initialized} = useKeycloak();
 
     const doLogout = () => {
-        keycloak.logout();
+        // keycloak.logout();
     }
 
     return (
@@ -71,10 +71,10 @@ export const MobileToolbarMenu: FC<IToolbarMenuProps> =
          handleMenuClose
      }) => {
 
-        const {keycloak, initialized} = useKeycloak();
+        // const {keycloak, initialized} = useKeycloak();
 
         const doLogout = () => {
-            keycloak.logout();
+            // keycloak.logout();
         }
 
         return (
