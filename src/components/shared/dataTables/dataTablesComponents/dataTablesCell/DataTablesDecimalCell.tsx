@@ -21,15 +21,6 @@ export const DataTablesDecimalCell:FC<IDataTablesDecimalCellProps> = ({
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
             // onClick={this.onClick}
         >
-            {/*{clickHandler instanceof Function*/}
-            {/*    ? <Link*/}
-            {/*        component={'button'}*/}
-            {/*        onClick={() => {*/}
-            {/*            clickHandler(props.rowCells);*/}
-            {/*        }}*/}
-            {/*    >{cellValue}</Link>*/}
-            {/*    : cellValue*/}
-            {/*}*/}
             {cellValue}
         </div>
     )

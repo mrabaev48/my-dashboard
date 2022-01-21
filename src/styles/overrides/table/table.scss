@@ -1,0 +1,34 @@
+@import "src/styles/overrides/colors/colors";
+@import "table-variables";
+
+.MuiTableCell-head {
+  height: 45px !important;
+  padding: 0 24px 0 24px !important;
+  font-size: 10px !important;
+  color: $colors-grey-black50 !important;
+}
+
+.MuiTableCell-body {
+  height: 45px !important;
+  max-height: 45px !important;
+  padding: 0 24px 0 24px !important;
+  border-color: $colors-grey-lightGray !important;
+  font-size: 12px !important;
+  color: $colors-grey-black !important;
+}
+
+.MuiTableCell-footer {
+  height: 45px !important;
+  padding: 0 24px 0 24px !important;
+}
+
+.MuiTableFooter-root {
+  height: 45px !important;
+  padding: 0 24px 0 24px !important;
+  background-color: $colors-grey-lightGray50 !important;
+  border-color: $colors-grey-darkGray !important;
+}
+
+.MuiTableRow-root {
+
+}

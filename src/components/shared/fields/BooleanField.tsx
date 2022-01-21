@@ -1,5 +1,5 @@
 import {FC, useEffect, useState} from "react";
-import {InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import {DEFAULT_SELECT_OPTION} from "../../../utils/DefaultValues";
 
 export interface IBooleanFieldProps {

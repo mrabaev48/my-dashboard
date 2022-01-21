@@ -5,10 +5,7 @@ import {
     DataTablesColumnType
 } from "../../components/shared/dataTables/models/DataTablesColumnType";
 import * as faker from "faker";
-import axios from "axios";
-import {KeyValuePair, SortDirections} from "../../components/shared/dataTables/utils/DtUtils";
-import {TextField} from "@mui/material";
-import Typography from "@material-ui/core/Typography";
+import {KeyValuePair} from "../../components/shared/dataTables/utils/DtUtils";
 
 export const Customers: FC = () => {
 

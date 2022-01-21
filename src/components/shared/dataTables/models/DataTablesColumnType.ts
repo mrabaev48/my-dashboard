@@ -8,5 +8,6 @@ export enum DataTablesColumnType {
     ACTION = 'ACTION',
     DATE = 'DATE',
     SELECTION = 'SELECTION',
-    EXPAND = 'EXPAND'
+    EXPAND = 'EXPAND',
+    EMPTY = 'EMPTY'
 }

@@ -4,6 +4,7 @@ import {MenuItem, Select, SelectChangeEvent, TableCell} from "@mui/material";
 import {useDataTablesContext} from "../../config/hooks/useDataTablesContext";
 import {List} from "linqscript";
 import {useFilter} from "../../config/hooks/useFilter";
+import {DtUtils} from "../../utils/DtUtils";
 
 export const DataTablesSelectFilter: FC<IDataTablesFilterProps> = ({
                                                                        column
@@ -46,7 +47,7 @@ export const DataTablesSelectFilter: FC<IDataTablesFilterProps> = ({
     return (
         <TableCell
             data-cy={column.dataSource + '-filter'}
-            className={`dt-select-filter dt-filter`}
+            className={`dt-select-filter dt-filter ${DtUtils.getCellClassNameByColumn(column)}`}
         >
             <Select
                 defaultValue={selectData[0].value}

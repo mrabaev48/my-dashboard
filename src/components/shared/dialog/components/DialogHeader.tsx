@@ -2,7 +2,6 @@ import {Typography, withStyles} from "@material-ui/core";
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import {FC} from "react";
 import {IDialogHeader} from "../models";
-import {IconColor, IconExt, IconSize} from "../../icon/IconExt";
 import './dialogHeader.scss';
 import {Close} from "@material-ui/icons";
 

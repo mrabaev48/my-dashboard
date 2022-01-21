@@ -1,7 +1,7 @@
 import {DataTablesColumn} from "./IDataTablesColumn";
 import {FilterModel, FilterRangeModel} from "../dataTablesComponents/dataTablesFilters/models";
 import {List} from "linqscript";
-import {KeyValuePair, SortingModel} from "../utils/DtUtils";
+import {KeyValuePair} from "../utils/DtUtils";
 
 export interface IDataTablesActions {
     getFilterValue: (defaultValue: any, column: DataTablesColumn) => FilterModel;

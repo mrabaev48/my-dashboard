@@ -43,7 +43,6 @@ export const DataTablesSelectCell: FC<IDataTablesSelectCellProps> = ({
         <div
             className={`${className} dt-column-body-cell dt-column-select-body-cell`}
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
-            // onClick={this.onClick}
         >
             {displayValue}
         </div>

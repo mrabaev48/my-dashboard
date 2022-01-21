@@ -1,51 +1,33 @@
 $mainBackgroundColor: #fafafa;
 $mainGreyColor: rgb(221, 225, 235);
 .dt-table {
-  width: 100% !important;
-  .dt-table-row {
-    td {
-      height: 40px !important;
-    }
+
+  .flex {
+    display: flex;
   }
+
   thead.dt-head {
-    th, td {
-      padding: 10px;
-    }
 
     .dt-head-cell {
       text-align: center;
     }
 
+    div.flex {
+      justify-content: center;
+    }
+
     .dt-sortable-head-cell {
       cursor: pointer;
-
-      .dt-sortable-head-cell-icon {
-
-      }
     }
 
-    .dt-filter {
-      input::placeholder {
-        text-align: center;
-      }
-
-      .dt-action-btns-filter-container {
-        min-height: 40.5px;
-      }
+    .dt-expand-column-head {
+      width: 40px;
+      padding: 0 !important;
     }
+    .dt-selection-column-head {
+      width: 20px !important;
 
-    .dt-action-btns-filter-container,
-    .dt-currency-filter,
-    .dt-int-filter {
-      display: flex;
-    }
-
-    .dt-range-filter-container {
-      display: flex;
-
-      input {
-        min-width: 141px;
-      }
+      padding: 0px 10px 0px 5px !important;
     }
   }
 
@@ -72,17 +54,24 @@ $mainGreyColor: rgb(221, 225, 235);
       }
     }
 
+    .dt-selection-column {
+      width: 20px !important;
+      padding-left: 5px !important;
+      padding-right: 10px !important;
+    }
+
     .dt-expand-column {
       padding: 0 !important;
       background-color: $mainGreyColor;
+      width: 40px;
       div {
-        height: 75px !important;
+        height: 45px !important;
         background-color: $mainBackgroundColor;
       }
     }
 
     .dt-expand-table-row-icon-container {
-      padding-top: 25px;
+      padding-top: 8px;
       cursor: pointer;
     }
   }

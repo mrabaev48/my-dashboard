@@ -1,9 +1,5 @@
 import React, {FC} from "react";
 import {
-    Button,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
     DialogTitle,
     ModalProps,
     Paper,

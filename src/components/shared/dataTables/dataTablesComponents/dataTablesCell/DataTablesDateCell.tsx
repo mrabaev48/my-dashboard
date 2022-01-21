@@ -1,7 +1,6 @@
 import {FC} from "react";
 import {IDataTablesDateCellProps} from "./models/IDataTablesCellProps";
 import {useDataTablesContext} from "../../config/hooks/useDataTablesContext";
-import moment from "moment";
 import {DtUtils} from "../../utils/DtUtils";
 
 export const DataTablesDateCell: FC<IDataTablesDateCellProps> = (

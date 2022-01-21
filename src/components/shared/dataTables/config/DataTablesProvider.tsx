@@ -4,12 +4,12 @@ import {DataTablesContextDefaultModel} from "../models/DataTablesContextDefaultM
 import {IDataTablesOptions} from "../models/IDataTablesOptions";
 import {List} from "linqscript";
 import {FilterModel, FilterRangeModel,} from "../dataTablesComponents/dataTablesFilters/models";
-import {DataTablesColumn, IDataTablesActionColumn} from "../models/IDataTablesColumn";
+import {DataTablesColumn} from "../models/IDataTablesColumn";
 
 import _ from 'lodash';
 import {DtUtils, KeyValuePair, SortDirections, SortingModel} from "../utils/DtUtils";
 import {DraggableDialog} from "../../dialogExt/DraggableDialog";
-import {Button, DialogActions, DialogContent, DialogContentText} from "@mui/material";
+import {Button, DialogActions, DialogContent} from "@mui/material";
 import {DataTablesEditForm} from "../dataTablesComponents/dataTablesEditForm/DataTablesEditForm";
 
 
@@ -138,10 +138,12 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     collectFiltersData(filterModel) {
                         const isExists = filtersData.Any(x => x.filterDataSource === filterModel.filterDataSource);
                         let filters = new List<FilterModel | FilterRangeModel>([...filtersData]);
-
+                        // console.log('FILTERS: ', filters)
                         if (isExists) {
+                            console.log('exist')
                             filters = DtUtils.changeFilterOrRemove(filters, filterModel);
                         } else {
+                            console.log('not exist')
                             filters.Add(filterModel)
                         }
                         setFiltersData(filters);

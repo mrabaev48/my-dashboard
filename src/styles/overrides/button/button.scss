@@ -92,3 +92,7 @@
     //TODO some special styles for icons
   }
 }
+
+.MuiButton-containedPrimary {
+  background-color: $colors-primary-main !important;
+}

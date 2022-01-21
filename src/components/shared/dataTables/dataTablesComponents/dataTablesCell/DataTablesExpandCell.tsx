@@ -73,7 +73,6 @@ export const DataTablesExpandCell: FC<IDataTablesExpandCellProps> = ({
         let expandCollapseTableRowBtn = null;
 
         if (context.options.useExpand) {
-            // console.log('if (context.options.useExpand)')
             expandCollapseTableRowBtn = (
                 <div
                     style={{

@@ -2,6 +2,7 @@ import {FC, useEffect, useState} from "react";
 import {MenuItem, Select, SelectChangeEvent, TableCell} from "@mui/material";
 import {IDataTablesFilterProps} from "./models";
 import {useFilter} from "../../config/hooks/useFilter";
+import {DtUtils} from "../../utils/DtUtils";
 
 export const DataTableBooleanFilter: FC<IDataTablesFilterProps> = ({
                                                                        column
@@ -52,7 +53,7 @@ export const DataTableBooleanFilter: FC<IDataTablesFilterProps> = ({
     return (
         <TableCell
             data-cy={column.dataSource + '-filter'}
-            className={`dt-boolean-filter dt-filter`}
+            className={`dt-boolean-filter dt-filter ${DtUtils.getCellClassNameByColumn(column)}`}
         >
             <Select
                 defaultValue={selectValues[0].value}

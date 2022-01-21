@@ -45,6 +45,11 @@ export const DataTablesBodyRow:FC<IDataTablesBodyRowProps> = ({rowCells, classNa
                     className: 'dt-expand-column',
                     style
                 };
+            case DataTablesColumnType.SELECTION:
+                return {
+                    className: 'dt-selection-column',
+                    style: {}
+                };
             default:
                 return {
                     className: '',

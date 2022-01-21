@@ -1,0 +1,35 @@
+@import "../colors/colors";
+@import "radiobutton-variables";
+
+.MuiRadio-colorPrimary {
+  color: $colors-primary-light !important;
+  &:focus {
+    color: $colors-primary-light !important;
+  }
+  &.focused {
+    color: $colors-primary-light !important;
+  }
+  &:hover {
+    color: $colors-primary-dark !important;
+  }
+}
+
+.Mui-checked {
+  color: $colors-primary-main !important;
+  &:hover {
+    @media (hover: none) {
+      background-color: transparent !important;
+    }
+  }
+}
+
+.Mui-disabled {
+  color: $colors-primary-main !important;
+  opacity: $radiobutton-disabled-opacity !important;
+}
+
+.MuiRadio-root {
+  & svg {
+    font-size: 16px !important;
+  }
+}

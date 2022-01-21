@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme =>
             },
             '&.active': {
                 color: 'white',
-                backgroundColor: '#1976d2',
+                // backgroundColor: '#1976d2',
                 '& .MuiListItemIcon-root': {
                     color: '#fff',
                 },
@@ -83,7 +83,7 @@ const useStyles = makeStyles(theme =>
             color: 'black'
         },
         menuItemIcon: {
-            color: '#1976d2',
+            // color: '#1976d2',
         },
     }),
 )

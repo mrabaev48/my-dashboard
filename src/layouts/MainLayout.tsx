@@ -8,10 +8,6 @@ import DrawerHeader from "../components/shared/drawerHeader/DrawerHeader";
 import {AppMenu} from "../components/shared/menu/AppMenu";
 import {BoxExt} from "../components/shared/box/BoxExt";
 import {PageTitle} from "../components/shared/pageTitle/PageTitle";
-import {Dashboard} from "../pages/dashboard/Dashboard";
-import {Orders} from "../pages/orders/Orders";
-import {Customers} from "../pages/customers/Customers";
-import {Reports} from "../pages/reports/Reports";
 import {AppMenuItemProps} from "../components/shared/menu/AppMenuItem";
 import IconDashboard from "@material-ui/icons/Dashboard";
 import {v4} from "uuid";
@@ -21,8 +17,6 @@ import IconBarChart from "@material-ui/icons/BarChart";
 import {ContentCopy} from "@mui/icons-material";
 import IconLibraryBooks from "@material-ui/icons/LibraryBooks";
 import {useKeycloak} from "@react-keycloak/web";
-import {Deposits} from "../pages/deposits/Deposits";
-import {Profile} from "../pages/profile/Profile";
 import {routes} from "../configs/routes";
 
 const appMenuItems: AppMenuItemProps[] = [

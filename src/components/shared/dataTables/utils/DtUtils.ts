@@ -1,6 +1,6 @@
 import {FilterModel, FilterRangeModel} from "../dataTablesComponents/dataTablesFilters/models";
 import {List} from "linqscript";
-import {IDataTablesActionColumn, IDataTablesDateColumn} from "../models/IDataTablesColumn";
+import {DataTablesColumn, IDataTablesActionColumn, IDataTablesDateColumn} from "../models/IDataTablesColumn";
 import {format, utcToZonedTime} from "date-fns-tz";
 import {IDataTablesContextModel} from "../models/IDataTablesContextModel";
 import {IDataTablesOptions} from "../models/IDataTablesOptions";
@@ -8,6 +8,10 @@ import {DataTablesColumnType} from "../models/DataTablesColumnType";
 import {SortDirection} from "@mui/material/TableCell/TableCell";
 
 export class DtUtils {
+
+    static getCellClassNameByColumn(column: DataTablesColumn): string {
+        return `dt-${column.type.toString().toLowerCase()}-cell dt-cell`;
+    }
 
     static getDateFormat(column: IDataTablesDateColumn, context: IDataTablesContextModel): string {
 
@@ -23,11 +27,6 @@ export class DtUtils {
         if (date === null || date === new Date(UTC_MIN_DATE)) {
             return null;
         }
-        console.log({
-            date,
-            column,
-            context
-        })
         const zonedTime = utcToZonedTime(new Date(date), context.options.timezone!);
         return format(zonedTime, this.getDateFormat(column, context));
     }
@@ -127,12 +126,6 @@ export class DtUtils {
             return true;
         }
 
-        /*console.log('QQQQQQ: ', JSON.stringify({
-            'options.useExpand === true': options.useExpand === true,
-            'options.expandLazyLoading === true': options.expandLazyLoading === true,
-            "typeof options.hasExpandDataSource === 'string'": typeof options.hasExpandDataSource === 'string',
-            "typeof options.hasExpandDataSource === 'function'": typeof options.hasExpandDataSource === 'function',
-        }))*/
         return options.useExpand === true && options.expandLazyLoading === true &&
             ((typeof options.hasExpandDataSource === 'string' && row[options.hasExpandDataSource]) ||
                 (typeof options.hasExpandDataSource === 'function' && options.hasExpandDataSource(row)));

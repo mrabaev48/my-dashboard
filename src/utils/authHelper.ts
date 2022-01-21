@@ -1,7 +1,7 @@
 import {useKeycloak} from "@react-keycloak/web";
 
 export const hasAccess = (roles: any[]) => {
-    const {keycloak, initialized} = useKeycloak();
+    const {keycloak} = useKeycloak();
 
     if (keycloak && roles.length) {
         return roles.some(r => {

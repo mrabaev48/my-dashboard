@@ -17,18 +17,7 @@ export const DataTablesIntCell:FC<IDataTablesIntCellProps> = ({
         <div
             className={`${className} dt-column-body-cell dt-column-int-body-cell`}
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
-            // style={props.displayStyle ? props.displayStyle: defaultDisplayStyle}
-            // onClick={this.onClick}
         >
-            {/*{clickHandler instanceof Function*/}
-            {/*    ? <Link*/}
-            {/*        component={'button'}*/}
-            {/*        onClick={() => {*/}
-            {/*            clickHandler(this.props.rowCells);*/}
-            {/*        }}*/}
-            {/*    >{this.props.cellValue}</Link>*/}
-            {/*    : this.props.cellValue*/}
-            {/*}*/}
             {cellValue}
         </div>
     )

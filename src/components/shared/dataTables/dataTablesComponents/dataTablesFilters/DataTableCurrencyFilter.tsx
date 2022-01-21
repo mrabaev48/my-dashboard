@@ -14,19 +14,6 @@ export const DataTableCurrencyFilter: FC<IDataTablesFilterProps> = ({
     const [fromValue, setFromValue] = useState(filter.filterValue?.fromValue || '');
     const [toValue, setToValue] = useState(filter.filterValue?.toValue || '');
 
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    useEffect(() => {
-        if (!filter.filterValue) {
-            setFromValue('');
-            setToValue('');
-        }
-    }, [filter])
-
     useEffect(() => {
         setFilter({
             fromValue: Number(fromValue),
@@ -50,22 +37,24 @@ export const DataTableCurrencyFilter: FC<IDataTablesFilterProps> = ({
 
     return (
         <TableCell
-            className={`dt-currency-filter dt-filter`}
+            className={`dt-currency-filter dt-filter ${DtUtils.getCellClassNameByColumn(column)}`}
             data-cy={column.dataSource + '-filter'}
         >
-            <TextField
-                onChange={onFilterChange}
-                value={fromValue}
-                placeholder={currencyColumn.filterPlaceholder?.fromPlaceholder ?? 'From'}
-                name={'fromValue'}
-            />
-            <Box sx={{ mx: 1 }}>  </Box>
-            <TextField
-                onChange={onFilterChange}
-                value={toValue}
-                placeholder={currencyColumn.filterPlaceholder?.toPlaceholder ?? 'To'}
-                name={'toValue'}
-            />
+            <div className="flex">
+                <TextField
+                    onChange={onFilterChange}
+                    value={fromValue}
+                    placeholder={currencyColumn.filterPlaceholder?.fromPlaceholder ?? 'From'}
+                    name={'fromValue'}
+                />
+                <Box sx={{ mx: 1 }}>  </Box>
+                <TextField
+                    onChange={onFilterChange}
+                    value={toValue}
+                    placeholder={currencyColumn.filterPlaceholder?.toPlaceholder ?? 'To'}
+                    name={'toValue'}
+                />
+            </div>
         </TableCell>
     )
 }

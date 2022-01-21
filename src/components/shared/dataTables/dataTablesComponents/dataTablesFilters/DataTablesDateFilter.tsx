@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from "react";
 import {Box, TableCell, TextField} from "@mui/material";
-import {FilterRangeModel, IDataTablesFilterProps} from "./models";
+import {IDataTablesFilterProps} from "./models";
 import {
     DateTimePicker,
     DesktopDatePicker,
@@ -29,13 +29,6 @@ export const DataTablesDateFilter: FC<IDataTablesFilterProps> = ({
         });
     }, [fromValue, toValue]);
 
-    useEffect(() => {
-        if (!filter.filterValue) {
-            setFromValue(null);
-            setToValue(null);
-        }
-    }, [filter])
-
     const handleFilterChange = (fieldName: string, value: Date | null) => {
          switch (fieldName) {
             case 'fromValue':
@@ -50,12 +43,12 @@ export const DataTablesDateFilter: FC<IDataTablesFilterProps> = ({
     return (
         <TableCell
             data-cy={column.dataSource + '-filter'}
-            className={`dt-date-filter dt-filter`}
+            className={`dt-date-filter dt-filter ${DtUtils.getCellClassNameByColumn(column)}`}
         >
             <LocalizationProvider dateAdapter={DateAdapter}>
                 {
                     castedColumn.useTime === true ?
-                        <div className={'dt-range-filter-container'}>
+                        <div className={'dt-range-filter-container flex'}>
                             <DateTimePicker
                                 value={fromValue}
                                 onChange={(newValue) => {
@@ -74,7 +67,7 @@ export const DataTablesDateFilter: FC<IDataTablesFilterProps> = ({
                                 renderInput={(params) => <TextField {...params} />}
                             />
                         </div> :
-                        <div className={'dt-range-filter-container'}>
+                        <div className={'dt-range-filter-container flex'}>
                             <DesktopDatePicker
                                 value={fromValue}
                                 inputFormat={DtUtils.getDateFormat(castedColumn, context)}

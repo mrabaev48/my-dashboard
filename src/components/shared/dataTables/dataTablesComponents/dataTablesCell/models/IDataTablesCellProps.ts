@@ -8,7 +8,7 @@ export interface IDataTablesCellPropsBase {
     cellValue: any;
     column: DataTablesColumn;
     rowCells: any;
-    error?: string | '';
+    error?: string;
     className?: string;
 }
 

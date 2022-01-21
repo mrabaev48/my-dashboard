@@ -1,0 +1,21 @@
+@import "../colors/colors";
+
+.MuiSvgIcon-colorPrimary {
+  color: $colors-primary-light !important;
+}
+
+.MuiSvgIcon-colorSuccess {
+  color: $colors-success-main !important;
+}
+
+.MuiSvgIcon-colorError {
+  color: $colors-error-main !important;
+}
+
+.MuiSvgIcon-colorInfo {
+  color: $colors-info-main !important;
+}
+
+.MuiSvgIcon-colorAction {
+  color: $colors-primary-main !important;
+}

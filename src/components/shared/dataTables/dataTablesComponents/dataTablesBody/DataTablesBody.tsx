@@ -4,11 +4,7 @@ import {DataTablesBodyRow} from "../dataTablesBodyRow/DataTablesBodyRow";
 import {TableBody, TableCell, TableRow, Typography} from "@mui/material";
 import _ from "lodash";
 
-export interface IDataTablesBodyProps {
-
-}
-
-export const DataTablesBody:FC<IDataTablesBodyProps> = (props) => {
+export const DataTablesBody:FC = (props) => {
     const context = useDataTablesContext();
 
     const _expandedRows: JSX.Element[] = [];

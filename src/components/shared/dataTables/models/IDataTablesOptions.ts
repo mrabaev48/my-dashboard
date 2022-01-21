@@ -1,5 +1,4 @@
 import { DataTablesColumn } from "./IDataTablesColumn";
-import {List} from "linqscript";
 
 export interface IDataTablesOptions {
     columns: DataTablesColumn [];

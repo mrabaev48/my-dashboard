@@ -1,7 +1,8 @@
 import {DataTablesColumn} from "../../../models/IDataTablesColumn";
 
 export interface IDataTablesFilterProps {
-    column: DataTablesColumn
+    column: DataTablesColumn;
+    className?: string;
 }
 
 export interface FilterModel {

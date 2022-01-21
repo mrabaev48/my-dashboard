@@ -15,13 +15,6 @@ export const DataTableIntFilter:FC<IDataTablesFilterProps> = ({
     const [toValue, setToValue] = useState('');
 
     useEffect(() => {
-        if (!filter.filterValue) {
-            setFromValue('');
-            setToValue('');
-        }
-    }, [filter])
-
-    useEffect(() => {
         setFilter({
             fromValue: Number(fromValue),
             toValue: Number(toValue)
@@ -45,23 +38,25 @@ export const DataTableIntFilter:FC<IDataTablesFilterProps> = ({
     return (
         <TableCell
             data-cy={column.dataSource + '-filter'}
-            className={`dt-int-filter dt-filter`}
+            className={`dt-int-filter dt-filter ${DtUtils.getCellClassNameByColumn(column)}`}
         >
-            <TextField
-                onChange={onFilterChange}
-                value={fromValue}
-                name={'fromValue'}
-                placeholder={intColumn.filterPlaceholder?.fromPlaceholder ?? 'From'}
-                color="primary"
-            />
-            <Box sx={{ mx: 1 }}>  </Box>
-            <TextField
-                onChange={onFilterChange}
-                value={toValue}
-                name={'toValue'}
-                placeholder={intColumn.filterPlaceholder?.toPlaceholder ?? 'To'}
-                color="primary"
-            />
+           <div className="flex">
+               <TextField
+                   onChange={onFilterChange}
+                   value={fromValue}
+                   name={'fromValue'}
+                   placeholder={intColumn.filterPlaceholder?.fromPlaceholder ?? 'From'}
+                   color="primary"
+               />
+               <Box sx={{ mx: 1 }}>  </Box>
+               <TextField
+                   onChange={onFilterChange}
+                   value={toValue}
+                   name={'toValue'}
+                   placeholder={intColumn.filterPlaceholder?.toPlaceholder ?? 'To'}
+                   color="primary"
+               />
+           </div>
         </TableCell>
     )
 }
