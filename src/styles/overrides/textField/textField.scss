@@ -30,6 +30,12 @@
   }
 }
 
+.MuiSelect-select {
+  //height: 100% !important;
+  //height: 10px !important;
+  min-height: 34px !important;
+}
+
 .MuiOutlinedInput-root {
   height: 34px !important;
   margin-top: 0 !important;

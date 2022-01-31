@@ -55,13 +55,15 @@ export const DataTableBooleanFilter: FC<IDataTablesFilterProps> = ({
             data-cy={column.dataSource + '-filter'}
             className={`dt-boolean-filter dt-filter ${DtUtils.getCellClassNameByColumn(column)}`}
         >
-            <Select
-                defaultValue={selectValues[0].value}
-                value={value}
-                onChange={onFilterChange}
-            >
-                {items}
-            </Select>
+            {/*<div className={'flex justify-center flex-column '}>*/}
+                <Select
+                    defaultValue={selectValues[0].value}
+                    value={value}
+                    onChange={onFilterChange}
+                >
+                    {items}
+                </Select>
+            {/*</div>*/}
         </TableCell>
     )
 }

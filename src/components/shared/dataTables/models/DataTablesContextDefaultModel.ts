@@ -2,6 +2,7 @@ import {IDataTablesContextModel} from "./IDataTablesContextModel";
 import {List} from "linqscript";
 import {FilterModel, FilterRangeModel} from "../dataTablesComponents/dataTablesFilters/models";
 import {KeyValuePair} from "../utils/DtUtils";
+import {IPaginationState} from "./IDataTablesState";
 
 export const DataTablesContextDefaultModel: IDataTablesContextModel = {
     actions: {
@@ -53,10 +54,31 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         collapseTableRow(uniqueKey: any): void {
             throw new Error('collapseTableRow not implemented! Provide this function to actions object');
         },
+        collectExpandedRows(uniqueKeys: any[]): void {
+            throw new Error('collectExpandedRows not implemented! Provide this function to actions object');
+        },
+        setPaginationMin(value: number): void {
+            throw new Error('setPaginationMin not implemented! Provide this function to actions object');
+        },
+        setFilteredRecords(value: number): void {
+            throw new Error('setFilteredRecords not implemented! Provide this function to actions object');
+        },
+        setPaginationMax(value: number): void {
+            throw new Error('setPaginationMax not implemented! Provide this function to actions object');
+        },
+        setTotalRecords(value: number): void {
+            throw new Error('setTotalRecords not implemented! Provide this function to actions object');
+        },
+        setPaginationData(value: IPaginationState): void {
+            throw new Error('setTotalRecords not implemented! Provide this function to actions object');
+        },
+        applyFilters(): void {
+            throw new Error('applyFilters not implemented! Provide this function to actions object');
+        }
     },
     options: {
         columns: [],
-        loadData() {
+        loadData(requestOptions: any, queryString: string) {
             throw new Error('loadData not implemented! Provide this function to options object');
         },
         uniqueKey: '',
@@ -70,11 +92,16 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         useExpand: false,
         hasExpandDataSource: null,
         expandLazyLoading: false,
+        itemsPerPage: [10, 25, 100],
+        itemsPerPageDefault: 25,
+        usePaging: true,
+        baseURL: '',
     },
     state: {
         data: new List<any>(),
         filtersData: new List<FilterModel | FilterRangeModel>(),
         selectColumnsData: new List<KeyValuePair<string, List<any>>>(),
+        loadedExpandedRowsKeys: new List<any>(),
         sorting: {
             direction: false,
             columnDataSource: 'undefined'
@@ -82,5 +109,18 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         editRecord: null,
         selectedRows: new List<any>(),
         expandedRowsUniqueKeys: new List<any>(),
+        filteredRecords: 0,
+        totalRecords: 0,
+        paginationMin: 0,
+        paginationMax: 0,
+        paginationData: {
+            selectedItemsPerPage: null,
+            pageCount: 0,
+            totalItems: 0,
+            currentPageIndex: 1,
+            paginationMin: 0,
+            paginationMax: 0,
+            filteredRecords: 0,
+        }
     }
 }

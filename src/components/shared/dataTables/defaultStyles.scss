@@ -6,6 +6,29 @@ $mainGreyColor: rgb(221, 225, 235);
     display: flex;
   }
 
+  .justify-center {
+    justify-content: center;
+  }
+
+  .flex-column {
+    flex-direction: column;
+  }
+
+  .dt-currency-cell,
+  .dt-boolean-cell,
+  .dt-int-cell {
+    //width: 120px;
+  }
+
+  .dt-date-cell {
+    min-width: 420px;
+  }
+
+  .dt-select-cell,
+  .dt-string-cell {
+    //width: 200px;
+  }
+
   thead.dt-head {
 
     .dt-head-cell {
@@ -16,6 +39,15 @@ $mainGreyColor: rgb(221, 225, 235);
       justify-content: center;
     }
 
+    .dt-filters-row {
+      .dt-boolean-cell,
+      .dt-select-cell {
+        div {
+          width: 100%;
+        }
+      }
+    }
+
     .dt-sortable-head-cell {
       cursor: pointer;
     }
@@ -24,10 +56,11 @@ $mainGreyColor: rgb(221, 225, 235);
       width: 40px;
       padding: 0 !important;
     }
+
     .dt-selection-column-head {
       width: 20px !important;
 
-      padding: 0px 10px 0px 5px !important;
+      padding: 0 10px 0 5px !important;
     }
   }
 
@@ -35,7 +68,6 @@ $mainGreyColor: rgb(221, 225, 235);
     .dt-column-body-action-cell,
     .dt-column-date-body-cell,
     .dt-column-select-body-cell,
-    .dt-column-string-body-cell,
     .dt-column-bool-body-cell {
       display: flex;
       justify-content: center;
@@ -77,7 +109,26 @@ $mainGreyColor: rgb(221, 225, 235);
   }
 }
 
+.dt-pagination {
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
 
+  .dt-pagination-buttons {
+    width: 80%;
+  }
+  .dt-pagination-info {
+    display: flex;
+    justify-content: flex-end;
+    width: 20%;
+
+    .dt-pagination-items-per-page {
+      display: flex;
+      flex-direction: row;
+      padding-right: 10px;
+    }
+  }
+}
 
 
 

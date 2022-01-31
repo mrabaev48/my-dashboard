@@ -2,6 +2,7 @@ import {DataTablesColumn} from "./IDataTablesColumn";
 import {FilterModel, FilterRangeModel} from "../dataTablesComponents/dataTablesFilters/models";
 import {List} from "linqscript";
 import {KeyValuePair} from "../utils/DtUtils";
+import {IPaginationState} from "./IDataTablesState";
 
 export interface IDataTablesActions {
     getFilterValue: (defaultValue: any, column: DataTablesColumn) => FilterModel;
@@ -20,4 +21,11 @@ export interface IDataTablesActions {
     isTableRowExpanded: (uniqueKey: any) => boolean;
     expandTableRow: (uniqueKey: any) => void;
     collapseTableRow: (uniqueKey: any) => void;
+    collectExpandedRows: (uniqueKeys: any[]) => void;
+    setTotalRecords: (value: number) => void;
+    setFilteredRecords: (value: number) => void;
+    setPaginationMin: (value: number) => void;
+    setPaginationMax: (value: number) => void;
+    setPaginationData: (value: IPaginationState) => void;
+    applyFilters: () => void;
 }

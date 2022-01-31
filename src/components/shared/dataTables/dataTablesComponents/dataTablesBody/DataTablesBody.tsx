@@ -7,18 +7,15 @@ import _ from "lodash";
 export const DataTablesBody:FC = (props) => {
     const context = useDataTablesContext();
 
-    const _expandedRows: JSX.Element[] = [];
+    const _expandedRows: any[] = [];
 
     const getExpandDataSource = (rowData: any) => {
         switch (typeof context.options.expandDataSource) {
             case "string":
-                console.log('string');
                 return rowData[context.options.expandDataSource];
             case "function":
-                console.log('function')
                 return context.options.expandDataSource(rowData);
             default:
-                console.log('default')
                 return null;
         }
     }
@@ -32,7 +29,7 @@ export const DataTablesBody:FC = (props) => {
                     let expandData = getExpandDataSource(row);
 
                     expandData.forEach( (obj: any )=> {
-                        if (_.includes(_expandedRows, obj[context.options.uniqueKey])) {
+                        if (!_.includes(_expandedRows, obj[context.options.uniqueKey])) {
                             _expandedRows.push(obj[context.options.uniqueKey]);
                         }
                     });
@@ -60,6 +57,7 @@ export const DataTablesBody:FC = (props) => {
     }
 
     const rows = loadRows(context.state.data, 0) || [];
+    context.actions.collectExpandedRows(_expandedRows);
 
     if (rows.length === 0) {
         return (
@@ -74,10 +72,8 @@ export const DataTablesBody:FC = (props) => {
             </TableBody>
         )
     }
-
     return (
         <TableBody data-cy={'datatables-tableBody_' + context.options.uniqueKey} className={`${context.options.dtBodyClassName} dt-body`}>
-            {/*{tableRows}*/}
             {rows}
         </TableBody>
     )

@@ -11,11 +11,14 @@ import {DtUtils, KeyValuePair, SortDirections, SortingModel} from "../utils/DtUt
 import {DraggableDialog} from "../../dialogExt/DraggableDialog";
 import {Button, DialogActions, DialogContent} from "@mui/material";
 import {DataTablesEditForm} from "../dataTablesComponents/dataTablesEditForm/DataTablesEditForm";
+import {IPaginationState} from "../models/IDataTablesState";
 
 
 export interface IDataTablesProviderProps {
     options: IDataTablesOptions;
 }
+
+let _LoadedExpandedRowsKeys: any[] = [];
 
 export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                                                                      options,
@@ -35,12 +38,25 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
     const [hasError, setHasError] = useState(false);
     const [selectedRows, setSelectedRows] = useState<List<any>>(new List<any>());
     const [expandedRowsUniqueKeys, setExpandedRowsUniqueKeys] = useState<List<any>>(new List<any>());
+    const [loadedExpandedRowsKeys, setLoadedExpandedRowsKeys] = useState<List<any>>(new List<any>());
+
+    const [filteredRecords, setFilteredRecords] = useState(0);
+    const [totalRecords, setTotalRecords] = useState(0);
+    const [paginationMin, setPaginationMin] = useState(0);
+    const [paginationMax, setPaginationMax] = useState(0);
+
+    const [paginationData, setPaginationData] = useState<IPaginationState>(DataTablesContextDefaultModel.state.paginationData);
+
+    const loadTableData = async () => {
+        const requestOptions = DtUtils.getQueryOptions(sorting, filtersData, paginationData);
+        const queryString = DtUtils.buildRequestQueryString(requestOptions, mergedOptions, mergedOptions.baseURL);
+
+        const loadedData = await mergedOptions.loadData(requestOptions, queryString);
+        //TODO Response data should contains information about paging. Set paging data here.
+        setData(new List<any>(loadedData));
+    }
 
     useEffect(() => {
-        const loadTableData = async () => {
-            const loadedData = await mergedOptions.loadData();
-            setData(new List<any>(loadedData));
-        }
 
         if (DtUtils.isActionCellNeeded(mergedOptions)) {
             mergedOptions.columns.push(DtUtils.getActionColumnObject());
@@ -80,6 +96,11 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
         }
     }, [editRecord]);
 
+    useEffect(() => {
+        //TODO make load data here when pagination data was changed
+        loadTableData();
+    }, [paginationData]);
+
     console.log('OPTIONS & STATE DATA: ', {
         options: mergedOptions,
         editRecord,
@@ -89,8 +110,11 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
         selectColumnsData,
         hasError,
         selectedRows,
-        expandedRowsUniqueKeys
-    })
+        expandedRowsUniqueKeys,
+        loadedExpandedRowsKeys,
+        filteredRecords,
+        paginationData,
+    });
 
     const handleCancelButton = () => {
         setDialogOpen(false);
@@ -122,7 +146,13 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     sorting,
                     editRecord,
                     selectedRows,
-                    expandedRowsUniqueKeys
+                    expandedRowsUniqueKeys,
+                    loadedExpandedRowsKeys,
+                    filteredRecords,
+                    totalRecords,
+                    paginationMin,
+                    paginationMax,
+                    paginationData
                 },
                 actions: {
                     ...DataTablesContextDefaultModel.actions,
@@ -138,12 +168,10 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     collectFiltersData(filterModel) {
                         const isExists = filtersData.Any(x => x.filterDataSource === filterModel.filterDataSource);
                         let filters = new List<FilterModel | FilterRangeModel>([...filtersData]);
-                        // console.log('FILTERS: ', filters)
+
                         if (isExists) {
-                            console.log('exist')
                             filters = DtUtils.changeFilterOrRemove(filters, filterModel);
                         } else {
-                            console.log('not exist')
                             filters.Add(filterModel)
                         }
                         setFiltersData(filters);
@@ -179,6 +207,9 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     },
                     clearFilters(): void {
                         setFiltersData(new List<FilterModel | FilterRangeModel>());
+                    },
+                    async applyFilters(): Promise<void> {
+                        await loadTableData();
                     },
                     addOrUpdateSorting(columnDataSource: string): void {
                         const current = {...sorting};
@@ -218,7 +249,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                         const rows = data.map(x => {
                             return x[mergedOptions.uniqueKey];
                         })
-                        setSelectedRows(new List<any>(rows));
+                        setSelectedRows(new List<any>([...rows, ..._LoadedExpandedRowsKeys]));
                     },
                     unselectAllRows(): void {
                         setSelectedRows(new List<any>());
@@ -235,7 +266,15 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     collapseTableRow(uniqueKey: any): void {
                         const expandedRows = expandedRowsUniqueKeys.Where(x => x !== uniqueKey);
                         setExpandedRowsUniqueKeys(expandedRows);
-                    }
+                    },
+                    collectExpandedRows(expandedRowsKeys): void {
+                        _LoadedExpandedRowsKeys = expandedRowsKeys;
+                    },
+                    setTotalRecords,
+                    setFilteredRecords,
+                    setPaginationMin,
+                    setPaginationMax,
+                    setPaginationData,
                 },
                 options: mergedOptions
             }}

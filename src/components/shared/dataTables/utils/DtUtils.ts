@@ -6,6 +6,8 @@ import {IDataTablesContextModel} from "../models/IDataTablesContextModel";
 import {IDataTablesOptions} from "../models/IDataTablesOptions";
 import {DataTablesColumnType} from "../models/DataTablesColumnType";
 import {SortDirection} from "@mui/material/TableCell/TableCell";
+import {IPaginationState} from "../models/IDataTablesState";
+import {IRequestOptions} from "../models";
 
 export class DtUtils {
 
@@ -40,11 +42,10 @@ export class DtUtils {
             return true;
         }
 
-        return this.isFilterWithEmptyValues(filterModel);
+        return this.hasFilterEmptyValues(filterModel);
     }
 
-    static isFilterWithEmptyValues(filterModel: FilterModel | FilterRangeModel): boolean {
-
+    static hasFilterEmptyValues(filterModel: FilterModel | FilterRangeModel): boolean {
         if (filterModel.filterValue === 0 || filterModel.filterValue === '' || filterModel.filterValue === null || filterModel.filterValue === undefined) {
             return true;
         }
@@ -63,16 +64,18 @@ export class DtUtils {
     }
 
     static changeFilterOrRemove(filters: List<FilterModel | FilterRangeModel>, filterModel: FilterModel | FilterRangeModel): List<FilterModel | FilterRangeModel> {
-        if (!this.shouldRemoveFilter(filterModel)) {
-            filters.forEach((filter) => {
-                if (filter.filterDataSource === filterModel.filterDataSource) {
-                    filter.filterValue = filterModel.filterValue;
-                }
-            });
-        } else {
-            filters = filters.Where(x => x.filterDataSource !== filterModel.filterDataSource);
+        if (this.shouldRemoveFilter(filterModel)) {
+            return filters.Where(x => x.filterDataSource !== filterModel.filterDataSource);
         }
-        return filters;
+
+        const res = filters.map((filter) => {
+            if (filter.filterDataSource === filterModel.filterDataSource) {
+                filter.filterValue = filterModel.filterValue;
+            }
+            return filter;
+        });
+
+        return new List<FilterModel | FilterRangeModel>(res);
     }
 
     static isDecimal(stringVal: string): boolean {
@@ -129,6 +132,143 @@ export class DtUtils {
         return options.useExpand === true && options.expandLazyLoading === true &&
             ((typeof options.hasExpandDataSource === 'string' && row[options.hasExpandDataSource]) ||
                 (typeof options.hasExpandDataSource === 'function' && options.hasExpandDataSource(row)));
+    }
+
+    static getQueryOptions(sorting: SortingModel, filtersData: List<FilterModel>, paginationData: IPaginationState): IRequestOptions {
+        const options: IRequestOptions = {
+            headers: {
+                token: undefined
+            },
+            urlData: {
+                sortCSV: this.convertSortingToCSVFormat(sorting),
+                filters: this.formatFiltersData(filtersData),
+                pagination: {
+                    paginationMin: paginationData.paginationMin,
+                    paginationMax: paginationData.paginationMax
+                }
+            }
+        }
+
+        return options;
+    }
+
+    static convertSortingToCSVFormat(sorting: SortingModel) {
+        let result = '';
+
+        const tmp = [sorting];
+
+        if (sorting === undefined || sorting === null) {
+            return result;
+        }
+
+        tmp.forEach((element: SortingModel, index: number) => {
+            result += (Object.keys(element)
+                .map((k:string) =>  {
+                    return (element as any)[k];
+                })) + (index === tmp.length - 1 ? '' : ',');
+        });
+
+        return result;
+    }
+
+    static formatFiltersData(filtersData: List<FilterModel>) {
+        let formattedObject = {};
+
+        if (filtersData === undefined || filtersData.length === 0) {
+            return formattedObject;
+        }
+
+        filtersData.forEach((element, index) => {
+            const fieldNameFrom = element.filterDataSource + 'From';
+            const fieldNameTo = element.filterDataSource + 'To';
+
+            if(element.filterValue != null) {
+                if (typeof element.filterValue === 'object' && !Array.isArray(element.filterValue)) {
+                    if (element.filterValue.startRange !== null) {
+                        (formattedObject as any)[fieldNameFrom] = element.filterValue.fromValue;
+                    }
+                    if (element.filterValue.endRange !== null) {
+                        (formattedObject as any)[fieldNameTo] = element.filterValue.toValue;
+                    }
+                } else {
+                    if (element.filterValue.trim instanceof Function) {
+                        element.filterValue = element.filterValue.trim();
+                    }
+
+                    (formattedObject as any)[element.filterDataSource] = element.filterValue;
+                }
+            }
+        });
+        return formattedObject;
+    }
+
+    static buildRequestQueryString(options: IRequestOptions, dtOptions: IDataTablesOptions, baseUrl: string = ''): string {
+        let queryString = baseUrl;
+
+        let filtersQueryString = this.buildQueryStringWithNestedObject(options.urlData.filters);
+        filtersQueryString = filtersQueryString !== '' ? '&' + filtersQueryString : filtersQueryString;
+
+        let sortQueryString = options.urlData.sortCSV === '' ? '' : `&${ this.buildQueryString({sortCSV: options.urlData.sortCSV}).substr(1)}`
+
+        let paginationQueryString = '';
+
+        if (dtOptions.usePaging) {
+            paginationQueryString =
+                '&Pagination.Min=' + options.urlData.pagination.paginationMin
+                + '&Pagination.Max=' + options.urlData.pagination.paginationMax;
+        }
+
+        queryString =
+            queryString + (queryString.indexOf('?') !== -1 ? '' : '?')
+            + sortQueryString
+            + filtersQueryString
+            + paginationQueryString;
+
+        return queryString;
+    }
+
+    static buildQueryString(data: any) {
+        let query = "";
+        if (data) {
+            query = "?" + (Object.keys(data)
+                .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+                .join('&'));
+        }
+
+        return query;
+    }
+
+    static buildQueryStringWithNestedObject(data: any) {
+        let query = "&";
+        if (data) {
+            query = (Object.keys(data)
+                .map((k, index) => {
+                    if (Array.isArray(data[k]) && data[k].length > 0) {
+                        return `&${encodeURIComponent(k)}=` + data[k].map((x: any) => encodeURIComponent(x)).join(`&${encodeURIComponent(k)}=`)
+                    }
+                    else if (Array.isArray(data[k])) {
+                        return ''
+                    }
+
+                    if(typeof data[k] === 'object') {
+                        return this.buildQueryStringWithNestedObject(data[k])
+                    }
+                    return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+                })
+                .join('&'));
+        }
+
+        return query;
+    }
+
+    static JSONStringifyValuesOfObjectKeys(object: any) {
+        let result = {}
+        if (object) {
+            Object.keys(object).map(k => {
+                (result as any)[k] = JSON.stringify(object[k]);
+            })
+        }
+        return result
     }
 }
 

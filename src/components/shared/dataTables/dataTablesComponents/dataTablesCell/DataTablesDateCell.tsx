@@ -24,7 +24,7 @@ export const DataTablesDateCell: FC<IDataTablesDateCellProps> = (
 
     return (
         <div
-            className={`${className} dt-column-body-cell dt-column-select-body-cell`}
+            className={`${className} dt-column-body-cell dt-column-date-body-cell`}
         >
             {formattedDate}
         </div>

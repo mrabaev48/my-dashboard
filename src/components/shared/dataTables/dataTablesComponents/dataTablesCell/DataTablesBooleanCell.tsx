@@ -10,8 +10,6 @@ export const DataTablesBooleanCell:FC<IDataTablesBooleanCellProps> = ({rowCells,
         <div
             className={`${className} dt-column-body-cell dt-column-bool-body-cell`}
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
-            // onClick={this.onClick}
-            // data-is-detail={this.props.isDetail === true}
         >
             { cellValue &&
                 <CheckIcon color={"success"}/>

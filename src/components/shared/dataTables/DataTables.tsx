@@ -7,6 +7,8 @@ import {ConfirmDialogProvider} from "../dialog/confirmDialog/config/ConfirmDialo
 import {Table} from "@mui/material";
 
 import './defaultStyles.scss'
+import {DataTablesFooter} from "./dataTablesComponents/dataTablesFooter/DataTablesFooter";
+import {DataTablesPagination} from "./dataTablesComponents/dataTablesPagination/DataTablesPagination";
 
 export interface IDataTablesProps {
     options: IDataTablesOptions
@@ -22,9 +24,9 @@ export const DataTables:FC<IDataTablesProps> = ({options}) => {
                     <Table role={'data-table'} className={`${options.dtTableClassName} dt-table`}>
                         <DataTablesHead/>
                         <DataTablesBody/>
-                        {/*<DataTableFooter/>*/}
+                        <DataTablesFooter/>
                     </Table>
-                    {/*<DataTablePagination/>*/}
+                    <DataTablesPagination/>
                     {/*<ColumnSettingsDialog/>*/}
                 </div>
             </ConfirmDialogProvider>

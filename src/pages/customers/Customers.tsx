@@ -6,6 +6,8 @@ import {
 } from "../../components/shared/dataTables/models/DataTablesColumnType";
 import * as faker from "faker";
 import {KeyValuePair} from "../../components/shared/dataTables/utils/DtUtils";
+import {ThemeProvider} from "@mui/material";
+import {ThreeStripesDefaultTheme} from "../../overrides";
 
 export const Customers: FC = () => {
 
@@ -46,6 +48,7 @@ export const Customers: FC = () => {
 
     return (
         <div>
+            <ThemeProvider theme={ThreeStripesDefaultTheme}>
             <DataTables
                 options={{
                     columns: [
@@ -102,9 +105,10 @@ export const Customers: FC = () => {
                             useFilter: true
                         }
                     ],
-                    loadData: async () => {
+                    baseURL: 'http://localhost:3000',
+                    loadData: async (requestOptions: any, queryString: string) => {
                         // let data = (await axios.get('https://jsonplaceholder.typicode.com/users')).data;
-
+                        console.log('REQUEST OPTIONS: ', {requestOptions, queryString});
                         let data = [
                             {
                                 "id": 1,
@@ -463,6 +467,7 @@ export const Customers: FC = () => {
                     },
                 }}
             />
+            </ThemeProvider>
         </div>
     )
 }

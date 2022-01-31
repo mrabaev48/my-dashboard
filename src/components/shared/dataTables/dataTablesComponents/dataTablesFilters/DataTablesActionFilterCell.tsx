@@ -11,8 +11,8 @@ export const DataTablesActionFilterCell:FC<IDataTablesFilterProps> = ({column, c
     return (
         <TableCell className={`dt-filter dt-action-btns-filter-cell ${DtUtils.getCellClassNameByColumn(column)}`}>
             <div className={'dt-action-btns-filter-container flex'}>
-                <Button size={'small'} variant={'text'}>
-                    Filter
+                <Button size={'small'} variant={'text'} onClick={actions.applyFilters}>
+                    Apply
                 </Button>
                 <Box sx={{ mx: 1 }} />
                 <Button size={'small'} onClick={actions.clearFilters}>

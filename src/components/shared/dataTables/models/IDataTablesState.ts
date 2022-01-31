@@ -10,4 +10,20 @@ export interface IDataTablesState {
     editRecord: any | null;
     selectedRows: List<any>;
     expandedRowsUniqueKeys: List<any>;
+    loadedExpandedRowsKeys: List<any>;
+    filteredRecords: number;
+    totalRecords: number;
+    paginationMin: number;
+    paginationMax: number;
+    paginationData: IPaginationState;
+}
+
+export interface IPaginationState {
+    selectedItemsPerPage: number | null;
+    pageCount: number;
+    totalItems: number;
+    currentPageIndex: number;
+    paginationMin: number;
+    paginationMax: number;
+    filteredRecords: number;
 }

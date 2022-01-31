@@ -2,7 +2,7 @@ import { DataTablesColumn } from "./IDataTablesColumn";
 
 export interface IDataTablesOptions {
     columns: DataTablesColumn [];
-    loadData: () => any[] | Promise<any[]>;
+    loadData: (requestOptions: any, queryString: string) => any[] | Promise<any[]>;
     uniqueKey: string;
     dtTableClassName?: string;
     dtHeaderClassName?: string;
@@ -21,4 +21,8 @@ export interface IDataTablesOptions {
     hasExpandDataSource?: string | Function | null;
     expandDataSource?: null | string | Function;
     expandLazyLoading?: boolean | null;
+    itemsPerPage?: number[];
+    itemsPerPageDefault?: number;
+    usePaging?: boolean;
+    baseURL?: string;
 }
