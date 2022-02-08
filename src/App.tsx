@@ -1,24 +1,32 @@
 import React from 'react'
 import './styles/main-style.scss'
 import {MainLayout} from "./layouts/MainLayout";
-import {ReactKeycloakProvider} from '@react-keycloak/web'
-import {keycloakInstance} from "./configs/auth/keycloak";
-import {ThreeStripesDefaultTheme} from "./overrides";
 import {ThemeProvider} from "@mui/material";
-import { StylesProvider } from '@material-ui/core/styles';
+import {ThreeStripesDefaultTheme} from "./overrides";
 
 
 const App: React.FC = () => {
 
     return (
-        // <ReactKeycloakProvider authClient={keycloakInstance}>
-        // <ThemeProvider theme={ThreeStripesDefaultTheme}>
-            <StylesProvider injectFirst>
+        <ThemeProvider theme={ThreeStripesDefaultTheme}>
             <MainLayout/>
-            </StylesProvider>
-            // </ReactKeycloakProvider>
-        // </ThemeProvider>
+        </ThemeProvider>
     )
 }
 
 export default App
+
+
+/*
+const App: React.FC = () => {
+
+    return (
+        <ReactKeycloakProvider authClient={keycloakInstance}>
+            <ThemeProvider theme={ThreeStripesDefaultTheme}>
+                <StylesProvider injectFirst>
+                    <MainLayout/>
+                </StylesProvider>
+        </ReactKeycloakProvider>
+        </ThemeProvider>
+   )
+}*/
