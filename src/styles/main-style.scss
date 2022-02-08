@@ -1,15 +1,16 @@
-//@import "overrides/typography/typography";
-//@import "overrides/button/button";
-//@import "overrides/chackbox/checkbox";
-//@import "overrides/textField/textField";
-//@import "overrides/navigation/navigation";
-//@import "overrides/radiobutton/radiobutton";
-//@import "overrides/icon/icon";
-//@import "overrides/table/table";
+@import "overrides/typography/typography";
+@import "overrides/button/button";
+@import "overrides/chackbox/checkbox";
+@import "overrides/textField/textField";
+@import "overrides/navigation/navigation";
+@import "overrides/radiobutton/radiobutton";
+@import "overrides/icon/icon";
+@import "overrides/table/table";
 
 html, body, .root {
   //max-width: 1928px;
   width: 100%;
+  //background-color: white;
 }
 
 

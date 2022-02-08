@@ -6,8 +6,6 @@ import {
 } from "../../components/shared/dataTables/models/DataTablesColumnType";
 import * as faker from "faker";
 import {KeyValuePair} from "../../components/shared/dataTables/utils/DtUtils";
-import {ThemeProvider} from "@mui/material";
-import {ThreeStripesDefaultTheme} from "../../overrides";
 
 export const Customers: FC = () => {
 
@@ -45,10 +43,9 @@ export const Customers: FC = () => {
     }
 
     const nouns = getNouns();
-
+    // const theme = newStyles();
     return (
         <div>
-            <ThemeProvider theme={ThreeStripesDefaultTheme}>
                 <DataTables
                     options={{
                         columns: [
@@ -467,7 +464,6 @@ export const Customers: FC = () => {
                         },
                     }}
                 />
-            </ThemeProvider>
         </div>
     )
 }

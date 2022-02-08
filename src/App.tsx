@@ -1,16 +1,15 @@
 import React from 'react'
 import './styles/main-style.scss'
 import {MainLayout} from "./layouts/MainLayout";
-import {ThemeProvider} from "@mui/material";
-import {ThreeStripesDefaultTheme} from "./overrides";
+import { StylesProvider } from '@material-ui/core';
 
 
 const App: React.FC = () => {
 
     return (
-        <ThemeProvider theme={ThreeStripesDefaultTheme}>
+        <StylesProvider injectFirst>
             <MainLayout/>
-        </ThemeProvider>
+        </StylesProvider>
     )
 }
 
