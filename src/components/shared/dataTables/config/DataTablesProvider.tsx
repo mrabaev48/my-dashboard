@@ -101,7 +101,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
         loadTableData();
     }, [paginationData]);
 
-    console.log('OPTIONS & STATE DATA: ', {
+    /*console.log('OPTIONS & STATE DATA: ', {
         options: mergedOptions,
         editRecord,
         filtersData,
@@ -114,7 +114,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
         loadedExpandedRowsKeys,
         filteredRecords,
         paginationData,
-    });
+    });*/
 
     const handleCancelButton = () => {
         setDialogOpen(false);

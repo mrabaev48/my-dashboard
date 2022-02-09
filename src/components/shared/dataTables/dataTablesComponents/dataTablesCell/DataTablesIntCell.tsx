@@ -13,12 +13,18 @@ export const DataTablesIntCell:FC<IDataTablesIntCellProps> = ({
                                                               }) => {
     const { options } = useDataTablesContext();
 
+    let displayValue = cellValue;
+
+    if (column.transform) {
+        displayValue = column.transform(displayValue);
+    }
+
     return (
         <div
             className={`${className} dt-column-body-cell dt-column-int-body-cell`}
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
         >
-            {cellValue}
+            {displayValue}
         </div>
     )
 }

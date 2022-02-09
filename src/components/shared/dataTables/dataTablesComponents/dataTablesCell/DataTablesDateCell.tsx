@@ -22,6 +22,10 @@ export const DataTablesDateCell: FC<IDataTablesDateCellProps> = (
         formattedDate = DtUtils.getFormattedDate(cellValue, column, context) || '';
     }
 
+    if (column.transform) {
+        formattedDate = column.transform(formattedDate);
+    }
+
     return (
         <div
             className={`${className} dt-column-body-cell dt-column-date-body-cell`}

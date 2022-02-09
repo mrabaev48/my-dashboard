@@ -18,7 +18,6 @@ export const DataTablesBodyRow: FC<IDataTablesBodyRowProps> = ({rowCells, classN
 
     const cells = context.options.columns.map((column, index) => {
 
-
         return (
             <DataTablesBodyCell
                 key={column.dataSource + '_' + index}

@@ -1,5 +1,6 @@
 import {DataTablesColumnType} from "./DataTablesColumnType";
 import {SortDirection} from "@mui/material/TableCell/TableCell";
+import React from "react";
 
 export interface FromToFilterPlaceholder {
     fromPlaceholder: string;
@@ -16,6 +17,7 @@ export interface IDataTablesColumn {
     required?: boolean;
     editable?: boolean;
     className?: string;
+    transform?: (it: any) => any;
 }
 
 export interface IDataTablesSelectColumn extends IDataTablesColumn {

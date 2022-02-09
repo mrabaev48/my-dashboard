@@ -55,7 +55,7 @@ export const DataTableBooleanFilter: FC<IDataTablesFilterProps> = ({
             data-cy={column.dataSource + '-filter'}
             className={`dt-boolean-filter dt-filter ${DtUtils.getCellClassNameByColumn(column)}`}
         >
-            {/*<div className={'flex justify-center flex-column '}>*/}
+            {/*<dev className={'flex justify-center flex-column '}>*/}
                 <Select
                     defaultValue={selectValues[0].value}
                     value={value}
@@ -63,7 +63,7 @@ export const DataTableBooleanFilter: FC<IDataTablesFilterProps> = ({
                 >
                     {items}
                 </Select>
-            {/*</div>*/}
+            {/*</dev>*/}
         </TableCell>
     )
 }

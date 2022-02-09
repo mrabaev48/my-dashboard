@@ -21,9 +21,9 @@ export const Customers: FC = () => {
             {isLoading && <h1>Loading data...</h1>}
             {error && <h4>{error}</h4>}
             {customers.map(customer =>
-                <div key={customer.id}>
+                <dev key={customer.id}>
                     {customer.name}
-                </div>
+                </dev>
             )}
         </>
     )*/
@@ -64,7 +64,10 @@ export const Customers: FC = () => {
                                 type: DataTablesColumnType.STRING,
                                 useFilter: true,
                                 sortDirection: "asc",
-                                required: true
+                                required: true,
+                                transform: (it) => {
+                                    return 'Text : ' + it;
+                                },
                             },
                             {
                                 dataSource: 'isActive',
@@ -99,13 +102,14 @@ export const Customers: FC = () => {
                                 loadSelectDataSource: async () => {
                                     return nouns;
                                 },
-                                useFilter: true
+                                useFilter: true,
+                                transform: (it: any) => 'Value: ' + it
                             }
                         ],
                         baseURL: 'http://localhost:3000',
                         loadData: async (requestOptions: any, queryString: string) => {
                             // let data = (await axios.get('https://jsonplaceholder.typicode.com/users')).data;
-                            console.log('REQUEST OPTIONS: ', {requestOptions, queryString});
+                            // console.log('REQUEST OPTIONS: ', {requestOptions, queryString});
                             let data = [
                                 {
                                     "id": 1,

@@ -15,13 +15,18 @@ export const DataTablesDecimalCell:FC<IDataTablesDecimalCellProps> = ({
                                                                       }) => {
     const { options } = useDataTablesContext();
 
+    let displayValue = cellValue;
+
+    if (column.transform) {
+        displayValue = column.transform(displayValue);
+    }
+
     return (
         <div
             className={`${className} dt-column-body-cell dt-column-decimal-body-cell`}
             data-cy={rowCells[options.uniqueKey] + '_' + column.dataSource}
-            // onClick={this.onClick}
         >
-            {cellValue}
+            {displayValue}
         </div>
     )
 }

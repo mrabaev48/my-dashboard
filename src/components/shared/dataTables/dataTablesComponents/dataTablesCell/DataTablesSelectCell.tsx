@@ -37,7 +37,11 @@ export const DataTablesSelectCell: FC<IDataTablesSelectCellProps> = ({
         loadSelectData();
     }, [])
 
-    const displayValue = selectData.find(search => search.key === cellValue)?.value || '';
+    let displayValue = selectData.find(search => search.key === cellValue)?.value || '';
+
+    if (column.transform) {
+        displayValue = column.transform(displayValue);
+    }
 
     return (
         <div
