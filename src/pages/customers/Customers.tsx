@@ -6,6 +6,9 @@ import {
 } from "../../components/shared/dataTables/models/DataTablesColumnType";
 import * as faker from "faker";
 import {KeyValuePair} from "../../components/shared/dataTables/utils/DtUtils";
+import AddCardIcon from '@mui/icons-material/AddCard';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
+import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 
 export const Customers: FC = () => {
 
@@ -456,16 +459,31 @@ export const Customers: FC = () => {
                         dateFormat: 'dd.MM.yyyy',
                         useSorting: true,
                         useSelection: true,
-                        hasExpandDataSource: 'hasExpandTableRow',
                         useExpand: true,
-                        expandLazyLoading: true,
-                        expandDataSource: 'expandDataSource',
+                        renderExpandedDataControl: (row: any) => {
+                            return (
+                                <h2>{JSON.stringify(row)}</h2>
+                            );
+                        },
                         deleteRecord: (row: any) => {
                             console.log(`row with id = ${row.id} was deleted`);
                         },
                         updateRecord: (row: any) => {
                             console.log(`record: ${row} was updated`);
                         },
+                        renderCustomActionsControls: (row: any) => {
+                            const actions: JSX.Element[] = [];
+
+                            const addIconOnClick = () => {
+                                alert('clicked');
+                            }
+
+                            const addIcon = <AddCardIcon className={'cursor'} color={"primary"} onClick={addIconOnClick}/>;
+                            const accessIcon = <AccessibilityIcon className={'cursor'} color={"primary"} onClick={addIconOnClick}/>;
+                            const attachIcon = <AttachEmailIcon className={'cursor'} color={"primary"} onClick={addIconOnClick}/>;
+
+                            return [addIcon, accessIcon, attachIcon];
+                        }
                     }}
                 />
         </div>

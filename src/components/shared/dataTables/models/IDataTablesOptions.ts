@@ -1,4 +1,5 @@
 import { DataTablesColumn } from "./IDataTablesColumn";
+import React from "react";
 
 export interface IDataTablesOptions {
     columns: DataTablesColumn [];
@@ -18,11 +19,10 @@ export interface IDataTablesOptions {
     updateRecord?: (row: any) => void | Promise<void>;
     useSelection?: boolean;
     useExpand?: boolean;
-    hasExpandDataSource?: string | Function | null;
-    expandDataSource?: null | string | Function;
-    expandLazyLoading?: boolean | null;
     itemsPerPage?: number[];
     itemsPerPageDefault?: number;
     usePaging?: boolean;
     baseURL?: string;
+    renderExpandedDataControl?: (row: any) => JSX.Element;
+    renderCustomActionsControls?: (row: any) => JSX.Element [];
 }

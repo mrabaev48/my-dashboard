@@ -8,9 +8,6 @@ import {DataTablesColumn} from "../models/IDataTablesColumn";
 
 import _ from 'lodash';
 import {DtUtils, KeyValuePair, SortDirections, SortingModel} from "../utils/DtUtils";
-import {DraggableDialog} from "../../dialogExt/DraggableDialog";
-import {Button, DialogActions, DialogContent} from "@mui/material";
-import {DataTablesEditForm} from "../dataTablesComponents/dataTablesEditForm/DataTablesEditForm";
 import {IPaginationState} from "../models/IDataTablesState";
 
 
@@ -33,9 +30,6 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
     const [filtersData, setFiltersData] = useState<List<FilterModel | FilterRangeModel>>(new List<FilterModel | FilterRangeModel>());
     const [selectColumnsData, setSelectColumnsData] = useState<List<KeyValuePair<string, List<any>>>>(new List<KeyValuePair<string, List<any>>>());
     const [sorting, setSorting] = useState<SortingModel>(DataTablesContextDefaultModel.state.sorting);
-    const [editRecord, setEditRecord] = useState<any | null>(null);
-    const [dialogOpen, setDialogOpen] = useState(false);
-    const [hasError, setHasError] = useState(false);
     const [selectedRows, setSelectedRows] = useState<List<any>>(new List<any>());
     const [expandedRowsUniqueKeys, setExpandedRowsUniqueKeys] = useState<List<any>>(new List<any>());
     const [loadedExpandedRowsKeys, setLoadedExpandedRowsKeys] = useState<List<any>>(new List<any>());
@@ -66,7 +60,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
             mergedOptions.columns.unshift(DtUtils.getSelectionColumnObject());
         }
 
-        if (mergedOptions.useExpand) {
+        if (mergedOptions.useExpand && mergedOptions.renderExpandedDataControl) {
             mergedOptions.columns.unshift(DtUtils.getExpandColumnObject());
         }
 
@@ -79,27 +73,18 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
             setSorting(sortModel);
         }
 
-        if (!mergedOptions.useExpand) {
-            mergedOptions.expandLazyLoading = null;
-        }
-
-        if (!mergedOptions.expandLazyLoading) {
-            mergedOptions.hasExpandDataSource = null;
-        }
-
         loadTableData();
     }, []);
 
-    useEffect(() => {
-        if (editRecord) {
-            setDialogOpen(true);
-        }
-    }, [editRecord]);
 
     useEffect(() => {
         //TODO make load data here when pagination data was changed
         loadTableData();
     }, [paginationData]);
+
+    useEffect(() => {
+        console.log('Changed!: ', filtersData)
+    }, [filtersData])
 
     /*console.log('OPTIONS & STATE DATA: ', {
         options: mergedOptions,
@@ -108,33 +93,12 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
         sorting,
         data,
         selectColumnsData,
-        hasError,
         selectedRows,
         expandedRowsUniqueKeys,
         loadedExpandedRowsKeys,
         filteredRecords,
         paginationData,
     });*/
-
-    const handleCancelButton = () => {
-        setDialogOpen(false);
-        setEditRecord(null);
-    }
-
-    const closeButtonCallback = (event: object) => {
-        setDialogOpen(false);
-        setEditRecord(null);
-    }
-
-    const handleApplyButton = async () => {
-        if (!hasError) {
-            if (mergedOptions.updateRecord) {
-                await mergedOptions.updateRecord(editRecord);
-            }
-            setDialogOpen(false);
-            setEditRecord(null);
-        }
-    }
 
     return (
         <DataTablesContext.Provider
@@ -144,7 +108,6 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     filtersData,
                     selectColumnsData,
                     sorting,
-                    editRecord,
                     selectedRows,
                     expandedRowsUniqueKeys,
                     loadedExpandedRowsKeys,
@@ -207,6 +170,7 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                     },
                     clearFilters(): void {
                         setFiltersData(new List<FilterModel | FilterRangeModel>());
+                        console.log('Im a clearFilters function: ', filtersData)
                     },
                     async applyFilters(): Promise<void> {
                         await loadTableData();
@@ -222,10 +186,6 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
 
                         setSorting(current);
                     },
-                    editRecord(row: any): void {
-                        setEditRecord(row);
-                    },
-                    setHasError,
                     isRowSelected(row: any): boolean {
                         if (selectedRows.length === 0) {
                             return false;
@@ -280,29 +240,6 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
             }}
         >
             {children}
-            <DraggableDialog
-                open={dialogOpen}
-                title={'Edit dialog'}
-                className={`dt-edit-dialog`}
-                closeButtonCallback={closeButtonCallback}
-            >
-                <DialogContent>
-                    {/*<DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
-                    </DialogContentText>*/}
-                    <DataTablesEditForm
-                        columns={mergedOptions.columns}
-                        row={editRecord}
-                    />
-                </DialogContent>
-                <DialogActions className={`dt-edit-dialog-actions`}>
-                    <Button variant={"outlined"} onClick={handleCancelButton}>
-                        Cancel
-                    </Button>
-                    <Button variant={"contained"} disabled={hasError} onClick={handleApplyButton}>Update</Button>
-                </DialogActions>
-            </DraggableDialog>
         </DataTablesContext.Provider>
     )
 }

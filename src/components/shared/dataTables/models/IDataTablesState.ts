@@ -7,7 +7,6 @@ export interface IDataTablesState {
     filtersData: List<FilterModel | FilterRangeModel>;
     selectColumnsData: List<KeyValuePair<string, List<any>>>;
     sorting: SortingModel;
-    editRecord: any | null;
     selectedRows: List<any>;
     expandedRowsUniqueKeys: List<any>;
     loadedExpandedRowsKeys: List<any>;

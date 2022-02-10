@@ -22,7 +22,7 @@ export interface IDataTablesBodyCellProps {
     style?: CSSProperties;
 }
 
-export const DataTablesBodyCell: FC<IDataTablesBodyCellProps> = ({
+export const  DataTablesBodyCell: FC<IDataTablesBodyCellProps> = ({
                                                                      column,
                                                                      row,
                                                                      value,

@@ -30,9 +30,6 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         editRecord(row: any): void {
             throw new Error('editRecord not implemented! Provide this function to actions object');
         },
-        setHasError(value: boolean): void {
-            throw new Error('setHasError not implemented! Provide this function to actions object');
-        },
         isRowSelected(row: any): boolean {
             throw new Error('isRowSelected not implemented! Provide this function to actions object');
         },
@@ -90,12 +87,12 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         useDelete: true,
         useSelection: true,
         useExpand: false,
-        hasExpandDataSource: null,
-        expandLazyLoading: false,
+        renderExpandedDataControl: undefined,
         itemsPerPage: [10, 25, 100],
         itemsPerPageDefault: 25,
         usePaging: true,
         baseURL: '',
+        renderCustomActionsControls: undefined,
     },
     state: {
         data: new List<any>(),
@@ -106,7 +103,6 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
             direction: false,
             columnDataSource: 'undefined'
         },
-        editRecord: null,
         selectedRows: new List<any>(),
         expandedRowsUniqueKeys: new List<any>(),
         filteredRecords: 0,
@@ -121,6 +117,6 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
             paginationMin: 0,
             paginationMax: 0,
             filteredRecords: 0,
-        }
+        },
     }
 }

@@ -124,16 +124,6 @@ export class DtUtils {
         }
     }
 
-    static hasTableRowExpand(options: IDataTablesOptions, row: any): boolean {
-        if (options.useExpand && options.hasExpandDataSource === null) {
-            return true;
-        }
-
-        return options.useExpand === true && options.expandLazyLoading === true &&
-            ((typeof options.hasExpandDataSource === 'string' && row[options.hasExpandDataSource]) ||
-                (typeof options.hasExpandDataSource === 'function' && options.hasExpandDataSource(row)));
-    }
-
     static getQueryOptions(sorting: SortingModel, filtersData: List<FilterModel>, paginationData: IPaginationState): IRequestOptions {
         const options: IRequestOptions = {
             headers: {
