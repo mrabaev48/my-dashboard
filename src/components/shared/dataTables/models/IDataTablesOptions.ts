@@ -1,9 +1,17 @@
 import { DataTablesColumn } from "./IDataTablesColumn";
 import React from "react";
 
+export interface IFilterEntity {
+    key: string,
+    filter: JSX.Element;
+    colspan?: number;
+}
+
 export interface IDataTablesOptions {
     columns: DataTablesColumn [];
-    loadData: (requestOptions: any, queryString: string) => any[] | Promise<any[]>;
+    filters?: IFilterEntity [];
+    // loadData: (requestOptions: any, queryString: string) => any[] | Promise<any[]>;
+    tableData: any[];
     uniqueKey: string;
     dtTableClassName?: string;
     dtHeaderClassName?: string;

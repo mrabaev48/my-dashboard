@@ -6,9 +6,8 @@ import {DataTablesHeadCell} from "../dataTablesHeadCell/DataTablesHeadCell";
 
 export const DataTablesHead: FC = (props) => {
 
-    const {options} = useDataTablesContext();
-
-    const columns = options.columns.map((column, index) => {
+    const {options, state} = useDataTablesContext();
+    const columns = state.columns.map((column, index) => {
         return (
             <DataTablesHeadCell column={column} key={index}/>
         )

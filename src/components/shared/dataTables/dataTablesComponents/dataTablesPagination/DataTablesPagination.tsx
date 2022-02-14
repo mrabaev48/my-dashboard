@@ -24,7 +24,7 @@ export const DataTablesPagination:FC = () => {
 
     const calculatePagingValues = (newSelectedItemsPerPage?: number): IPaginationState => {
 
-        const filteredRecords = context.state.filteredRecords;
+        const filteredRecords = context.state.paginationData.filteredRecords;
         let itemsPerPage = context.options.itemsPerPageDefault;
 
         if (paginationData.selectedItemsPerPage !== null) {
@@ -89,8 +89,8 @@ export const DataTablesPagination:FC = () => {
             localizationValue += "Filtered";
         }*/
         return `Displaying records from 
-        ${context.state.data.length === 0 ? 0 : paginationData.paginationMin + 1} to 
-        ${paginationData.paginationMin + context.state.data.length} of 
+        ${context.options.tableData.length === 0 ? 0 : paginationData.paginationMin + 1} to 
+        ${paginationData.paginationMin + context.options.tableData.length} of 
         ${paginationData.totalItems}`
     }
 

@@ -8,7 +8,7 @@ import {DataTablesColumn} from "../models/IDataTablesColumn";
 
 import _ from 'lodash';
 import {DtUtils, KeyValuePair, SortDirections, SortingModel} from "../utils/DtUtils";
-import {IPaginationState} from "../models/IDataTablesState";
+import {IDataTablesState, IPaginationState} from "../models/IDataTablesState";
 
 
 export interface IDataTablesProviderProps {
@@ -26,101 +26,51 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
         ...options
     };
 
-    const [data, setData] = useState<List<any>>(new List<any>());
-    const [filtersData, setFiltersData] = useState<List<FilterModel | FilterRangeModel>>(new List<FilterModel | FilterRangeModel>());
-    const [selectColumnsData, setSelectColumnsData] = useState<List<KeyValuePair<string, List<any>>>>(new List<KeyValuePair<string, List<any>>>());
-    const [sorting, setSorting] = useState<SortingModel>(DataTablesContextDefaultModel.state.sorting);
-    const [selectedRows, setSelectedRows] = useState<List<any>>(new List<any>());
-    const [expandedRowsUniqueKeys, setExpandedRowsUniqueKeys] = useState<List<any>>(new List<any>());
-    const [loadedExpandedRowsKeys, setLoadedExpandedRowsKeys] = useState<List<any>>(new List<any>());
+    const [dtState, setDtState] = useState<IDataTablesState>(DataTablesContextDefaultModel.state);
 
-    const [filteredRecords, setFilteredRecords] = useState(0);
-    const [totalRecords, setTotalRecords] = useState(0);
-    const [paginationMin, setPaginationMin] = useState(0);
-    const [paginationMax, setPaginationMax] = useState(0);
-
-    const [paginationData, setPaginationData] = useState<IPaginationState>(DataTablesContextDefaultModel.state.paginationData);
-
-    const loadTableData = async () => {
-        const requestOptions = DtUtils.getQueryOptions(sorting, filtersData, paginationData);
-        const queryString = DtUtils.buildRequestQueryString(requestOptions, mergedOptions, mergedOptions.baseURL);
-
-        const loadedData = await mergedOptions.loadData(requestOptions, queryString);
-        //TODO Response data should contains information about paging. Set paging data here.
-        setData(new List<any>(loadedData));
-    }
-
-    useEffect(() => {
-
+    const collectDtOptionsData = () => {
         if (DtUtils.isActionCellNeeded(mergedOptions)) {
             mergedOptions.columns.push(DtUtils.getActionColumnObject());
         }
 
-        if (mergedOptions.useSelection) {
+        if (mergedOptions.useSelection === true) {
             mergedOptions.columns.unshift(DtUtils.getSelectionColumnObject());
         }
 
-        if (mergedOptions.useExpand && mergedOptions.renderExpandedDataControl) {
+        if (mergedOptions.useExpand === true && mergedOptions.renderExpandedDataControl) {
             mergedOptions.columns.unshift(DtUtils.getExpandColumnObject());
         }
 
         const sortColumn = mergedOptions.columns.find(x => x.sortDirection !== undefined && x.sortDirection !== false);
 
+        const sortModel = {...dtState.sorting};
+
         if (sortColumn) {
-            const sortModel = {...sorting};
             sortModel.columnDataSource = sortColumn.dataSource;
             sortModel.direction = sortColumn.sortDirection!;
-            setSorting(sortModel);
         }
 
-        loadTableData();
+        setDtState({
+            ...dtState,
+            sorting: sortModel,
+            columns: mergedOptions.columns
+        })
+    }
+
+    useEffect(() => {
+        collectDtOptionsData();
     }, []);
 
-
-    useEffect(() => {
-        //TODO make load data here when pagination data was changed
-        loadTableData();
-    }, [paginationData]);
-
-    useEffect(() => {
-        console.log('Changed!: ', filtersData)
-    }, [filtersData])
-
-    /*console.log('OPTIONS & STATE DATA: ', {
-        options: mergedOptions,
-        editRecord,
-        filtersData,
-        sorting,
-        data,
-        selectColumnsData,
-        selectedRows,
-        expandedRowsUniqueKeys,
-        loadedExpandedRowsKeys,
-        filteredRecords,
-        paginationData,
-    });*/
+    console.log('OPTIONS: ', {mergedOptions, dtState})
 
     return (
         <DataTablesContext.Provider
             value={{
-                state: {
-                    data,
-                    filtersData,
-                    selectColumnsData,
-                    sorting,
-                    selectedRows,
-                    expandedRowsUniqueKeys,
-                    loadedExpandedRowsKeys,
-                    filteredRecords,
-                    totalRecords,
-                    paginationMin,
-                    paginationMax,
-                    paginationData
-                },
+                state: dtState,
                 actions: {
                     ...DataTablesContextDefaultModel.actions,
                     getFilterValue(defaultValue: any, column: DataTablesColumn): FilterModel | FilterRangeModel {
-                        const filterModel = filtersData.find(f => f.filterDataSource === column.dataSource);
+                        const filterModel = dtState.filtersData.find(f => f.filterDataSource === column.dataSource);
 
                         if (filterModel) {
                             return _.cloneDeep(filterModel);
@@ -129,19 +79,22 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                         return {filterValue: defaultValue, filterDataSource: column.dataSource};
                     },
                     collectFiltersData(filterModel) {
-                        const isExists = filtersData.Any(x => x.filterDataSource === filterModel.filterDataSource);
-                        let filters = new List<FilterModel | FilterRangeModel>([...filtersData]);
+                        const isExists = dtState.filtersData.Any(x => x.filterDataSource === filterModel.filterDataSource);
+                        let filters = new List<FilterModel | FilterRangeModel>([...dtState.filtersData]);
 
                         if (isExists) {
                             filters = DtUtils.changeFilterOrRemove(filters, filterModel);
                         } else {
                             filters.Add(filterModel)
                         }
-                        setFiltersData(filters);
+                        setDtState({
+                            ...dtState,
+                            filtersData: filters
+                        })
                     },
                     setSelectColumnData(data: KeyValuePair<string, List<any>>) {
-                        const isExist = selectColumnsData.Any(x => x.key === data.key);
-                        const current = new List([...selectColumnsData]);
+                        const isExist = dtState.selectColumnsData.Any(x => x.key === data.key);
+                        const current = new List([...dtState.selectColumnsData]);
                         if (isExist) {
                             current.forEach(item => {
                                 if (item.key === data.key) {
@@ -152,12 +105,15 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                             current.Add(data);
                         }
 
-                        setSelectColumnsData(current);
+                        setDtState({
+                            ...dtState,
+                            selectColumnsData: current
+                        });
                     },
                     getSelectColumnData(columnDataSource: string): List<any> {
                         let result = new List<any>();
 
-                        selectColumnsData.forEach(item => {
+                        dtState.selectColumnsData.forEach(item => {
                             if (item.key === columnDataSource) {
                                 result = item.value;
                             }
@@ -166,17 +122,19 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                         return result;
                     },
                     isSelectDataExist(columnDataSource: string): boolean {
-                        return selectColumnsData.Any(x => x.key === columnDataSource);
+                        return dtState.selectColumnsData.Any(x => x.key === columnDataSource);
                     },
                     clearFilters(): void {
-                        setFiltersData(new List<FilterModel | FilterRangeModel>());
-                        console.log('Im a clearFilters function: ', filtersData)
+                        setDtState({
+                            ...dtState,
+                            filtersData: new List<FilterModel | FilterRangeModel>()
+                        });
                     },
                     async applyFilters(): Promise<void> {
-                        await loadTableData();
+
                     },
                     addOrUpdateSorting(columnDataSource: string): void {
-                        const current = {...sorting};
+                        const current = {...dtState.sorting};
                         if (current.columnDataSource === columnDataSource) {
                             current.direction = current!.direction === SortDirections.ASC ? SortDirections.DESC : SortDirections.ASC;
                         } else {
@@ -184,17 +142,20 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                             current.direction = SortDirections.ASC;
                         }
 
-                        setSorting(current);
+                        setDtState({
+                            ...dtState,
+                            sorting: current
+                        });
                     },
                     isRowSelected(row: any): boolean {
-                        if (selectedRows.length === 0) {
+                        if (dtState.selectedRows.length === 0) {
                             return false;
                         }
 
-                        return selectedRows.Any(x => x === row[mergedOptions.uniqueKey]);
+                        return dtState.selectedRows.Any(x => x === row[mergedOptions.uniqueKey]);
                     },
                     toggleRowSelection(row: any): void {
-                        let selected = new List<any>([...selectedRows]);
+                        let selected = new List<any>([...dtState.selectedRows]);
                         const item = selected.find(x => x === row[mergedOptions.uniqueKey]);
 
                         if (item) {
@@ -203,38 +164,56 @@ export const DataTablesProvider: FC<IDataTablesProviderProps> = ({
                             selected.Add(row[mergedOptions.uniqueKey]);
                         }
 
-                        setSelectedRows(selected);
+                        setDtState({
+                            ...dtState,
+                            selectedRows: selected
+                        });
                     },
                     selectAllRows(): void {
-                        const rows = data.map(x => {
+                        const rows = mergedOptions.tableData.map(x => {
                             return x[mergedOptions.uniqueKey];
                         })
-                        setSelectedRows(new List<any>([...rows, ..._LoadedExpandedRowsKeys]));
+                        setDtState({
+                            ...dtState,
+                            selectedRows: new List<any>([...rows, ..._LoadedExpandedRowsKeys])
+                        });
                     },
                     unselectAllRows(): void {
-                        setSelectedRows(new List<any>());
+                        setDtState({
+                            ...dtState,
+                            selectedRows: new List<any>()
+                        });
                     },
                     isTableRowExpanded(uniqueKey: any): boolean {
-                        return expandedRowsUniqueKeys.Any(x => x === uniqueKey);
+                        return dtState.expandedRowsUniqueKeys.Any(x => x === uniqueKey);
                     },
                     expandTableRow(uniqueKey: any): void {
-                        const expandedRows = new List<any>([...expandedRowsUniqueKeys]);
+                        const expandedRows = new List<any>([...dtState.expandedRowsUniqueKeys]);
                         expandedRows.Add(uniqueKey);
 
-                        setExpandedRowsUniqueKeys(expandedRows);
+                        setDtState({
+                            ...dtState,
+                            expandedRowsUniqueKeys: expandedRows
+                        });
                     },
                     collapseTableRow(uniqueKey: any): void {
-                        const expandedRows = expandedRowsUniqueKeys.Where(x => x !== uniqueKey);
-                        setExpandedRowsUniqueKeys(expandedRows);
+                        const expandedRows = dtState.expandedRowsUniqueKeys.Where(x => x !== uniqueKey);
+
+                        setDtState({
+                            ...dtState,
+                            expandedRowsUniqueKeys: expandedRows
+                        });
                     },
                     collectExpandedRows(expandedRowsKeys): void {
                         _LoadedExpandedRowsKeys = expandedRowsKeys;
                     },
-                    setTotalRecords,
-                    setFilteredRecords,
-                    setPaginationMin,
-                    setPaginationMax,
-                    setPaginationData,
+
+                    setPaginationData(value): void {
+                        setDtState({
+                            ...dtState,
+                            paginationData: value
+                        });
+                    }
                 },
                 options: mergedOptions
             }}

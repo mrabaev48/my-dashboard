@@ -18,6 +18,8 @@ export interface IDataTablesColumn {
     editable?: boolean;
     className?: string;
     transform?: (it: any) => any;
+    filter?: JSX.Element;
+    colspan?: number;
 }
 
 export interface IDataTablesSelectColumn extends IDataTablesColumn {

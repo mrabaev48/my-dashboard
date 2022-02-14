@@ -16,7 +16,7 @@ export interface IDataTablesBodyRowProps {
 export const DataTablesBodyRow: FC<IDataTablesBodyRowProps> = ({rowCells, className, style}) => {
     const context = useDataTablesContext();
 
-    const cells = context.options.columns.map((column, index) => {
+    const cells = context.state.columns.map((column, index) => {
 
         return (
             <DataTablesBodyCell

@@ -19,9 +19,8 @@ export const DataTables:FC<IDataTablesProps> = ({options}) => {
         <DataTablesProvider
             options={options}
         >
-            <ConfirmDialogProvider>
                 <div className={`dt-container`}>
-                    <Table role={'data-table'} className={`${options.dtTableClassName} dt-table`}>
+                    <Table role={'data-table'} className={`${options.dtTableClassName} dt-table`} style={{ width: '100%'}} >
                         <DataTablesHead/>
                         <DataTablesBody/>
                         <DataTablesFooter/>
@@ -29,7 +28,6 @@ export const DataTables:FC<IDataTablesProps> = ({options}) => {
                     <DataTablesPagination/>
                     {/*<ColumnSettingsDialog/>*/}
                 </div>
-            </ConfirmDialogProvider>
         </DataTablesProvider>
     )
 }

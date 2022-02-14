@@ -32,7 +32,7 @@ export const DataTablesBody: FC = (props) => {
                         />
                         {expandedData &&
                             <TableRow>
-                                <TableCell colSpan={context.options.columns.length}>
+                                <TableCell colSpan={context.state.columns.length}>
                                     {expandedData}
                                 </TableCell>
                             </TableRow>
@@ -44,14 +44,14 @@ export const DataTablesBody: FC = (props) => {
         return null;
     }
 
-    const rows = loadDataWithExpandedControls(context.state.data) || [];
+    const rows = loadDataWithExpandedControls(context.options.tableData) || [];
     context.actions.collectExpandedRows(_expandedRows);
 
     if (rows.length === 0) {
         return (
             <TableBody data-cy={''}>
                 <TableRow>
-                    <TableCell colSpan={context.options.columns.length}>
+                    <TableCell colSpan={context.state.columns.length}>
                         <Typography>
                             No data
                         </Typography>
