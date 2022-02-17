@@ -88,13 +88,11 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         useExpand: true,
         renderExpandedDataControl: undefined,
         itemsPerPage: [10, 25, 100],
-        itemsPerPageDefault: 25,
+        itemsPerPageDefault: 10,
         usePaging: true,
-        baseURL: '',
         renderCustomActionsControls: undefined,
     },
     state: {
-        // data: new List<any>(),
         filtersData: new List<FilterModel | FilterRangeModel>(),
         selectColumnsData: new List<KeyValuePair<string, List<any>>>(),
         loadedExpandedRowsKeys: new List<any>(),
@@ -104,10 +102,6 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
         },
         selectedRows: new List<any>(),
         expandedRowsUniqueKeys: new List<any>(),
-        // filteredRecords: 0,
-        // totalRecords: 0,
-        // paginationMin: 0,
-        // paginationMax: 0,
         paginationData: {
             selectedItemsPerPage: null,
             pageCount: 0,
@@ -117,7 +111,6 @@ export const DataTablesContextDefaultModel: IDataTablesContextModel = {
             paginationMax: 0,
             filteredRecords: 0,
         },
-
         columns: []
     }
 }

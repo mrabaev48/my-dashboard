@@ -8,6 +8,8 @@ export interface IBooleanFieldProps {
     label?: string;
     required?: boolean;
     disabled?: boolean;
+    fullWidth?: boolean;
+    readOnly?: boolean;
 }
 
 export const BooleanField: FC<IBooleanFieldProps> = ({
@@ -15,8 +17,9 @@ export const BooleanField: FC<IBooleanFieldProps> = ({
                                                          onChange,
                                                          label,
                                                          required,
-                                                         disabled
-
+                                                         disabled,
+                                                         fullWidth,
+                                                         readOnly
                                                      }) => {
 
     const selectValues = [
@@ -64,8 +67,10 @@ export const BooleanField: FC<IBooleanFieldProps> = ({
             required={required || false}
             disabled={disabled || false}
             value={selectValue}
+            fullWidth={fullWidth || true}
             defaultValue={DEFAULT_SELECT_OPTION.value}
             className={`field-control boolean-field`}
+            readOnly={readOnly || false}
         >
             <MenuItem disabled={required === true} defaultValue={DEFAULT_SELECT_OPTION.value}
                       value={DEFAULT_SELECT_OPTION.value}>{DEFAULT_SELECT_OPTION.key}</MenuItem>

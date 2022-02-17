@@ -174,7 +174,6 @@ export const Customers: FC = () => {
                                 filter: fil3,
                             },
                         ],
-                        baseURL: 'http://localhost:3000',
                         tableData,
                         uniqueKey: 'id',
                         useFilters: true,

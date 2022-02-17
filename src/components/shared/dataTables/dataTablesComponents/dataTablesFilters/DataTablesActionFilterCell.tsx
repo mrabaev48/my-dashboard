@@ -10,7 +10,7 @@ export const DataTablesActionFilterCell:FC<IDataTablesFilterProps> = ({column, c
 
     return (
         <TableCell className={`dt-filter dt-action-btns-filter-cell ${DtUtils.getCellClassNameByColumn(column)}`}>
-            <div className={'dt-action-btns-filter-container flex'}>
+            <div className={'dt-action-btns-filter-fieldsContainer flex'}>
                 <Button size={'small'} variant={'text'} onClick={actions.applyFilters}>
                     Apply
                 </Button>

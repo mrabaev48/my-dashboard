@@ -1,16 +1,18 @@
 import {FC, useEffect, useState} from "react";
 import {MenuItem, Select, SelectChangeEvent} from "@mui/material";
-import {KeyValuePair} from "../dataTables/utils/DtUtils";
+import {KeyValuePair} from "../../shared/dataTables/utils/DtUtils";
 import {DEFAULT_SELECT_OPTION} from "../../../utils/DefaultValues";
 
 export interface ISelectFieldProps {
-    value: string;
+    value?: string;
     onChange: (value: string) => void;
     label?: string;
     required?: boolean;
     disabled?: boolean;
     options: KeyValuePair<string, string> [];
     defaultValue?: KeyValuePair<string, string>;
+    fullWidth?: boolean;
+    readOnly?: boolean;
 }
 
 export const SelectField: FC<ISelectFieldProps> = ({
@@ -20,7 +22,9 @@ export const SelectField: FC<ISelectFieldProps> = ({
                                                        options,
                                                        required,
                                                        label,
-                                                       onChange
+                                                       onChange,
+                                                       fullWidth,
+                                                       readOnly
                                                    }) => {
 
     const [selectValue, setSelectValue] = useState(value);
@@ -30,7 +34,7 @@ export const SelectField: FC<ISelectFieldProps> = ({
     }
 
     useEffect(() => {
-        onChange(selectValue);
+        onChange(selectValue || 'null');
     }, [selectValue]);
 
     let defaultOption = DEFAULT_SELECT_OPTION;
@@ -41,13 +45,15 @@ export const SelectField: FC<ISelectFieldProps> = ({
 
     return (
         <Select
-            label={'test'}
+            label={label || ''}
             onChange={processValue}
             required={required || false}
             disabled={disabled || false}
-            value={selectValue}
+            fullWidth={fullWidth || true}
+            value={selectValue || defaultOption.value}
             defaultValue={defaultOption.value}
             className={`field-control select-field`}
+            readOnly={readOnly}
         >
             <MenuItem value={defaultOption.value}>{defaultOption.key}</MenuItem>
             {options.map((pair, index) => {

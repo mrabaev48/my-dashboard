@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from "react";
 import {TextField, TextFieldProps} from "@mui/material";
-import {DtUtils} from "../dataTables/utils/DtUtils";
+import {DtUtils} from "../../shared/dataTables/utils/DtUtils";
 import {WithNumberOnChange} from "./models";
 
 export const DecimalField:FC<TextFieldProps & WithNumberOnChange> = (props) => {
@@ -32,6 +32,7 @@ export const DecimalField:FC<TextFieldProps & WithNumberOnChange> = (props) => {
             value={value}
             onChange={processValue}
             onBlur={onBlur}
+            fullWidth={props.fullWidth || true}
             className={`field-control decimal-field`}
         />
     )

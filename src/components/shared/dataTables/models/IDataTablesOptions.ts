@@ -10,7 +10,6 @@ export interface IFilterEntity {
 export interface IDataTablesOptions {
     columns: DataTablesColumn [];
     filters?: IFilterEntity [];
-    // loadData: (requestOptions: any, queryString: string) => any[] | Promise<any[]>;
     tableData: any[];
     uniqueKey: string;
     dtTableClassName?: string;
@@ -30,7 +29,6 @@ export interface IDataTablesOptions {
     itemsPerPage?: number[];
     itemsPerPageDefault?: number;
     usePaging?: boolean;
-    baseURL?: string;
     renderExpandedDataControl?: (row: any) => JSX.Element;
     renderCustomActionsControls?: (row: any) => JSX.Element [];
 }

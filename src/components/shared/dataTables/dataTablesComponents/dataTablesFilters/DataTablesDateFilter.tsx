@@ -48,7 +48,7 @@ export const DataTablesDateFilter: FC<IDataTablesFilterProps> = ({
             <LocalizationProvider dateAdapter={DateAdapter}>
                 {
                     castedColumn.useTime === true ?
-                        <div className={'dt-range-filter-container flex'}>
+                        <div className={'dt-range-filter-fieldsContainer flex'}>
                             <DateTimePicker
                                 value={fromValue}
                                 onChange={(newValue) => {
@@ -67,7 +67,7 @@ export const DataTablesDateFilter: FC<IDataTablesFilterProps> = ({
                                 renderInput={(params) => <TextField {...params} />}
                             />
                         </div> :
-                        <div className={'dt-range-filter-container flex'}>
+                        <div className={'dt-range-filter-fieldsContainer flex'}>
                             <DesktopDatePicker
                                 value={fromValue}
                                 inputFormat={DtUtils.getDateFormat(castedColumn, context)}

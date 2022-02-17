@@ -17,6 +17,7 @@ export const StringField:FC<TextFieldProps & WithStringOnChange> = (props) => {
     return (
         <TextField
             {...props}
+            fullWidth={props.fullWidth || true}
             value={val}
             onChange={processValue}
         />

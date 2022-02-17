@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from "react";
 import {TextField, TextFieldProps} from "@mui/material";
-import {DtUtils} from "../dataTables/utils/DtUtils";
+import {DtUtils} from "../../shared/dataTables/utils/DtUtils";
 import {WithNumberOnChange} from "./models";
 
 
@@ -22,6 +22,7 @@ export const IntField:FC<TextFieldProps & WithNumberOnChange> = (props) => {
             {...props}
             value={value}
             onChange={processValue}
+            fullWidth={props.fullWidth || true}
             className={`field-control int-field`}
         />
     )
