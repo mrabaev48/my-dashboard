@@ -1,6 +1,6 @@
 import Keycloak from "keycloak-js";
 const keycloackConfig = {
-    "url": "https://keycloak.fizzdev.eu/auth",
+    "url": "keycloackInstanceUrl",
     "realm": "backoffice",
     "clientId": "backoffice"
 }
